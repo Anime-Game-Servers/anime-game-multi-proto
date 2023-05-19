@@ -1,7 +1,7 @@
 package data.activity.sea_lamp
 
 import annotations.AddedIn
-import data.generall.ItemParam
+import data.general.ItemParam
 import messages.VERSION
 import org.anime_game_servers.annotations.CommandType
 import org.anime_game_servers.annotations.ProtoCommand

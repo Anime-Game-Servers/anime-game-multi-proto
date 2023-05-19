@@ -1,7 +1,7 @@
 package data.activity.aster
 
 import annotations.AddedIn
-import data.generall.Vector
+import data.general.Vector
 import messages.VERSION
 import org.anime_game_servers.annotations.ProtoModel
 

@@ -1,7 +1,6 @@
 package data.activity.delivery
 
 import annotations.AddedIn
-import data.generall.Vector
 import messages.VERSION
 import org.anime_game_servers.annotations.ProtoModel
 
