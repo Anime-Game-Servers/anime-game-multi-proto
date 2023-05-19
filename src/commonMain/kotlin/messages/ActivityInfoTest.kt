@@ -48,10 +48,21 @@ data class ActivityInfoTest @JvmOverloads constructor(
                 is UnknownDetailInfo -> null
             }
         }
-        companion object : ProtoModelDecoder<Detail<*>> {
-            override fun parseBy(data: ByteArray, version: messages.VERSION): Detail<*> {
-                return when (version.namespace) {
-                    "V3_2" -> ActivityInfo.Detail.decodeFromByteArray(byteArray)
+
+        internal fun encodeToV3_2(): protos.V3_2.ActivityInfo.Detail<*>?{
+            return when (this) {
+                is MusicGameActivityDetailInfo -> value.encodeToV3_2().let {
+                    protos.V3_2.ActivityInfo.Detail.MusicGameInfo(it)
+                }
+                //is SummerTimeDetailInfo -> summerTimeInfo.encodeToV3_2()
+                is UnknownDetailInfo -> null
+            }
+        }
+        companion object {
+            internal fun parseByV3_2(value: protos.V3_2.ActivityInfo.Detail<*>) : Detail<*> {
+                return when (value) {
+                    is protos.V3_2.ActivityInfo.Detail.MusicGameInfo -> MusicGameActivityDetailInfo(messages.activity.music_game.MusicGameActivityDetailInfo.parseByV3_2(value.value))
+                    //is protos.V3_2.ActivityInfo.Detail.SummerTimeDetailInfo -> SummerTimeDetailInfo(messages.activity.summer_time.SummerTimeDetailInfo.parseByV3_2(value.value))
                     else -> UnknownDetailInfo()
                 }
             }
@@ -99,7 +110,7 @@ data class ActivityInfoTest @JvmOverloads constructor(
             //watcherInfoList = watcherInfoList.map { it.encodeToV3_2() },
             scheduleId = scheduleId,
             isStarting = isStarting,
-            detail = detail.encodeToByteArray(messages.VERSION.V3_2) ?: byteArrayOf(),
+            detail = detail.encodeToV3_2(),
         )
     }
     companion object : ProtoModelDecoder<ActivityInfoTest> {
@@ -141,10 +152,7 @@ data class ActivityInfoTest @JvmOverloads constructor(
                 scheduleId = proto.scheduleId,
                 isStarting = proto.isStarting,
                 detail = proto.detail?.let {
-                    when(it){
-                        is protos.V3_2.ActivityInfo.Detail.MusicGameInfo -> Detail.MusicGameActivityDetailInfo(MusicGameActivityDetailInfo.parseByV3_2(it.value))
-                        else -> null
-                    }
+                    Detail.parseByV3_2(it)
                 }?: Detail.UnknownDetailInfo()
             )
         }

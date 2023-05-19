@@ -151,8 +151,8 @@ abstract class BaseGenerator(
             return varName
         }
         val outParameterName = outParameter.declaration.simpleName.asString()
-        logger.warn("list equals ${inType == outType} ${outParameter==inParameter}\n\t$outParameterName\t${inParameter?.declaration?.simpleName?.asString()}")
-        logger.warn("field type: $varName $outParameterName ${Type.byType(outParameter, this)} ${Type.byType(inType, this)} o$outParameter i$inParameter\n")
+        //logger.warn("list equals ${inType == outType} ${outParameter==inParameter}\n\t$outParameterName\t${inParameter?.declaration?.simpleName?.asString()}")
+        //logger.warn("field type: $varName $outParameterName ${Type.byType(outParameter, this)} ${Type.byType(inType, this)} o$outParameter i$inParameter\n")
         return when (Type.byType(outParameter, this)) {
             Type.SIMPLE -> "emptyList()"// TODO convert
             Type.COLLECTION -> ""

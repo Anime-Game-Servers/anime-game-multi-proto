@@ -20,11 +20,20 @@ open class DataGenerator(
 
     override fun addConstructor(file: OutputStream, classInfo:ClassInfo){
         super.addConstructor(file, classInfo)
+        // data class can not be empty, so we use an empty normal class instead
+        if(classInfo.modelMembers.isEmpty()){
+            file += "class ${classInfo.name} : ${getImplementedModels(classInfo)} {\n"
+            return
+        }
         file += "data class ${classInfo.name} @JvmOverloads constructor (\n"
         classInfo.modelMembers.forEach {
             file.id(4) +="var ${it.key}: ${getTypeString(it)} = ${it.value.getDefaultValueForType()},\n"
         }
-        file += ") : ProtoModel{\n"
+        file += ") : ${getImplementedModels(classInfo)}{\n"
+    }
+
+    open fun getImplementedModels(classInfo:ClassInfo):String{
+        return "ProtoModel"
     }
 
     override fun addBody(file: OutputStream, classInfo: ClassInfo) {
