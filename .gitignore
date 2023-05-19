@@ -1,0 +1,12 @@
+
+## intellij
+.idea
+
+##gradle
+.gradle
+
+## protos
+/protos
+
+## build stuff
+build
