@@ -341,7 +341,7 @@ abstract class BaseGenerator(
 
     protected fun getTypeString(variable: Map.Entry<String,KSType>): String {
         val type = variable.value
-        return when (val typeString = type.declaration.simpleName.asString()) {
+        return when (val typeString = getFullNameForTarget(type, type.declaration.simpleName.asString(), type)) {
             "List" -> {
                 val typeArg = type.arguments.first().type?.resolve()
                 val typeArgString = typeArg?.let {
@@ -385,15 +385,18 @@ abstract class BaseGenerator(
             "Int" -> "0"
             "UInt" -> "0"
             "Long" -> "0L"
+            "Float" -> "0.0f"
+            "Double" -> "0.0"
             "String" -> "\"\""
             "Boolean" -> "false"
             "List" -> "emptyList()"
             "Map" -> "emptyMap()"
             else -> {
+                val fullName = getFullNameForTarget(this, typeString, this)
                 if(enumType?.asStarProjectedType()?.isAssignableFrom(this) == true){
-                    "$typeString.$UNRECOGNISED_ENUM_NAME"
+                    "$fullName.$UNRECOGNISED_ENUM_NAME"
                 }else {
-                    "$typeString()"
+                    "$fullName()"
                 }
             }
         }

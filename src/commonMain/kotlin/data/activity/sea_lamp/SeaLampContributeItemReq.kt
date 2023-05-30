@@ -9,7 +9,7 @@ import org.anime_game_servers.annotations.ProtoCommand
 @AddedIn(VERSION.VCB2)
 @ProtoCommand(CommandType.REQUEST)
 interface SeaLampContributeItemReq {
-    var itemList: ItemParam
+    var itemList: List<ItemParam>
     @AddedIn(VERSION.V1_0_0)
     var activityId: Int
 }

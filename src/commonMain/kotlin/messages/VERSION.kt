@@ -20,4 +20,5 @@ enum class VERSION(val id:Int, val namespace:String){
     V3_4_0(3400, "V3_4"),
     V3_5_0(3500, "V3_5"),
     V3_6_0(3600, "V3_6"),
+    V3_7_0(3700, "V3_7"),
 }
