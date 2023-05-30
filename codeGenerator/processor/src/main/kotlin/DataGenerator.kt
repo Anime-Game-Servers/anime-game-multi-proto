@@ -1,7 +1,11 @@
 import com.google.devtools.ksp.processing.KSPLogger
 import com.google.devtools.ksp.processing.Resolver
+import com.google.devtools.ksp.symbol.KSDeclaration
+import com.google.devtools.ksp.symbol.KSPropertyDeclaration
 import com.google.devtools.ksp.symbol.KSType
+import org.anime_game_servers.annotations.OneOf
 import java.io.OutputStream
+import kotlin.math.log
 import kotlin.reflect.KClass
 
 open class DataGenerator(
@@ -27,7 +31,7 @@ open class DataGenerator(
         }
         file += "data class ${classInfo.name} @JvmOverloads constructor (\n"
         classInfo.modelMembers.forEach {
-            file.id(4) +="var ${it.key}: ${getTypeString(it)} = ${it.value.getDefaultValueForType()},\n"
+            file.id(4) +="var ${it.key}: ${getTypeString(it)} = ${it.value.getDefaultValueForType(classInfo.oneOfs[it.value])},\n"
         }
         file += ") : ${getImplementedModels(classInfo)}{\n"
     }
@@ -38,16 +42,72 @@ open class DataGenerator(
 
     override fun addBody(file: OutputStream, classInfo: ClassInfo) {
         classInfo.oneOfs.values.forEach {
-            val oneOfClasses = mutableSetOf<KClass<*>>()
-            it.type.annotations.forEach { ksAnnotation ->
-                if(ksAnnotation.shortName.asString() == "OneOf"){
-                    ksAnnotation.arguments.forEach { ksArgument ->
-                        val type = ksArgument.value as KClass<*>
-                        oneOfClasses.add(type)
+            val oneOfClasses = mutableSetOf<ClassInfo>()
+            classInfo.definition.declarations.forEach declarations@{ declaration ->
+                if(declaration.simpleName.asString()!= it.variableName) return@declarations
+                declaration.annotations.forEach { ksAnnotation ->
+                    if(ksAnnotation.shortName.asString() == "OneOf"){
+                        ksAnnotation.arguments.forEach { ksArgument ->
+                            logger.warn("Annotation: ${ksArgument.value}")
+                            val type = ksArgument.value as? ArrayList<KSType>
+                            type?.forEach { oneOfType ->
+                                classInfoCache[oneOfType]?.let { oneOfClass ->
+                                    oneOfClasses.add(oneOfClass)
+                                }
+                            }
+                        }
                     }
                 }
             }
+            
+            file.id(4) +="public sealed class ${it.wrapperName}<T: ProtoModel>(val value: T) : ProtoModel {\n"
+            file.id(8) +="public class ${it.unknownName}() : Detail<UnknownModel>(UnknownModel())\n"
+            file.id(8) +="public class UnknownModel() : ProtoModel{\n"
+            file.id(12) +="override fun encodeToByteArray(version: messages.VERSION): ByteArray? = null\n"
+            file.id(8) +="}\n"
+            file.id(8) +="override fun encodeToByteArray(version: messages.VERSION): ByteArray? {\n"
+            file.id(12) +="return value.encodeToByteArray(version)\n"
+            file.id(8) +="}\n"
+            oneOfClasses.forEach { oneOfClass ->
+                file.id(8) +="public class ${oneOfClass.name}(value:${oneOfClass.packageName}.${oneOfClass.name}) : Detail<${oneOfClass.packageName}.${oneOfClass.name}>(value)\n"
+            }
+            classInfo.protoSet.forEach { protoData ->
+                val functionName = protoData.encodeFunctionName
+                file.id(8) += "internal fun $functionName() : ${protoData.absoluteClassName}.${it.wrapperName}<*>? {\n"
+                file.id(12) +="return when (this) {\n"
+                oneOfClasses.forEach { oneOfClass ->
+                    protoData.members.forEach { member ->
+                        if(member.value.starProjection().declaration.simpleName.asString() == oneOfClass.name) {
+                            file.id(16) += "is ${oneOfClass.name} -> value.${protoData.encodeFunctionName}().let {\n"
+                            file.id(20) += "${protoData.packageName}.${protoData.className}.${it.wrapperName}.${member.key.capitalizeFirstLetter()}(it)\n"
+                            file.id(16) += "}\n"
+                        }
+                    }
+                }
+                file.id(16) +="else -> null\n"
+                file.id(12) +="}\n"
+                file.id(8)+="}\n"
+            }
+            file.id(8) += "public companion object {\n"
+            classInfo.protoSet.forEach { protoData ->
+                val functionName = protoData.parseFunctionName
+                file.id(12) += "internal fun $functionName(value: ${protoData.absoluteClassName}.${it.wrapperName}<*>) : ${it.wrapperName}<*>? {\n"
+                file.id(16) +="return when (value) {\n"
+                oneOfClasses.forEach { oneOfClass ->
+                    protoData.members.forEach { member ->
+                        if(member.value.starProjection().declaration.simpleName.asString() == oneOfClass.name) {
+                            file.id(20) += "is ${protoData.packageName}.${protoData.className}.${it.wrapperName}.${member.key.capitalizeFirstLetter()} -> \n"
+                            file.id(24) += "${oneOfClass.name}(${oneOfClass.packageName}.${oneOfClass.name}.${protoData.parseFunctionName}(value.value))\n"
+                        }
+                    }
+                }
+                file.id(20) +="else -> ${it.unknownName}()\n"
+                file.id(16) +="}\n"
+                file.id(12)+="}\n"
+            }
+            file.id(8) += "}\n"
 
+            file.id(4) +="}\n"
         }
     }
 

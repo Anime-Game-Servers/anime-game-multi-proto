@@ -61,7 +61,8 @@ abstract class BaseGenerator(
     public data class OneOfData(
         val type: KSType,
         val variableName: String,
-        val wrapperName: String = variableName.capitalizeFirstLetter()
+        val wrapperName: String = variableName.capitalizeFirstLetter(),
+        val unknownName: String = "Unknown"+variableName.capitalizeFirstLetter()
     )
 
     public data class ClassInfo(
@@ -72,7 +73,7 @@ abstract class BaseGenerator(
         val protoSet: MutableSet<ProtoData>,
         val originalPackage: String = definition.packageName.asString(),
         val modelMembers: Map<String, KSType> = getMembers(definition),
-        val oneOfs: Map<KSType, OneOfData> = modelMembers.filterValues { it.declaration.simpleName.asString() == "OneOf" }
+        val oneOfs: Map<KSType, OneOfData> = modelMembers.filterValues { it.declaration.simpleName.asString() == "OneOfType" }
             .entries.associate { it.value to OneOfData(it.value, it.key) }
     )
 
@@ -132,6 +133,10 @@ abstract class BaseGenerator(
                 Type.DATA -> {
                     "${it.key} = ${dataMethod.getDataCall(sourceVarName, it.value.getFullClassName())},\n"
                 }
+                Type.ONE_OF -> {
+                    val wrapperName = it.key.capitalizeFirstLetter()
+                    "${it.key} = ${dataMethod.getDataCall(sourceVarName, wrapperName, fallback="$wrapperName.Unknown$wrapperName")},\n"
+                }
             }
         }
     }
@@ -167,6 +172,7 @@ abstract class BaseGenerator(
                 }
             }
             Type.ENUM -> "" //TODO
+            Type.ONE_OF -> "" //TODO
 
             Type.DATA -> {
                 val dataTarget = dataMethod.getDataCall("it", outParameter.getFullClassName(), true)
@@ -178,7 +184,7 @@ abstract class BaseGenerator(
     data class DataMethodInfo(val methodName:String,
                               val isMemberCall:Boolean,
                               val overwritePackagePath:String? = null){
-        fun getDataCall(variable: String, methodClassPath: String, isNullSave:Boolean = false):String{
+        fun getDataCall(variable: String, methodClassPath: String, isNullSave:Boolean = false, fallback: String? = null ):String{
             return if (isMemberCall)
                 "$variable.$methodName()"
             else {
@@ -192,7 +198,7 @@ abstract class BaseGenerator(
                 if(isNullSave){
                     "$classPath.$methodName($variable)"
                 } else {
-                    "$variable?.let{ member -> $classPath.$methodName(member)} ?: $classPath()"
+                    "$variable?.let{ member -> $classPath.$methodName(member)} ?: ${fallback?:classPath}()"
                 }
             }
         }
@@ -331,6 +337,7 @@ abstract class BaseGenerator(
                 Type.MAP -> ""
                 Type.MAP_ENTRY -> ""
                 Type.ENUM -> ""
+                Type.ONE_OF -> ""
                 Type.DATA -> {
                     val dataTarget = dataMethod.getDataCall("it", it.getFullClassName())
                     "$varName.map { $dataTarget }"
@@ -368,7 +375,7 @@ abstract class BaseGenerator(
                 "Map<$keyTypeArgString, $valueTypeArgString>"
             }
             "OneOfType"-> {
-                variable.key.capitalizeFirstLetter()
+                "${variable.key.capitalizeFirstLetter()}<*>"
             }
             else -> typeString
         }
@@ -379,7 +386,7 @@ abstract class BaseGenerator(
         return this
     }
 
-    fun KSType.getDefaultValueForType():String{
+    fun KSType.getDefaultValueForType(oneOfData: OneOfData?=null):String{
         val typeString = this.declaration.simpleName.asString()
         return when (typeString) {
             "Int" -> "0"
@@ -391,7 +398,16 @@ abstract class BaseGenerator(
             "Boolean" -> "false"
             "List" -> "emptyList()"
             "Map" -> "emptyMap()"
+            "OneOfType" -> {
+                oneOfData?.let {
+                    "${it.wrapperName}.${it.unknownName}()"
+                } ?: run {
+                    logger.warn("no one of data for type $typeString")
+                    "typeString()"
+                }
+            }
             else -> {
+
                 val fullName = getFullNameForTarget(this, typeString, this)
                 if(enumType?.asStarProjectedType()?.isAssignableFrom(this) == true){
                     "$fullName.$UNRECOGNISED_ENUM_NAME"
@@ -423,6 +439,7 @@ abstract class BaseGenerator(
         MAP,
         MAP_ENTRY,
         ENUM,
+        ONE_OF,
         DATA;
         companion object {
             fun byType(type: KSType, generator: BaseGenerator): Type {
@@ -441,6 +458,7 @@ abstract class BaseGenerator(
                     "List" -> COLLECTION
                     "Set" -> COLLECTION
                     "Map" -> MAP
+                    "OneOfType" -> ONE_OF
                     else -> {
                         if(generator.enumType?.asStarProjectedType()?.isAssignableFrom(type) == true){
                             ENUM

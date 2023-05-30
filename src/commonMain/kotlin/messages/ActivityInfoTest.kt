@@ -2,6 +2,7 @@ package messages
 import interfaces.ProtoModel
 import interfaces.ProtoModelDecoder
 import messages.activity.music_game.MusicGameActivityDetailInfo
+import messages.activity.summer_time.SummerTimeDetailInfo
 import pbandk.decodeFromByteArray
 import pbandk.encodeToByteArray
 import protos.V3_2.ActivityInfo
@@ -34,19 +35,17 @@ data class ActivityInfoTest @JvmOverloads constructor(
     var isStarting: Boolean = false,
     var detail: Detail<*> = Detail.UnknownDetailInfo(),
 ): ProtoModel {
-    public sealed class Detail<T>(val value: T) : ProtoModel{
+    public sealed class Detail<T: ProtoModel>(val value: T) : ProtoModel{
         public class MusicGameActivityDetailInfo(musicGameInfo: messages.activity.music_game.MusicGameActivityDetailInfo) : Detail<messages.activity.music_game.MusicGameActivityDetailInfo>(musicGameInfo)
-        //public class SummerTimeDetailInfo(summerTimeInfo: messages.activity.summer_time.SummerTimeDetailInfo) : Detail<messages.activity.summer_time.SummerTimeDetailInfo>(summerTimeInfo)
+        public class SummerTimeDetailInfo(summerTimeInfo: messages.activity.summer_time.SummerTimeDetailInfo) : Detail<messages.activity.summer_time.SummerTimeDetailInfo>(summerTimeInfo)
         public class UnknownDetailInfo() : Detail<UnknownDetail>(UnknownDetail())
 
-        public class UnknownDetail()
+        public class UnknownDetail(): ProtoModel {
+            override fun encodeToByteArray(version: messages.VERSION): ByteArray? = null
+        }
 
         override fun encodeToByteArray(version: messages.VERSION): ByteArray? {
-            return when (this) {
-                is MusicGameActivityDetailInfo -> value.encodeToByteArray(version)
-                //is SummerTimeDetailInfo -> summerTimeInfo.encodeToByteArray(version)
-                is UnknownDetailInfo -> null
-            }
+            return value.encodeToByteArray(version)
         }
 
         internal fun encodeToV3_2(): protos.V3_2.ActivityInfo.Detail<*>?{
@@ -54,7 +53,9 @@ data class ActivityInfoTest @JvmOverloads constructor(
                 is MusicGameActivityDetailInfo -> value.encodeToV3_2().let {
                     protos.V3_2.ActivityInfo.Detail.MusicGameInfo(it)
                 }
-                //is SummerTimeDetailInfo -> summerTimeInfo.encodeToV3_2()
+                is SummerTimeDetailInfo -> value.encodeToV3_2().let {
+                    protos.V3_2.ActivityInfo.Detail.SummerTimeInfo(it)
+                }
                 is UnknownDetailInfo -> null
             }
         }
@@ -62,7 +63,7 @@ data class ActivityInfoTest @JvmOverloads constructor(
             internal fun parseByV3_2(value: protos.V3_2.ActivityInfo.Detail<*>) : Detail<*> {
                 return when (value) {
                     is protos.V3_2.ActivityInfo.Detail.MusicGameInfo -> MusicGameActivityDetailInfo(messages.activity.music_game.MusicGameActivityDetailInfo.parseByV3_2(value.value))
-                    //is protos.V3_2.ActivityInfo.Detail.SummerTimeDetailInfo -> SummerTimeDetailInfo(messages.activity.summer_time.SummerTimeDetailInfo.parseByV3_2(value.value))
+                    is protos.V3_2.ActivityInfo.Detail.SummerTimeInfo -> SummerTimeDetailInfo(messages.activity.summer_time.SummerTimeDetailInfo.parseByV3_2(value.value))
                     else -> UnknownDetailInfo()
                 }
             }
@@ -70,14 +71,20 @@ data class ActivityInfoTest @JvmOverloads constructor(
         }
 
     }
-    /*var musicGameInfo : MusicGameActivityDetailInfo?
+    var musicGameInfo : MusicGameActivityDetailInfo?
         get() = (detail as? Detail.MusicGameActivityDetailInfo)?.value
         set(value) = if (value != null) {
             detail = Detail.MusicGameActivityDetailInfo(value)
         } else {
             detail = Detail.UnknownDetailInfo()
         }
-    var summerTimeInfo : Detail.SummerTimeDetailInfo? = null*/
+    var summerTimeInfo : SummerTimeDetailInfo?
+        get() = (detail as? Detail.SummerTimeDetailInfo)?.value
+        set(value) = if (value != null) {
+            detail = Detail.SummerTimeDetailInfo(value)
+        } else {
+            detail = Detail.UnknownDetailInfo()
+        }
 
     override fun encodeToByteArray(version: VERSION) : ByteArray? {
         return when (version.namespace) {
