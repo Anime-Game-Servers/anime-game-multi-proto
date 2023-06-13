@@ -14,7 +14,7 @@ repositories {
 
 kotlin {
     jvm {
-        jvmToolchain(11)
+        jvmToolchain(17)
         withJava()
         testRuns["test"].executionTask.configure {
             useJUnitPlatform()
@@ -55,7 +55,9 @@ kotlin {
             }
         }
         val jvmMain by getting {
-
+            getTasksByName("jvmJar", true).forEach{
+                it.setProperty("zip64", true)
+            }
         }
         val jvmTest by getting
         val jsMain by getting
