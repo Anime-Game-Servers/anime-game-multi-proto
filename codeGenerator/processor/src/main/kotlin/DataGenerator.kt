@@ -61,7 +61,7 @@ open class DataGenerator(
             }
             
             file.id(4) +="public sealed class ${it.wrapperName}<T: ProtoModel>(val value: T) : ProtoModel {\n"
-            file.id(8) +="public class ${it.unknownName}() : Detail<UnknownModel>(UnknownModel())\n"
+            file.id(8) +="public class ${it.unknownName}() : ${it.wrapperName}<UnknownModel>(UnknownModel())\n"
             file.id(8) +="public class UnknownModel() : ProtoModel{\n"
             file.id(12) +="override fun encodeToByteArray(version: messages.VERSION): ByteArray? = null\n"
             file.id(8) +="}\n"
