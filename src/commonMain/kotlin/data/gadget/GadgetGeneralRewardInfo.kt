@@ -1,6 +1,7 @@
 package data.gadget
 
 import annotations.AddedIn
+import data.general.Item.ItemParam
 import messages.VERSION
 import org.anime_game_servers.annotations.ProtoModel
 
@@ -11,4 +12,7 @@ interface GadgetGeneralRewardInfo {
     val deadTime: Int
     var remainUidList: List<Int>
     var qualifyUidList: List<Int>
+
+    @AddedIn(VERSION.V1_4_0)
+    var itemParam: ItemParam
 }

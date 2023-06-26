@@ -10,6 +10,6 @@ import org.anime_game_servers.annotations.ProtoModel
 @ProtoModel
 interface MaterialDeleteInfo {
     var hasDeleteConfig: Boolean
-    @OneOf(CountDownDelete::class, DateTimeDelete::class)
+    @OneOf(CountDownDelete::class, DateTimeDelete::class, DelayWeekCountDownDelete::class)
     var deleteInfo: OneOfType
 }

@@ -4,5 +4,6 @@ enum class CommandType {
     REQUEST,
     RESPONSE,
     NOTIFY,
-    CLIENT
+    CLIENT,
+    BOTH
 }

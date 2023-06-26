@@ -11,8 +11,13 @@ interface GadgetInteractReq {
     var gadgetEntityId: Int
     var gadgetId: Int
     var opType: InterOpType
+
     @AddedIn(VERSION.V1_1_0)
     var isUseCondenseResin: Boolean
+
     @AddedIn(VERSION.V1_2_0)
     var resinCostType: ResinCostType
+
+    @AddedIn(VERSION.V2_5_0)
+    var uiInteractId: Int
 }
