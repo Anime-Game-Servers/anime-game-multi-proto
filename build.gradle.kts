@@ -1,12 +1,15 @@
 import org.gradle.kotlin.dsl.sourceSets
 
 plugins {
-    kotlin("multiplatform") version "1.8.20"
-    id("com.google.devtools.ksp") version "1.8.20-1.0.11"
+    kotlin("multiplatform") version "1.9.10"
+    id("com.google.devtools.ksp") version "1.9.10-1.0.13"
+    id("maven-publish")
 }
 
+// until the rework for proto handlng is done, we use this to compile packages for specific game versions
+val protoVersion = 32
 group = "org.anime_game_servers"
-version = "1.0-SNAPSHOT"
+version = "0.1.$protoVersion"
 
 repositories {
     mavenCentral()
@@ -70,8 +73,30 @@ dependencies {
     add("kspCommonMainMetadata", project(":processor"))
 }
 tasks {
-    withType<org.jetbrains.kotlin.gradle.dsl.KotlinCompile<*>> {
+    /*withType<org.jetbrains.kotlin.gradle.dsl.KotlinCompile<*>> {
         if (name != "kspCommonMainKotlinMetadata")
             dependsOn("kspCommonMainKotlinMetadata")
+    }*/
+    sourcesJar{
+        dependsOn("kspCommonMainKotlinMetadata")
+    }
+}
+
+publishing {
+    repositories {
+        maven {
+            name = "agsmvnrelease"
+            url = uri("https://mvn.animegameservers.org/releases")
+            credentials(PasswordCredentials::class)
+            authentication {
+                create<BasicAuthentication>("basic")
+            }
+        }
+    }
+    publications {
+        create<MavenPublication>("maven") {
+            from(components["kotlin"])
+            artifactId = "multi-proto"
+        }
     }
 }

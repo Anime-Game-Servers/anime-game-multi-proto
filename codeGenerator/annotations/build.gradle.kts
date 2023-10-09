@@ -1,9 +1,13 @@
 plugins {
     kotlin("multiplatform")
+    id("maven-publish")
 }
 repositories {
     mavenCentral()
 }
+
+group = "org.anime_game_servers"
+version = "0.1"
 
 kotlin {
     jvm {
@@ -45,5 +49,26 @@ kotlin {
         val jsTest by getting
         val nativeMain by getting
         val nativeTest by getting
+    }
+
+}
+
+
+publishing {
+    repositories {
+        maven {
+            name = "agsmvnrelease"
+            url = uri("https://mvn.animegameservers.org/releases")
+            credentials(PasswordCredentials::class)
+            authentication {
+                create<BasicAuthentication>("basic")
+            }
+        }
+    }
+    publications {
+        create<MavenPublication>("maven") {
+            from(components["kotlin"])
+            artifactId = "annotations"
+        }
     }
 }
