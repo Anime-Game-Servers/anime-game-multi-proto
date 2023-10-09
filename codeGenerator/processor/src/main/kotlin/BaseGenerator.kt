@@ -73,8 +73,10 @@ abstract class BaseGenerator(
         val protoSet: MutableSet<ProtoData>,
         val originalPackage: String = definition.packageName.asString(),
         val modelMembers: Map<String, KSType> = getMembers(definition),
-        val oneOfs: Map<KSType, OneOfData> = modelMembers.filterValues { it.declaration.simpleName.asString() == "OneOfType" }
-            .entries.associate { it.value to OneOfData(it.value, it.key) }
+        val oneOfs: Map<String, OneOfData> = modelMembers.filterValues { it.declaration.simpleName.asString() == "OneOfType" }
+            .entries.associate {
+                it.key to OneOfData(it.value, it.key)
+            }
     )
 
     protected fun getFullNameForTarget(targetType:KSType, fallback:String, sourceType:KSType?):String{

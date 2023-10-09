@@ -31,7 +31,7 @@ open class DataGenerator(
         }
         file += "data class ${classInfo.name} @JvmOverloads constructor (\n"
         classInfo.modelMembers.forEach {
-            file.id(4) +="var ${it.key}: ${getTypeString(it)} = ${it.value.getDefaultValueForType(classInfo.oneOfs[it.value])},\n"
+            file.id(4) +="var ${it.key}: ${getTypeString(it)} = ${it.value.getDefaultValueForType(classInfo.oneOfs[it.key])},\n"
         }
         file += ") : ${getImplementedModels(classInfo)}{\n"
     }
@@ -69,7 +69,7 @@ open class DataGenerator(
             file.id(12) +="return value.encodeToByteArray(version)\n"
             file.id(8) +="}\n"
             oneOfClasses.forEach { oneOfClass ->
-                file.id(8) +="public class ${oneOfClass.name}(value:${oneOfClass.packageName}.${oneOfClass.name}) : Detail<${oneOfClass.packageName}.${oneOfClass.name}>(value)\n"
+                file.id(8) +="public class ${oneOfClass.name}(value:${oneOfClass.packageName}.${oneOfClass.name}) : ${it.wrapperName}<${oneOfClass.packageName}.${oneOfClass.name}>(value)\n"
             }
             classInfo.protoSet.forEach { protoData ->
                 val functionName = protoData.encodeFunctionName
