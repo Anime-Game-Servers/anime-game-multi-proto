@@ -1,0 +1,27 @@
+package data.shop
+
+import annotations.AddedIn
+import messages.VERSION
+import org.anime_game_servers.annotations.ProtoEnum
+
+@AddedIn(VERSION.V1_0_0)
+@ProtoEnum
+enum class ShopGoodsDisableType {
+    SHOP_GOODS_DISABLE_NONE,
+    SHOP_GOODS_DISABLE_TALENT_FULL,
+    @AddedIn(VERSION.V1_5_0)
+    SHOP_GOODS_DISABLE_FURNITURE_FORMULA_UNLOCKED,
+    @AddedIn(VERSION.V1_6_0)
+    SHOP_GOODS_DISABLE_COSTUME_UNLOCKED,
+    @AddedIn(VERSION.V2_4_0)
+    SHOP_GOODS_DISABLE_BGM_UNLOCKED,
+    @AddedIn(VERSION.V3_2_0)
+    SHOP_GOODS_DISABLE_GCG_CARD_EXCEED,
+    @AddedIn(VERSION.V3_2_0)
+    SHOP_GOODS_DISABLE_GCG_CARD_FACE_UNLOCKED,
+    @AddedIn(VERSION.V3_2_0)
+    SHOP_GOODS_DISABLE_GCG_CARD_BACK_UNLOCKED,
+    @AddedIn(VERSION.V3_2_0)
+    SHOP_GOODS_DISABLE_GCG_FIELD_UNLOCKED,
+
+}
