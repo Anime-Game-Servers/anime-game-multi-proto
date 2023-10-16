@@ -8,7 +8,7 @@ import org.anime_game_servers.annotations.ProtoCommand
 @AddedIn(VERSION.V3_4_0)
 @ProtoCommand(CommandType.RESPONSE)
 interface SkipPlayerGameTimeRsp {
-    val clientGameTime: Int
-    val gameTime: Int
-    val retCode: Int
+    var clientGameTime: Int
+    var gameTime: Int
+    var retCode: Int
 }
