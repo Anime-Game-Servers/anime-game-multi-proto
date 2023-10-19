@@ -1,7 +1,7 @@
 package data.mail
 
 import annotations.AddedIn
-import data.general.Item.EquipParam
+import data.general.item.EquipParam
 import messages.VERSION
 import org.anime_game_servers.annotations.ProtoCommand
 

@@ -1,4 +1,4 @@
-package data.general.Item
+package data.general.item
 
 import annotations.AddedIn
 import messages.VERSION
@@ -8,9 +8,8 @@ import org.anime_game_servers.annotations.ProtoModel
 
 @AddedIn(VERSION.V0_9_0)
 @ProtoModel
-interface Item {
-    var itemId: Int
-    var guid: Long
-    @OneOf(Material::class, Equip::class)
-    var detail: OneOfType
+interface MaterialDeleteInfo {
+    var hasDeleteConfig: Boolean
+    @OneOf(CountDownDelete::class, DateTimeDelete::class, DelayWeekCountDownDelete::class)
+    var deleteInfo: OneOfType
 }

@@ -1,7 +1,7 @@
 package data.gadget
 
 import annotations.AddedIn
-import data.general.Item.Item
+import data.general.item.Item
 import messages.VERSION
 import org.anime_game_servers.annotations.CommandType
 import org.anime_game_servers.annotations.ProtoCommand

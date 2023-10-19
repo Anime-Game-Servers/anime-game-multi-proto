@@ -1,12 +1,12 @@
-package data.general.Item
+package data.general.item
 
 import annotations.AddedIn
 import messages.VERSION
 import org.anime_game_servers.annotations.ProtoModel
 
-@AddedIn(VERSION.VCB1)
+@AddedIn(VERSION.V0_9_0)
 @ProtoModel
-interface ItemParam {
-    var itemId: Int
+interface Material {
     var count: Int
+    var deleteInfo: MaterialDeleteInfo
 }

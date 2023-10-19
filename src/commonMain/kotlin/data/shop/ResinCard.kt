@@ -1,8 +1,7 @@
 package data.shop
 
 import annotations.AddedIn
-import annotations.RemovedIn
-import data.general.Item.ItemParam
+import data.general.item.ItemParam
 import messages.VERSION
 import org.anime_game_servers.annotations.ProtoModel
 

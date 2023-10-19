@@ -1,4 +1,4 @@
-package data.general.Item
+package data.general.item
 
 import org.anime_game_servers.annotations.ProtoModel
 

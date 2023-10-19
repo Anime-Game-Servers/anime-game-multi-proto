@@ -1,11 +1,12 @@
-package data.general.Item
+package data.general.item
 
 import annotations.AddedIn
 import messages.VERSION
 import org.anime_game_servers.annotations.ProtoModel
 
-@AddedIn(VERSION.V0_9_0)
+@AddedIn(VERSION.VCB1)
 @ProtoModel
-interface DateTimeDelete {
-    var deleteTime: Int
+interface ItemParam {
+    var itemId: Int
+    var count: Int
 }

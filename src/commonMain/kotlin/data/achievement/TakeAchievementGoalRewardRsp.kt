@@ -1,7 +1,7 @@
 package data.achievement
 
 import annotations.AddedIn
-import data.general.Item.ItemParam
+import data.general.item.ItemParam
 import messages.VERSION
 import org.anime_game_servers.annotations.CommandType
 import org.anime_game_servers.annotations.ProtoCommand

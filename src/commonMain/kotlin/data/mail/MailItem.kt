@@ -1,8 +1,8 @@
 package data.mail
 
 import annotations.AddedIn
-import data.general.Item.EquipParam
-import data.general.Item.MaterialDeleteInfo
+import data.general.item.EquipParam
+import data.general.item.MaterialDeleteInfo
 import org.anime_game_servers.annotations.ProtoModel
 
 @AddedIn(messages.VERSION.V0_9_0)
