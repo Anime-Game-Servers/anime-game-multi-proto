@@ -70,7 +70,7 @@ abstract class BaseGenerator(
         val packageName: String,
         val definition: KSClassDeclaration,
         val dependencies: Set<KSFile>,
-        val protoSet: MutableSet<ProtoData>,
+        val protoSet: Set<ProtoData>,
         val originalPackage: String = definition.packageName.asString(),
         val modelMembers: Map<String, KSType> = getMembers(definition),
         val oneOfs: Map<String, OneOfData> = modelMembers.filterValues { it.declaration.simpleName.asString() == "OneOfType" }
@@ -98,7 +98,8 @@ abstract class BaseGenerator(
                 return@forEach
             }
             val sourceVarName = sourcePrefix?.let {pf -> "$pf.${it.key}" } ?: it.key
-            file.id(indentation)+= when (Type.byType(it.value, this)) {
+            val type = Type.byType(it.value, this)
+            file.id(indentation)+= when (type) {
                 Type.SIMPLE -> "${it.key} = $sourceVarName,\n"
                 Type.COLLECTION -> {
                     "${getFullNameForTarget(it.value, it.key, sourceMembers[it.key])} = ${
@@ -111,6 +112,13 @@ abstract class BaseGenerator(
                         )
                     },\n"
                 }
+                Type.BYTE_ARRAY -> "${getFullNameForTarget(it.value, it.key, sourceMembers[it.key])} = ${
+                    convertByteArray(
+                        it.value,
+                        sourceMembers[it.key]!!,
+                        sourceVarName
+                    )
+                },\n"
                 Type.MAP_ENTRY ->  "${it.key} = ${
                     convertToMap(
                         it.value,
@@ -154,7 +162,7 @@ abstract class BaseGenerator(
             ?: throw IllegalStateException("unknown list param type for var $varName")
         val inParameter = inType.arguments.firstOrNull()?.type?.resolve()
         if(inType == outType && inParameter!=null && inParameter == outParameter){
-            logger.warn("same list type $varName")
+            logger.logging("same list type $varName")
             return varName
         }
         val outParameterName = outParameter.declaration.simpleName.asString()
@@ -162,7 +170,8 @@ abstract class BaseGenerator(
         //logger.warn("field type: $varName $outParameterName ${Type.byType(outParameter, this)} ${Type.byType(inType, this)} o$outParameter i$inParameter\n")
         return when (Type.byType(outParameter, this)) {
             Type.SIMPLE -> "emptyList()"// TODO convert
-            Type.COLLECTION -> ""
+            Type.COLLECTION -> "$outParameterName($varName)"
+            Type.BYTE_ARRAY -> ""
             Type.MAP -> ""
             Type.MAP_ENTRY -> {
                 val outTypes = getMapEntryTypePair(outParameter,resolver)
@@ -180,6 +189,22 @@ abstract class BaseGenerator(
                 val dataTarget = dataMethod.getDataCall("it", outParameter.getFullClassName(), true)
                 "$varName.map { $dataTarget }"
             }
+        }
+    }
+
+    private fun convertByteArray(
+        outType: KSType,
+        inType: KSType,
+        varName: String
+    ): String {
+        if(inType == outType){
+            logger.logging("same ByteArray type $varName")
+            return varName
+        }
+        if(inType.declaration.simpleName.asString() == "ByteArr"){
+            return "$varName.array"
+        } else {
+            return "${outType.getFullClassName()}($varName)"
         }
     }
 
@@ -335,6 +360,7 @@ abstract class BaseGenerator(
                     }
                     "emptyMap()"
                 } // TODO convert
+                Type.BYTE_ARRAY -> ""
                 Type.COLLECTION -> ""
                 Type.MAP -> ""
                 Type.MAP_ENTRY -> ""
@@ -400,6 +426,7 @@ abstract class BaseGenerator(
             "Boolean" -> "false"
             "List" -> "emptyList()"
             "Map" -> "emptyMap()"
+            "ByteArray" -> "ByteArray(0)"
             "OneOfType" -> {
                 oneOfData?.let {
                     "${it.wrapperName}.${it.unknownName}()"
@@ -437,6 +464,7 @@ abstract class BaseGenerator(
 
     enum class Type {
         SIMPLE,
+        BYTE_ARRAY,
         COLLECTION,
         MAP,
         MAP_ENTRY,
@@ -457,6 +485,8 @@ abstract class BaseGenerator(
                     "Char" -> SIMPLE
                     "String" -> SIMPLE
                     "Boolean" -> SIMPLE
+                    "ByteArray" -> BYTE_ARRAY
+                    "ByteArr" -> BYTE_ARRAY
                     "List" -> COLLECTION
                     "Set" -> COLLECTION
                     "Map" -> MAP
