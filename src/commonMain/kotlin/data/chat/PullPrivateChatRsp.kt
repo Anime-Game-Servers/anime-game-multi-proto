@@ -8,6 +8,6 @@ import org.anime_game_servers.annotations.ProtoCommand
 @AddedIn(VERSION.V1_2_0)
 @ProtoCommand(CommandType.RESPONSE)
 interface PullPrivateChatRsp {
-    var chatInfo: ChatInfo
+    var chatInfo: List<ChatInfo>
     var retCode: Int
 }

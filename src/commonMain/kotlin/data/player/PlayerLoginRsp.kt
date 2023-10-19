@@ -53,7 +53,7 @@ interface PlayerLoginRsp {
     @AddedIn(VERSION.V1_0_0)
     var shortAbilityHashMap: List<ShortAbilityHashPair>
     @AddedIn(VERSION.V1_0_0)
-    var scInfo: Int
+    var scInfo: ByteArray
     @AddedIn(VERSION.V1_0_0)
     var isAudit: Boolean
     @AddedIn(VERSION.V1_0_0)

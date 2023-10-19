@@ -39,7 +39,7 @@ interface GetPlayerTokenReq {
     @AddedIn(VERSION.V2_3_0)
     var minorsRegMinAge: Int
     @AddedIn(VERSION.V2_8_0)
-    var clientRandKey: Int
+    var clientRandKey: String
     @AddedIn(VERSION.V2_8_0)
     var keyId: Int
 }
