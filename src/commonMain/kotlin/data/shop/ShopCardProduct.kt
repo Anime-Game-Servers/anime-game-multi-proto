@@ -4,6 +4,7 @@ import annotations.AddedIn
 import annotations.RemovedIn
 import messages.VERSION
 import org.anime_game_servers.annotations.OneOf
+import org.anime_game_servers.annotations.OneOfEntry
 import org.anime_game_servers.annotations.OneOfType
 import org.anime_game_servers.annotations.ProtoModel
 
@@ -22,6 +23,6 @@ interface ShopCardProduct {
     @AddedIn(VERSION.V1_2_0)
     var cardProductType: Int
     @AddedIn(VERSION.V1_2_0)
-    @OneOf(ResinCard::class)
+    @OneOf(OneOfEntry(ResinCard::class, "resin_card"))
     var extraCardData: OneOfType
 }

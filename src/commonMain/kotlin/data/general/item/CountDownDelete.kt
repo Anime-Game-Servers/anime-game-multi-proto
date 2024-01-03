@@ -5,7 +5,7 @@ import messages.VERSION
 import org.anime_game_servers.annotations.ProtoModel
 
 @AddedIn(VERSION.V0_9_0)
-@ProtoModel
+@ProtoModel("MaterialDeleteInfo")
 interface CountDownDelete {
     var deleteTimeNumMap: Map<Int,Int>
     var configCountDownTime: Int

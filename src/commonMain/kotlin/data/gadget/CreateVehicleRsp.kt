@@ -9,6 +9,6 @@ import org.anime_game_servers.annotations.ProtoCommand
 @ProtoCommand(CommandType.RESPONSE)
 interface CreateVehicleRsp {
     var vehicleId: Int
-    var scenePointId: Int
+    var entityId: Int
     var retCode: Int
 }

@@ -2,6 +2,7 @@ package data.player
 
 import annotations.AddedIn
 import annotations.RemovedIn
+import data.general.server.ResVersionConfig
 import messages.VERSION
 import org.anime_game_servers.annotations.CommandType
 import org.anime_game_servers.annotations.ProtoCommand

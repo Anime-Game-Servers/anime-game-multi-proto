@@ -79,5 +79,5 @@ interface PlayerLoginReq {
     @AddedIn(VERSION.V2_6_0)
     var securityLibraryMd5: String
     @AddedIn(VERSION.V2_6_0)
-    var client_port: Int
+    var clientPort: Int
 }

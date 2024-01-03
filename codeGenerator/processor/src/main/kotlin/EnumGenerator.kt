@@ -16,6 +16,7 @@ class EnumGenerator(
     override fun addConstructor(file: OutputStream, classInfo:ClassInfo){
         super.addConstructor(file, classInfo)
         file += "enum class ${classInfo.name}(\n"
+        file.id(4) +="var names: Set<String>,\n"
         classInfo.modelMembers.forEach {
             file.id(4) +="var ${it.key}: ${getTypeString(it)} = ${it.value.getDefaultValueForType()},\n"
         }
@@ -23,13 +24,15 @@ class EnumGenerator(
     }
 
     override fun addBody(file: OutputStream, classInfo: ClassInfo) {
-        classInfo.definition.declarations.filter { it is KSClassDeclaration }.forEach {
-            file.id(4) +="${it.simpleName.asString()},\n"
+        classInfo.declarations.forEach {
+            file.id(4) +="${it.simpleName.asString()}(setOf(${it.getEnumNames().joinToString(", ") { "\"$it\"" }})),\n"
+            //file.id(4) +="${it.simpleName.asString()},\n"
         }
-        file.id(4) +="$UNRECOGNISED_ENUM_NAME;\n"
+        file.id(4) +="$UNRECOGNISED_ENUM_NAME(emptySet());\n"
     }
 
     override fun addEncodeMethods(file: OutputStream, classInfo: ClassInfo) {
+        //TODO add AltName handling
         file.id(4) +="fun encodeToByteArray(version:VERSION) : Int? {\n"
         file.id(8) +="return when (version.namespace) {\n"
         classInfo.protoSet.forEach { proto ->
@@ -44,12 +47,22 @@ class EnumGenerator(
             val protoClass = proto.absoluteClassName
 
             file.id(4) +="internal fun $functionName() : $protoClass {\n"
-            file.id(8) +="return $protoClass.fromName(name)\n"
+            //file.id(8) +="return $protoClass.fromName(name)\n"
+            file.id(8) +="return $protoClass.values.find { names.contains(it.name) }  ?: $protoClass.fromValue(0)\n"
             file.id(4) +="}\n"
         }
     }
 
+    private fun KSClassDeclaration.getEnumNames(): List<String> {
+        val names = mutableListOf(simpleName.asString())
+        annotations.filter { annotation -> annotation.shortName.asString() == "AltName" }
+            .forEach { it.arguments.forEach { (it.value as? List<String> )?.let { names.addAll(it) }}}
+
+        return names
+    }
+
     override fun addParsingMethods(file: OutputStream, classInfo: ClassInfo) {
+        file.id(8) +="@JvmStatic\n"
         file.id(8) +="fun parseBy(value: Int, version:VERSION): ${classInfo.name} {\n"
         file.id(12) +="return when(version.namespace) {\n"
         classInfo.protoSet.forEach { proto ->
@@ -69,9 +82,18 @@ class EnumGenerator(
             file.id(8) +="}\n"
 
             file.id(8) +="internal fun $functionName(proto:$protoClass) : ${classInfo.name} {\n"
-            file.id(12) +="return proto.name?.let {\n"
-            file.id(16) +="${classInfo.name}.valueOf(it)\n"
-            file.id(12) += "} ?: $UNRECOGNISED_ENUM_NAME\n"
+            //file.id(12) +="return proto.name?.let {\n"
+            //file.id(16) +="${classInfo.name}.valueOf(it)\n"
+            //file.id(12) += "} ?: $UNRECOGNISED_ENUM_NAME\n"
+            file.id(12) +="return when(proto.name) {\n"
+            classInfo.declarations.forEach enumDeclaration@{ enumDeclaration ->
+                val names = enumDeclaration.getEnumNames()
+                if(names.isEmpty()) return@enumDeclaration
+                file.id(16) += names.joinToString(", ") { "\"$it\"" } +
+                " -> ${enumDeclaration.simpleName.asString()}\n"
+            }
+            file.id(16) +="else -> UNRECOGNISED\n"
+            file.id(12) +="}\n"
             file.id(8) +="}\n"
             file.id(8) +="\n"
         }

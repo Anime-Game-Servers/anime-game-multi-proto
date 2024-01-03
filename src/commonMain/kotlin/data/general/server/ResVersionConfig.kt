@@ -1,4 +1,4 @@
-package data.player
+package data.general.server
 
 import annotations.AddedIn
 import org.anime_game_servers.annotations.ProtoModel

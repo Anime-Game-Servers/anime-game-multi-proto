@@ -9,6 +9,6 @@ import org.anime_game_servers.annotations.ProtoCommand
 @ProtoCommand(CommandType.RESPONSE)
 interface SceneInitFinishRsp {
     @AddedIn(VERSION.V1_0_0)
-    var enter_scene_token: Int
+    var enterSceneTtoken: Int
     var retCode: Int
 }

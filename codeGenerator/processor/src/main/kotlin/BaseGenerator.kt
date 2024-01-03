@@ -1,3 +1,4 @@
+import BaseGenerator.Companion.snakeToLowerCamelCase
 import com.google.devtools.ksp.KspExperimental
 import com.google.devtools.ksp.getDeclaredProperties
 import com.google.devtools.ksp.getKotlinClassByName
@@ -7,6 +8,7 @@ import com.google.devtools.ksp.symbol.*
 import java.io.OutputStream
 import java.util.*
 
+//TODO keep AddedIn/RemovedIn annotations
 @OptIn(KspExperimental::class)
 abstract class BaseGenerator(
     val logger: KSPLogger,
@@ -15,6 +17,7 @@ abstract class BaseGenerator(
 ) {
     val enumType = resolver.getKotlinClassByName("kotlin.Enum")
     val mapClass = resolver.getKotlinClassByName("kotlin.collections.Map.Entry")
+    val protoEnumType = resolver.getKotlinClassByName("pbandk.Message.Enum")
 
     fun createClassForProto(file: OutputStream, classInfo:ClassInfo) {
         file += "package ${classInfo.packageName}\n"
@@ -61,9 +64,56 @@ abstract class BaseGenerator(
     public data class OneOfData(
         val type: KSType,
         val variableName: String,
+        val oneOfTypes: Set<KSType>,
+        val oneOfClassMap: Map<String, KSType>,
+        val allowTypeBasedMapping: Boolean = false,
         val wrapperName: String = variableName.capitalizeFirstLetter(),
         val unknownName: String = "Unknown"+variableName.capitalizeFirstLetter()
-    )
+    ) {
+        companion object {
+            fun createOneOfData(definition: KSClassDeclaration, type: KSType, variableName: String) : OneOfData {
+                val oneOfClasses = mutableSetOf<KSType>()
+                // TODO OneOfEntry handling with name mapping
+                val oneOfClassMap = mutableMapOf<String, KSType>()
+                var allowTypeBasedMapping = false
+                definition.declarations.forEach declarations@{ declaration ->
+                    if (declaration.simpleName.asString() != variableName) return@declarations
+                    declaration.annotations.forEach { ksAnnotation ->
+                        if (ksAnnotation.shortName.asString() == "OneOf") {
+                            ksAnnotation.arguments.forEach { ksArgument ->
+                                if (ksArgument.name?.asString() == "types") {
+                                    val values = (ksArgument.value as? ArrayList<KSAnnotation>) ?: return@forEach
+                                    values.forEach { oneOfEntry ->
+                                        var names = mutableListOf<String>()
+                                        var type: KSType? = null
+                                        oneOfEntry.arguments.forEach { oneOfEntryArgument ->
+                                            if (oneOfEntryArgument.name?.asString() == "type") {
+                                                type = oneOfEntryArgument.value as? KSType ?: return@forEach
+                                            }
+                                            if (oneOfEntryArgument.name?.asString() == "name") {
+                                                names.addAll(
+                                                    oneOfEntryArgument.value as? ArrayList<String> ?: return@forEach
+                                                )
+                                            }
+                                        }
+                                        type ?: return@forEach
+                                        oneOfClasses.add(type!!)
+                                        names.forEach { name ->
+                                            oneOfClassMap[name] = type!!
+                                        }
+                                    }
+                                }
+                                if (ksArgument.name?.asString() == "allowTypeBasedMapping") {
+                                    allowTypeBasedMapping = ksArgument.value as Boolean
+                                }
+                            }
+                        }
+                    }
+                }
+                return OneOfData(type, variableName, oneOfClasses, oneOfClassMap, allowTypeBasedMapping)
+            }
+        }
+    }
 
     public data class ClassInfo(
         val name: String,
@@ -71,12 +121,14 @@ abstract class BaseGenerator(
         val definition: KSClassDeclaration,
         val dependencies: Set<KSFile>,
         val protoSet: Set<ProtoData>,
+        val isProtoModel: Boolean,
         val originalPackage: String = definition.packageName.asString(),
         val modelMembers: Map<String, KSType> = getMembers(definition),
         val oneOfs: Map<String, OneOfData> = modelMembers.filterValues { it.declaration.simpleName.asString() == "OneOfType" }
             .entries.associate {
-                it.key to OneOfData(it.value, it.key)
-            }
+                it.key to OneOfData.createOneOfData(definition, it.value, it.key)
+            },
+        val declarations: List<KSClassDeclaration> = definition.declarations.mapNotNull { it as? KSClassDeclaration }.toList()
     )
 
     protected fun getFullNameForTarget(targetType:KSType, fallback:String, sourceType:KSType?):String{
@@ -97,10 +149,12 @@ abstract class BaseGenerator(
             if (!sourceMembers.containsKey(it.key)) {
                 return@forEach
             }
-            val sourceVarName = sourcePrefix?.let {pf -> "$pf.${it.key}" } ?: it.key
+            val baseVarName = "`${it.key.getVariableName()}`"
+            val sourceVarName = sourcePrefix?.let {pf -> "$pf.${baseVarName}" } ?: baseVarName
+            
             val type = Type.byType(it.value, this)
             file.id(indentation)+= when (type) {
-                Type.SIMPLE -> "${it.key} = $sourceVarName,\n"
+                Type.SIMPLE -> "$baseVarName = $sourceVarName,\n"
                 Type.COLLECTION -> {
                     "${getFullNameForTarget(it.value, it.key, sourceMembers[it.key])} = ${
                         convertToCollection(
@@ -119,7 +173,7 @@ abstract class BaseGenerator(
                         sourceVarName
                     )
                 },\n"
-                Type.MAP_ENTRY ->  "${it.key} = ${
+                Type.MAP_ENTRY ->  "$baseVarName = ${
                     convertToMap(
                         it.value,
                         sourceMembers[it.key]!!,
@@ -128,7 +182,7 @@ abstract class BaseGenerator(
                         resolver
                     )
                 },\n"
-                Type.MAP ->  "${it.key} = ${
+                Type.MAP ->  "$baseVarName = ${
                     convertToMap(
                         it.value,
                         sourceMembers[it.key]!!,
@@ -138,17 +192,26 @@ abstract class BaseGenerator(
                     )
                 },\n"
                 Type.ENUM -> {
-                    "${it.key} = ${dataMethod.getDataCall(sourceVarName, it.value.getFullClassName(), true)},\n"
+                    "$baseVarName = ${dataMethod.getDataCall(sourceVarName, it.value.getFullClassName(), true)},\n"
                 }
                 Type.DATA -> {
-                    "${it.key} = ${dataMethod.getDataCall(sourceVarName, it.value.getFullClassName())},\n"
+                    "$baseVarName = ${dataMethod.getDataCall(sourceVarName, it.value.getFullClassName(), fallback = "null")},\n"
                 }
                 Type.ONE_OF -> {
                     val wrapperName = it.key.capitalizeFirstLetter()
-                    "${it.key} = ${dataMethod.getDataCall(sourceVarName, wrapperName, fallback="$wrapperName.Unknown$wrapperName")},\n"
+                    //"$baseVarName = ${dataMethod.getDataCall(sourceVarName, wrapperName, fallback="$wrapperName.Unknown$wrapperName")},\n"
+
+                    "$baseVarName = ${dataMethod.getDataCall(sourceVarName, wrapperName, fallback="null")},\n"
                 }
             }
         }
+    }
+
+    protected fun String.getVariableName():String{
+        return this.snakeToLowerCamelCase().replaceFirstChar { it.lowercaseChar() }
+    }
+    protected fun String.getClassName():String{
+        return this.snakeToLowerCamelCase().replaceFirstChar { it.uppercaseChar() }
     }
 
     private fun convertToCollection(
@@ -211,9 +274,11 @@ abstract class BaseGenerator(
     data class DataMethodInfo(val methodName:String,
                               val isMemberCall:Boolean,
                               val overwritePackagePath:String? = null){
-        fun getDataCall(variable: String, methodClassPath: String, isNullSave:Boolean = false, fallback: String? = null ):String{
-            return if (isMemberCall)
-                "$variable.$methodName()"
+        fun getDataCall(variable: String, methodClassPath: String, isNullSafe:Boolean = false, forceNonNull: Boolean = false, fallback: String? = null ):String{
+            return if (isMemberCall) {
+                val accessor = if(isNullSafe) "." else "?."
+                "$variable$accessor$methodName()"
+            }
             else {
                 val classPath =
                     //overwritePackagePath?.let {
@@ -222,10 +287,15 @@ abstract class BaseGenerator(
                         } ?: methodClassPath
                         //"$it.${methodClassPath.split('.').last()}"
                     //} ?: methodClassPath
-                if(isNullSave){
+                if(isNullSafe){
                     "$classPath.$methodName($variable)"
                 } else {
-                    "$variable?.let{ member -> $classPath.$methodName(member)} ?: ${fallback?:classPath}()"
+                    if(forceNonNull){
+                        "$variable!!.let{ member -> $classPath.$methodName(member)}"
+                    } else {
+                        val fallbackString = if (fallback == "null") "" else " ?: ${fallback ?: classPath}()"
+                        "$variable?.let{ member -> $classPath.$methodName(member)}$fallbackString"
+                    }
                 }
             }
         }
@@ -255,7 +325,7 @@ abstract class BaseGenerator(
     fun collectionToMap(inArgs: Pair<KSType, KSType>, outArg:Pair<KSType, KSType>, varName: String, dataMethod: DataMethodInfo, outType:KSType, resolver: Resolver) : String {
         val outTypeName = outType.getFullClassName()
         val toEntries = Type.byType(outType, this) == Type.MAP_ENTRY
-        return "$varName.associateByTo(mutableMapOf(), ${mapConversion(inArgs, outArg, dataMethod, outTypeName, toEntries)})"
+        return "$varName.filter {it.value != null}.associateByTo(mutableMapOf(), ${mapConversion(inArgs, outArg, dataMethod, outTypeName, toEntries, forceNonNullVal = true)})"
     }
     fun mapToMap(inArgs: Pair<KSType, KSType>, outArg:Pair<KSType, KSType>, varName: String, dataMethod: DataMethodInfo, outType:KSType, resolver: Resolver) : String {
         val outTypeName = outType.getFullClassName()
@@ -263,7 +333,7 @@ abstract class BaseGenerator(
         return "$varName.associateByTo(mutableMapOf(), ${mapConversion(inArgs, outArg, dataMethod, outTypeName, toEntries)})"
     }
     fun mapConversion(inArgs: Pair<KSType, KSType>, outArg:Pair<KSType, KSType>,
-                      dataMethodInfo: DataMethodInfo, outTypeName:String, toEntries:Boolean, isNullSave:Boolean=false) : String{
+                      dataMethodInfo: DataMethodInfo, outTypeName:String, toEntries:Boolean, isNullSave:Boolean=false, forceNonNullVal:Boolean=false) : String{
         return if(inArgs.first == outArg.first && inArgs.second == outArg.second){
             if(toEntries){
                 "$outTypeName(it.key, it.value)"
@@ -277,7 +347,7 @@ abstract class BaseGenerator(
                 "{ it.value }, { it.key }"
             }
         } else if(inArgs.first == outArg.first){
-            val convertedCall = dataMethodInfo.getDataCall("it.value", outArg.second.getFullClassName(), isNullSave)
+            val convertedCall = dataMethodInfo.getDataCall("it.value", outArg.second.getFullClassName(), isNullSave, !toEntries && forceNonNullVal)
             if(toEntries){
                 "$outTypeName(it.key, $convertedCall)"
             } else {
@@ -368,7 +438,7 @@ abstract class BaseGenerator(
                 Type.ONE_OF -> ""
                 Type.DATA -> {
                     val dataTarget = dataMethod.getDataCall("it", it.getFullClassName())
-                    "$varName.map { $dataTarget }"
+                    "`$varName`.map { $dataTarget }"
                 }
             }
         } ?: "emptyList()"
@@ -376,7 +446,7 @@ abstract class BaseGenerator(
 
     protected fun getTypeString(variable: Map.Entry<String,KSType>): String {
         val type = variable.value
-        return when (val typeString = getFullNameForTarget(type, type.declaration.simpleName.asString(), type)) {
+        /*return when (val typeString = getFullNameForTarget(type, type.declaration.simpleName.asString(), type)) {
             "List" -> {
                 val typeArg = type.arguments.first().type?.resolve()
                 val typeArgString = typeArg?.let {
@@ -390,20 +460,60 @@ abstract class BaseGenerator(
             "Map" -> {
                 val keyTypeArg = type.arguments.first().type?.resolve()
                 val keyTypeArgString = keyTypeArg?.let {
-                    //val typePackage = it.declaration?.packageName?.asString()?.let { "$it." } ?: ""
-                    val typePackage = ""
+                    val classInfo = classInfoCache[it]
+                    val typePackage = classInfo?.packageName?.let { packageName -> "$packageName." } ?: ""
+                    //val typePackage = ""
                     "$typePackage${it.declaration.simpleName.asString()}"
                 } ?: "Any"
                 val valueTypeArg = type.arguments.getOrNull(1)?.type?.resolve()
                 val valueTypeArgString = valueTypeArg?.let {
-                    //val typePackage = it.declaration?.packageName?.asString()?.let { "$it." } ?: ""
-                    val typePackage = ""
+                    val classInfo = classInfoCache[it]
+                    val typePackage = classInfo?.packageName?.let { packageName -> "$packageName." } ?: ""
+                    //val typePackage = ""
                     "$typePackage${it.declaration.simpleName.asString()}"
                 } ?: "Any"
                 "Map<$keyTypeArgString, $valueTypeArgString>"
             }
             "OneOfType"-> {
                 "${variable.key.capitalizeFirstLetter()}<*>"
+            }
+            else -> typeString
+        }*/
+        val typeEnum = Type.byType(type, this)
+        val typeString = getFullNameForTarget(type, type.declaration.simpleName.asString(), type)
+        return when (typeEnum) {
+            Type.COLLECTION -> {
+                val typeArg = type.arguments.first().type?.resolve()
+                val typeArgString = typeArg?.let {
+                    //val typePackage = it.declaration?.packageName?.asString()?.let { "$it." } ?: ""
+                    val classInfoCache = classInfoCache[it]
+                    val typePackage = classInfoCache?.packageName?.let { "$it." } ?: ""
+                    "$typePackage${it.declaration.simpleName.asString()}"
+                } ?: "Any"
+                "List<$typeArgString>"
+            }
+            Type.MAP -> {
+                val keyTypeArg = type.arguments.first().type?.resolve()
+                val keyTypeArgString = keyTypeArg?.let {
+                    val classInfo = classInfoCache[it]
+                    val typePackage = classInfo?.packageName?.let { packageName -> "$packageName." } ?: ""
+                    //val typePackage = ""
+                    "$typePackage${it.declaration.simpleName.asString()}"
+                } ?: "Any"
+                val valueTypeArg = type.arguments.getOrNull(1)?.type?.resolve()
+                val valueTypeArgString = valueTypeArg?.let {
+                    val classInfo = classInfoCache[it]
+                    val typePackage = classInfo?.packageName?.let { packageName -> "$packageName." } ?: ""
+                    //val typePackage = ""
+                    "$typePackage${it.declaration.simpleName.asString()}"
+                } ?: "Any"
+                "Map<$keyTypeArgString, $valueTypeArgString>"
+            }
+            Type.ONE_OF-> {
+                "${variable.key.capitalizeFirstLetter()}<*>?"
+            }
+            Type.DATA -> {
+                "$typeString?"
             }
             else -> typeString
         }
@@ -428,12 +538,13 @@ abstract class BaseGenerator(
             "Map" -> "emptyMap()"
             "ByteArray" -> "ByteArray(0)"
             "OneOfType" -> {
-                oneOfData?.let {
+                "null"
+                /*oneOfData?.let {
                     "${it.wrapperName}.${it.unknownName}()"
                 } ?: run {
                     logger.warn("no one of data for type $typeString")
                     "typeString()"
-                }
+                }*/
             }
             else -> {
 
@@ -441,7 +552,8 @@ abstract class BaseGenerator(
                 if(enumType?.asStarProjectedType()?.isAssignableFrom(this) == true){
                     "$fullName.$UNRECOGNISED_ENUM_NAME"
                 }else {
-                    "$fullName()"
+                    //"$fullName()"
+                    "null"
                 }
             }
         }
@@ -454,9 +566,10 @@ abstract class BaseGenerator(
     data class ProtoData(
         val classDeclaration: KSClassDeclaration,
         val packageName: String = classDeclaration.packageName.asString(),
+        val protoPackageName: String = packageName,
         val className: String = classDeclaration.simpleName.asString(),
         val absoluteClassName: String = "$packageName.$className",
-        val versionPackage: String = packageName.split('.').last(),
+        val versionPackage: String = protoPackageName.split('.').last(),
         val parseFunctionName: String = "parseBy$versionPackage",
         val encodeFunctionName: String = "encodeTo$versionPackage",
         val members: Map<String, KSType> = getMembers(classDeclaration)
@@ -492,7 +605,7 @@ abstract class BaseGenerator(
                     "Map" -> MAP
                     "OneOfType" -> ONE_OF
                     else -> {
-                        if(generator.enumType?.asStarProjectedType()?.isAssignableFrom(type) == true){
+                        if(generator.enumType?.asStarProjectedType()?.isAssignableFrom(type) == true || generator.protoEnumType?.asStarProjectedType()?.isAssignableFrom(type) == true){
                             ENUM
                         } else if(generator.mapClass?.asStarProjectedType()?.isAssignableFrom(type) == true){
                             MAP_ENTRY
@@ -514,6 +627,22 @@ abstract class BaseGenerator(
 
         fun String.capitalizeFirstLetter() :String{
             return replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
+        }
+
+
+        val snakeRegex = "_[a-zA-Z]".toRegex()
+        fun String.snakeToLowerCamelCase(): String {
+            return snakeRegex.replace(this) {
+                it.value.replace("_","")
+                    .uppercase()
+            }
+        }
+        fun String.snakeToUpperCamelCase(): String {
+            return this.snakeToLowerCamelCase().capitalizeFirstLetter()
+        }
+
+        fun compareIgnoreCase(memberName: String, oneOfName: String) : Boolean{
+            return memberName.snakeToLowerCamelCase().equals(oneOfName.snakeToLowerCamelCase(), true)
         }
     }
 }

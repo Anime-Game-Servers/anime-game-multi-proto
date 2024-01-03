@@ -8,5 +8,5 @@ import org.anime_game_servers.annotations.ProtoCommand
 @AddedIn(VERSION.V2_7_0)
 @ProtoCommand(CommandType.RESPONSE)
 interface CheckUgcStateRsp {
-    var returnCode: Int
+    var retcode: Int
 }

@@ -1,8 +1,6 @@
-import org.gradle.kotlin.dsl.sourceSets
-
 plugins {
-    kotlin("multiplatform") version "1.9.10"
-    id("com.google.devtools.ksp") version "1.9.10-1.0.13"
+    kotlin("multiplatform") version "1.9.21"
+    id("com.google.devtools.ksp") version "1.9.21-1.0.16"
     id("maven-publish")
 }
 
@@ -12,6 +10,7 @@ group = "org.anime_game_servers"
 version = "0.1.$protoVersion"
 
 repositories {
+    mavenLocal()
     mavenCentral()
 }
 
