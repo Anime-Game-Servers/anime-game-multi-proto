@@ -12,5 +12,5 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 internal interface SceneTimeNotify {
     var sceneId: Int
     var isPaused: Boolean
-    var scenetime: Long
+    var sceneTime: Long
 }
