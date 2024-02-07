@@ -100,8 +100,8 @@ class FunctionProcessor(
         }
     }
     fun generatePackageIdFile(logger: KSPLogger,
-                              versionPackageIdMap: Map<String, PackageIdGenerator.PackageIdResult>){
-        val versionGenerator = PackageIdGenerator(logger)
+                              versionPackageIdMap: Map<String, PacketIdGenerator.PacketIdResult>){
+        val versionGenerator = PacketIdGenerator(logger)
         versionPackageIdMap.forEach { (versionName, packageIdMaps) ->
             logger.warn("generating packageIds files: ${packageIdMaps.dependencies.joinToString { it.toString() }}")
             val file: OutputStream = codeGenerator.createNewFile(
@@ -132,7 +132,7 @@ class FunctionProcessor(
     }
 
 
-    fun readPackageIds(resourcesBaseDir: File, versionClass: KSClassDeclaration) : Map<String, PackageIdGenerator.PackageIdResult>{
+    fun readPackageIds(resourcesBaseDir: File, versionClass: KSClassDeclaration) : Map<String, PacketIdGenerator.PacketIdResult>{
         val packageIdDir = File(resourcesBaseDir, "package_ids")
         val idFiles = packageIdDir.listFiles { dir, name ->
             name.endsWith(".csv")
@@ -141,7 +141,7 @@ class FunctionProcessor(
             return emptyMap()
         }
 
-        val versionMap = mutableMapOf<String,PackageIdGenerator.PackageIdResult >()
+        val versionMap = mutableMapOf<String,PacketIdGenerator.PacketIdResult >()
 
         val versionsList = versionClass.declarations.filter { it is KSClassDeclaration }.map { prop ->
             prop.simpleName.asString()
@@ -174,7 +174,7 @@ class FunctionProcessor(
                 nameIdMap[packageName] = packageId
                 idNameMap[packageId] = packageName
             }
-            versionMap[versionName] = PackageIdGenerator.PackageIdResult( dependencies,  nameIdMap, idNameMap)
+            versionMap[versionName] = PacketIdGenerator.PacketIdResult( dependencies,  nameIdMap, idNameMap)
             // todo find way to add resources as dependency
         }
         return versionMap

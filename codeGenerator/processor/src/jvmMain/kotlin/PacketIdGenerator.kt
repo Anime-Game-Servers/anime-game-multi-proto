@@ -1,47 +1,43 @@
-import com.google.devtools.ksp.KspExperimental
-import com.google.devtools.ksp.getDeclaredProperties
-import com.google.devtools.ksp.getKotlinClassByName
 import com.google.devtools.ksp.processing.KSPLogger
-import com.google.devtools.ksp.processing.Resolver
 import com.google.devtools.ksp.symbol.*
 import java.io.OutputStream
 import java.util.*
 
-class PackageIdGenerator(
+class PacketIdGenerator(
     val logger: KSPLogger
 ) {
-    fun createClassForProto(file: OutputStream, className: String, packageIdMap: PackageIdResult) {
-        file += "package package_id\n"
+    fun createClassForProto(file: OutputStream, className: String, packetIdMap: PacketIdResult) {
+        file += "package packet_id\n"
         addImports(file)
-        addBody(file, className, packageIdMap)
+        addBody(file, className, packetIdMap)
         file.close()
     }
 
     fun addImports(file: OutputStream) {
-        file += "import interfaces.PackageIdProvider\n"
+        file += "import interfaces.PacketIdProvider\n"
     }
 
-    fun addBody(file: OutputStream, className: String, packageIdMap: PackageIdResult) {
-        file += "class $className : PackageIdProvider {\n"
-        generatePackageNameFun(file, packageIdMap.nameIdMap)
-        generatePackageIdFun(file, packageIdMap.idNameMap)
+    fun addBody(file: OutputStream, className: String, packetIdMap: PacketIdResult) {
+        file += "class $className : PacketIdProvider {\n"
+        generatePacketNameFun(file, packetIdMap.nameIdMap)
+        generatePacketIdFun(file, packetIdMap.idNameMap)
         file += "}\n"
     }
 
-    fun generatePackageNameFun(file: OutputStream, packageIdMap: Map<String, Int>) {
-        file.id(4) += ("override fun getPackageId(packageName:String) = when(packageName) {\n")
-        packageIdMap.forEach { (packageName, packageId) ->
-            file.id(8) += ("\"$packageName\" ->  $packageId\n")
+    fun generatePacketNameFun(file: OutputStream, packetIdMap: Map<String, Int>) {
+        file.id(4) += ("override fun getPacketId(packetName:String) = when(packetName) {\n")
+        packetIdMap.forEach { (packetName, packetId) ->
+            file.id(8) += ("\"$packetName\" ->  $packetId\n")
         }
         file.id(8) += ("else -> 999999\n")
         file.id(4) += ("}\n")
     }
 
 
-    fun generatePackageIdFun(file: OutputStream, packageIdMap: Map<Int, String>) {
-        file.id(4) += ("override fun getPackageName(packageId:Int) = when(packageId) {\n")
-        packageIdMap.forEach { (packageId, packageName) ->
-            file.id(8) += ("$packageId -> \"$packageName\"\n")
+    fun generatePacketIdFun(file: OutputStream, packetIdMap: Map<Int, String>) {
+        file.id(4) += ("override fun getPacketName(packetId:Int) = when(packetId) {\n")
+        packetIdMap.forEach { (packetId, packetName) ->
+            file.id(8) += ("$packetId -> \"$packetName\"\n")
         }
         file.id(8) += ("else -> null\n")
         file.id(4) += ("}\n")
@@ -49,7 +45,7 @@ class PackageIdGenerator(
 
 
     fun createClassForVersionMapper(file: OutputStream, versions: Collection<String>) {
-        file += "package package_id\n"
+        file += "package packet_id\n"
         addVersionMapperImports(file)
         addVersionMapperBody(file, versions)
         file.close()
@@ -61,12 +57,12 @@ class PackageIdGenerator(
     }
 
     fun addVersionMapperBody(file: OutputStream, versions: Collection<String>) {
-        file += "object PackageIds {\n"
-        generateVersionPackageMapperFun(file, versions)
+        file += "object PacketIds {\n"
+        generateVersionPacketMapperFun(file, versions)
         file += "}\n"
     }
 
-    fun generateVersionPackageMapperFun(file: OutputStream, versions: Collection<String>) {
+    fun generateVersionPacketMapperFun(file: OutputStream, versions: Collection<String>) {
         file.id(4) += ("@JvmStatic\n")
         file.id(4) += ("fun getMapper(version:$VERSION_ENUM_CLASS_NAME) = when(version) {\n")
         versions.forEach { version ->
@@ -104,8 +100,8 @@ class PackageIdGenerator(
         }
     }
 
-    data class PackageIdResult(val dependencies: Set<KSFile>,
-                               val nameIdMap : Map<String, Int>,
-                               val idNameMap : Map<Int, String>
+    data class PacketIdResult(val dependencies: Set<KSFile>,
+                              val nameIdMap : Map<String, Int>,
+                              val idNameMap : Map<Int, String>
     )
 }
