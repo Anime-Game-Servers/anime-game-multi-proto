@@ -1,7 +1,8 @@
 plugins {
     kotlin("multiplatform")
 }
-
+group = "org.anime_game_servers.multi_proto"
+version = "0.1"
 kotlin {
     jvm {
         jvmToolchain(17)

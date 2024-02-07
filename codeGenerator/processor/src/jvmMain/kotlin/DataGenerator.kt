@@ -26,7 +26,7 @@ open class DataGenerator(
         }
         file += "data class ${classInfo.name} @JvmOverloads constructor (\n"
         classInfo.modelMembers.forEach {
-            file.id(4) +="var `${it.key.getVariableName()}`: ${getTypeString(it)} = ${it.value.getDefaultValueForType(classInfo.oneOfs[it.key])},\n"
+            file.id(4) +="var `${it.value.name.getVariableName()}`: ${getTypeString(it)} = ${it.value.getDefaultValueForType(classInfo.oneOfs[it.key])},\n"
         }
         file += ") : ${getImplementedModels(classInfo)}{\n"
     }
@@ -66,10 +66,10 @@ open class DataGenerator(
                 oneOfClassMap.forEach { fieldName, oneOfClass ->
                     val className = if(it.allowTypeBasedMapping) oneOfClass.name else fieldName.getClassName()
                     protoData.members.forEach { member ->
-                        if(member.value.starProjection().declaration.simpleName.asString() == oneOfClass.name && compareIgnoreCase(member.key, fieldName)) {
+                        if(member.value.type.starProjection().declaration.simpleName.asString().equals(oneOfClass.name, true) && compareIgnoreCase(member.key, fieldName)) {
                             val accessor = if(oneOfClass.isProtoModel) "value.${functionName}()" else "value"
                             file.id(16) += "is ${className} -> $accessor.let {\n"
-                            file.id(20) += "${protoData.packageName}.${protoData.className}.${it.wrapperName}.${member.key.capitalizeFirstLetter()}(it)\n"
+                            file.id(20) += "${protoData.packageName}.${protoData.className}.${it.wrapperName}.${member.value.name.capitalizeFirstLetter()}(it)\n"
                             file.id(16) += "}\n"
                         }
                     }
@@ -86,9 +86,9 @@ open class DataGenerator(
                 oneOfClassMap.forEach { fieldName, oneOfClass ->
                     protoData.members.forEach { member ->
                         val className = if(it.allowTypeBasedMapping) oneOfClass.name else fieldName.getClassName()
-                        if(member.value.starProjection().declaration.simpleName.asString() == oneOfClass.name && compareIgnoreCase(member.key, fieldName)) {
+                        if(member.value.type.starProjection().declaration.simpleName.asString().equals(oneOfClass.name, true) && compareIgnoreCase(member.key, fieldName)) {
                             val accessor = if(oneOfClass.isProtoModel) "${oneOfClass.packageName}.${oneOfClass.name}.${protoData.parseFunctionName}(value.value)" else "value.value"
-                            file.id(20) += "is ${protoData.packageName}.${protoData.className}.${it.wrapperName}.${member.key.capitalizeFirstLetter()} -> \n"
+                            file.id(20) += "is ${protoData.packageName}.${protoData.className}.${it.wrapperName}.${member.value.name.capitalizeFirstLetter()} -> \n"
                             //file.id(24) += "${className}(${oneOfClass.packageName}.${oneOfClass.name}.${protoData.parseFunctionName}(value.value))\n"
                             file.id(24) += "${className}($accessor)\n"
                         }
