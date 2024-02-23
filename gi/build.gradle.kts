@@ -25,7 +25,7 @@ kotlin {
             }
         }
     }
-    mingwX64()
+    // mingwX64() not supported by pbandk-runtime 0.14.2
     linuxX64()
     linuxArm64()
 
