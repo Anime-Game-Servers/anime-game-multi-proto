@@ -188,6 +188,10 @@ internal interface ActivityInfo {
             // FontaineGatherInfo::class,
             // GcgPvePuzzleInfo::class,
             // 4.1.0 TODO
+            // NEW_ACTIVITY_COLLECT_UNDERWATER
+            // NEW_ACTIVITY_QUICK_TIME_COMBAT
+            // NEW_ACTIVITY_POETRY_FESTIVAL
+            // NEW_ACTIVITY_FISHBLASTER
             // 4.2.0 TODO
             // 4.3.0 TODO
         ]
