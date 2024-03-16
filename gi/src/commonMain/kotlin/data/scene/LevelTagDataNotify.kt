@@ -5,12 +5,9 @@ import org.anime_game_servers.core.base.annotations.AddedIn
 import org.anime_game_servers.core.base.annotations.proto.CommandType
 import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 
-@AddedIn(GI_CB2)
+// TODO might be send by the client to the server verify directions used
+@AddedIn(GI_2_4_0)
 @ProtoCommand(CommandType.NOTIFY)
-internal interface SceneDataNotify {
-    var levelConfigNameList : List<String>
-    @AddedIn(GI_2_8_0)
-    var sceneTagIdList : List<Int>
-    @AddedIn(GI_4_0_0)
-    var mapLayerInfo: MapLayerInfo
+internal interface LevelTagDataNotify {
+    var levelTagIdList : List<String>
 }
