@@ -5,6 +5,7 @@ import data.activity.aster.AsterActivityDetailInfo
 import data.activity.crucible.CrucibleActivityDetailInfo
 import data.activity.delivery.DeliveryActivityDetailInfo
 import data.activity.echo_shell.EchoShellDetailInfo
+import data.activity.fleur_fair.FleurFairActivityDetailInfo
 import data.activity.flight.FlightActivityDetailInfo
 import data.activity.music_game.MusicGameActivityDetailInfo
 import data.activity.salesman.SalesmanActivityDetailInfo
@@ -95,7 +96,7 @@ internal interface ActivityInfo {
             //ExpeditionActivityDetailInfo::class,
             // 1.4.0
             //ArenaChallengeActivityDetailInfo::class,
-            //FleurFairActivityDetailInfo::class,
+            OneOfEntry(FleurFairActivityDetailInfo::class, "fleur_fair_info", addedIn = GI_1_4_0),
             //WaterSpiritActivityDetailInfo::class,
             // 1.5.0
             //ChannelerSlabActivityDetailInfo::class,
