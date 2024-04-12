@@ -8,7 +8,7 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoEnum
 import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 
 @AddedIn(Version.GI_CB2)
-@ProtoEnum
+@ProtoEnum(parentClass = "TrialAvatarGrantRecord")
 internal enum class GrantReason {
     @AltName("GRANT_REASON_INVALID")
     INVALID,

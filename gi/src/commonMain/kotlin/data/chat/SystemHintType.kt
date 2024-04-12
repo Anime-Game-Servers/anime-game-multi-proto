@@ -6,7 +6,7 @@ import org.anime_game_servers.core.base.annotations.proto.AltName
 import org.anime_game_servers.core.base.annotations.proto.ProtoEnum
 
 @AddedIn(Version.GI_2_4_0)
-@ProtoEnum
+@ProtoEnum(parentClass = "ChatInfo")
 enum class SystemHintType {
     @AltName("SYSTEM_HINT_TYPE_CHAT_NONE")
     CHAT_NONE,
