@@ -37,7 +37,7 @@ open class DataGenerator(
 
     override fun addBody(file: OutputStream, classInfo: ClassInfo) {
         classInfo.oneOfs.values.forEach {
-            logger.warn("OneOf: ${it}")
+            logger.info("OneOf: ${it}")
             val oneOfClasses = it.oneOfTypes.mapNotNull { classInfoCache[it] }
             // TODO OneOfEntry handling with name mapping
             val oneOfClassMap = it.oneOfClassMap.mapNotNull { classInfoCache[it.value]?.let { value -> it.key to value } }.toMap()

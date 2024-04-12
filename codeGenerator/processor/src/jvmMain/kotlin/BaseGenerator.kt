@@ -388,7 +388,6 @@ abstract class BaseGenerator(
         var secondType = type.arguments.getOrNull(1)?.type?.resolve()
         if(firstType==null || secondType == null){
             val test = resolver.getKotlinClassByName(type.declaration.qualifiedName!!)
-            logger.warn("test ${test?.simpleName?.asString()}")
             test?.getDeclaredProperties()?.forEach {
                 if(it.simpleName.asString() == "key"){
                     firstType = it.type.resolve()
@@ -421,7 +420,7 @@ abstract class BaseGenerator(
             return varName
         }
         return outKeyType?.let {
-            logger.warn("field type: ${it.declaration.simpleName.asString()} ${Type.byType(it, this)} ${Type.byType(inType.type, this)}")
+            logger.info("field type: ${it.declaration.simpleName.asString()} ${Type.byType(it, this)} ${Type.byType(inType.type, this)}")
             when (Type.byType(it, this)) {
                 Type.SIMPLE -> {
                     val type = Type.byType(inType.type, this)

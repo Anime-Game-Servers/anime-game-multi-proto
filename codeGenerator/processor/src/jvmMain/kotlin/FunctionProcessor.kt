@@ -1,6 +1,7 @@
 import com.google.devtools.ksp.*
 import com.google.devtools.ksp.processing.*
 import com.google.devtools.ksp.symbol.*
+import org.anime_game_servers.core.base.Version
 import java.io.File
 import java.io.OutputStream
 
@@ -37,6 +38,13 @@ class FunctionProcessor(
             .filterIsInstance<KSClassDeclaration>()
     }
 
+    fun KSClassDeclaration.getProtoAnnotation() = annotations.firstOrNull { it.shortName.asString().startsWith("Proto") }
+
+    fun KSAnnotation.getParentClass() = arguments.firstOrNull { it.name?.asString() == "parentClass" }?.value?.toString()
+    fun KSAnnotation.getAltNames() = (arguments.firstOrNull { it.name?.asString() == "alternativeNames" }?.value) as? List<String>
+    fun String.getProtoName(parameterName: String?) = parameterName?.let { if(it.isBlank()) this else "$it.$this" } ?: this
+    fun KSAnnotation.getVersionName() = (arguments.firstOrNull()?.value as? KSType)?.declaration?.simpleName?.asString() ?:""
+
     fun getClassInfo(symbols: Sequence<KSClassDeclaration>,
                      fullClassInfoCache: MutableMap<KSType, BaseGenerator.ClassInfo>,
                      compileProtoMap: Map<String, MutableSet<BaseGenerator.ProtoData>>
@@ -44,11 +52,21 @@ class FunctionProcessor(
         :Map<KSType, BaseGenerator.ClassInfo>{
         val typeMap = mutableMapOf<KSType, BaseGenerator.ClassInfo>()
         symbols.forEach {
+            val annotation = it.getProtoAnnotation()
+            val parentClassName = annotation?.getParentClass()
+            val altNames = annotation?.getAltNames() ?: emptyList()
             val name = it.simpleName.asString()
-            val protoName = it.annotations.firstOrNull { it.shortName.asString().startsWith("Proto") }?.arguments?.firstOrNull { it.name?.asString() == "parentClass" }?.value?.toString()?.let { if(it.isBlank()) name else "$it.$name" } ?: name
-            logger.warn("Found $name with protoName $protoName")
-            val versionProtoSet = compileProtoMap[protoName] ?: run {
-                logger.warn("No proto found for $name")
+
+            val protoNames = mutableListOf(name.getProtoName(parentClassName))
+            protoNames.addAll(altNames.map { it.getProtoName(parentClassName) })
+            val protoName = parentClassName?.let { if(it.isBlank()) name else "$it.$name" } ?: name
+            logger.info("Found $name with protoName $protoName")
+            val versionProtoSet = protoNames.firstNotNullOfOrNull { protoName ->
+                return@firstNotNullOfOrNull compileProtoMap[protoName]
+            } ?: run {
+                val addedIn = it.annotations.firstOrNull { it.shortName.asString() == "AddedIn" }?.getVersionName()
+                val removedIn = it.annotations.firstOrNull { it.shortName.asString() == "RemovedIn" }?.getVersionName()
+                logger.warn("No proto found for $name addedIn $addedIn removedIn $removedIn")
                 mutableSetOf()
             }
             val targetPackage = it.packageName.asString().replaceFirst("data.","messages.")
@@ -58,7 +76,7 @@ class FunctionProcessor(
             }
 
             val info = BaseGenerator.ClassInfo(name, targetPackage, it, dependencies, versionProtoSet, true)
-            logger.warn("ClassInfo $info")
+            logger.info("ClassInfo $info")
 
             typeMap[it.asStarProjectedType()] = info
             fullClassInfoCache[it.asStarProjectedType()] = info
@@ -84,7 +102,7 @@ class FunctionProcessor(
     }
 
     fun generateFiles(generator: BaseGenerator, classInfoMap: Map<KSType, BaseGenerator.ClassInfo>){
-        logger.warn("generating files: ${classInfoMap.size}")
+        logger.info("generating files: ${classInfoMap.size}")
         classInfoMap.values.forEach { classInfo ->
             val file: OutputStream = codeGenerator.createNewFile(
                 // Make sure to associate the generated file with sources to keep/maintain it across incremental builds.
@@ -103,7 +121,7 @@ class FunctionProcessor(
                               versionPackageIdMap: Map<String, PacketIdGenerator.PacketIdResult>){
         val versionGenerator = PacketIdGenerator(logger)
         versionPackageIdMap.forEach { (versionName, packageIdMaps) ->
-            logger.warn("generating packageIds files: ${packageIdMaps.dependencies.joinToString { it.toString() }}")
+            logger.info("generating packageIds files: ${packageIdMaps.dependencies.joinToString { it.toString() }}")
             val file: OutputStream = codeGenerator.createNewFile(
                 // Make sure to associate the generated file with sources to keep/maintain it across incremental builds.
                 // Learn more about incremental processing in KSP from the official docs:
@@ -112,13 +130,13 @@ class FunctionProcessor(
                 packageName = "package_id",
                 fileName = versionName
             )
-            logger.warn("generating ${packageIdMaps.dependencies.joinToString { it.toString() }}")
+            logger.info("generating ${packageIdMaps.dependencies.joinToString { it.toString() }}")
 
             versionGenerator.createClassForProto(file, versionName, packageIdMaps)
         }
 
         val versions = versionPackageIdMap.keys
-        logger.warn("generating packageId version mapping: ${versions.size} ${versions.joinToString { it }}")
+        logger.info("generating packageId version mapping: ${versions.size} ${versions.joinToString { it }}")
         val file: OutputStream = codeGenerator.createNewFile(
             // Make sure to associate the generated file with sources to keep/maintain it across incremental builds.
             // Learn more about incremental processing in KSP from the official docs:
@@ -181,7 +199,7 @@ class FunctionProcessor(
     }
 
     override fun process(resolver: Resolver): List<KSAnnotated> {
-        logger.warn("[time] start getting annotated classes")
+        logger.info("[time] start getting annotated classes")
         val wrapperEnumSymbols = resolver.getClassSymbolsByAnnotation(PROTO_ENUM_ANNOTATION)
         val wrapperModelSymbols = resolver.getClassSymbolsByAnnotation(PROTO_MODEL_ANNOTATION)
         val wrapperCommandSymbols = resolver.getClassSymbolsByAnnotation(PROTO_COMMAND_ANNOTATION)
@@ -218,7 +236,7 @@ class FunctionProcessor(
             readPackageIds(resourcesDir, versionClass)
         }
 
-        logger.warn("[time] handling compiled protos classes")
+        logger.info("[time] handling compiled protos classes")
         val compiledProtosMap = mutableMapOf<String, MutableSet<BaseGenerator.ProtoData>>()
         compiledProtos.forEach {
             val children = it.declarations.filterIsInstance<KSClassDeclaration>().filter { child ->
@@ -255,7 +273,7 @@ class FunctionProcessor(
             }
         }
 
-        logger.warn("[time] sorting stuff")
+        logger.info("[time] sorting stuff")
         // targetClassInfo based from our interfaces
         val classInfoCache= mutableMapOf<KSType, BaseGenerator.ClassInfo>()
         addBaseTypesToCache(resolver, classInfoCache)
@@ -264,20 +282,20 @@ class FunctionProcessor(
         val protoCommands= getClassInfo(wrapperCommandSymbols, classInfoCache, compiledProtosMap)
 
 
-        logger.warn("[time] create generators")
+        logger.info("[time] create generators")
         val enumGenerator = EnumGenerator(logger, resolver, classInfoCache)
         val dataGenerator = DataGenerator(logger, resolver, classInfoCache)
         val commandGenerator = CommandGenerator(logger, resolver, classInfoCache)
 
         packageIdMaps?.let {
-            logger.warn("[time] generate version")
+            logger.info("[time] generate version")
             generatePackageIdFile(logger, it)
         }
-        logger.warn("[time] generate enums")
+        logger.info("[time] generate enums")
         generateFiles(enumGenerator, protoEnums)
-        logger.warn("[time] generate models")
+        logger.info("[time] generate models")
         generateFiles(dataGenerator, protoModels)
-        logger.warn("[time] generate commands")
+        logger.info("[time] generate commands")
         generateFiles(commandGenerator, protoCommands)
 
 
@@ -327,7 +345,7 @@ class FunctionProcessor(
             }
         }*/
         //TODO
-        logger.warn("[time] finish")
+        logger.info("[time] finish")
         val unableToProcess = wrapperModelSymbols.filterNot { it.validate() }.toList()
         return unableToProcess
     }
