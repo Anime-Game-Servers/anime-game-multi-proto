@@ -2,7 +2,6 @@
 project to allow supporting multiple versions easier
 
 TODOs:
-* command id support
 * add more definitons for the protos
 * improve code
 * add actuall protos for as many versions as possible
