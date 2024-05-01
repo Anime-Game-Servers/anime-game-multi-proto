@@ -32,6 +32,7 @@ class FunctionProcessor(
     private val options: Map<String, String>
 ) : SymbolProcessor {
 
+
     fun Resolver.getClassSymbolsByAnnotation(annotationName: String): Sequence<KSClassDeclaration>{
         return getSymbolsWithAnnotation(annotationName)
             .filterIsInstance<KSClassDeclaration>()
@@ -86,7 +87,9 @@ class FunctionProcessor(
     fun addBaseTypesToCache(resolver: Resolver, fullClassInfoCache: MutableMap<KSType, BaseGenerator.ClassInfo>){
         addBaseTypeToCache("Float", resolver, fullClassInfoCache)
         addBaseTypeToCache("Int", resolver, fullClassInfoCache)
+        addBaseTypeToCache("UInt", resolver, fullClassInfoCache)
         addBaseTypeToCache("String", resolver, fullClassInfoCache)
+        addBaseTypeToCache("Char", resolver, fullClassInfoCache)
         addBaseTypeToCache("Double", resolver, fullClassInfoCache)
         addBaseTypeToCache("Long", resolver, fullClassInfoCache)
     }
@@ -112,7 +115,6 @@ class FunctionProcessor(
                 fileName = classInfo.name
             )
             //logger.warn("generating ${classInfo.name} ${classInfo.packageName} ${classInfo.definition.containingFile} ${classInfo.dependencies?.joinToString { it.filePath }}")
-
             generator.createClassForProto(file, classInfo)
         }
     }

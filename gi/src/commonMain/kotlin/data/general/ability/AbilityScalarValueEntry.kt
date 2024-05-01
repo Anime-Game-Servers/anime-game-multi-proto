@@ -16,7 +16,7 @@ internal interface AbilityScalarValueEntry {
         OneOfEntry(Float::class, "float_value"),
         OneOfEntry(String::class, "string_value"),
         OneOfEntry(Int::class, "int_value"),
-        OneOfEntry(UInt::class, "uint_value"),
+        OneOfEntry(Int::class, "uint_value"), // TODO should be UInt when its directly supported
         allowTypedBasedMapping = false
     )
     var value: OneOfType
