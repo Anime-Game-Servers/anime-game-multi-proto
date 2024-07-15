@@ -1,5 +1,5 @@
 group = "org.anime_game_servers.multi_proto"
-version = "0.1"
+version = "0.2"
 plugins {
     id("maven-publish")
     kotlin("multiplatform") version "1.9.22" apply false

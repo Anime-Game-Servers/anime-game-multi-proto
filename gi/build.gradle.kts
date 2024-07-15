@@ -6,7 +6,7 @@ plugins {
 // until the rework for proto handling is done, we use this to compile packages for specific game versions
 val protoVersion = 32
 group = "org.anime_game_servers.multi_proto"
-version = "0.1.$protoVersion"
+version = "0.2.$protoVersion"
 
 kotlin {
     jvm {
