@@ -53,7 +53,7 @@ publishing {
     publications {
         create<MavenPublication>("maven") {
             from(components["kotlin"])
-            artifactId = "core"
+            artifactId = "base"
         }
     }
 }

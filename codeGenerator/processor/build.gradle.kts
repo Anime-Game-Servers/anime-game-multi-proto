@@ -16,7 +16,7 @@ kotlin {
         val jvmMain by getting {
             dependencies {
                 implementation("com.google.devtools.ksp:symbol-processing-api:1.9.24-1.0.20")
-                implementation(project(":core"))
+                implementation(project(":base"))
             }
         }
         val jvmTest by getting
