@@ -12,6 +12,6 @@ import org.anime_game_servers.core.base.Version.GI_CB1
 @ProtoCommand(CommandType.NOTIFY)
 internal interface PlatformStartRouteNotify {
     var entityId: Int
-    var platform: org.anime_game_servers.multi_proto.gi.data.scene.entity.PlatformInfo
+    var platform: PlatformInfo
     var sceneTime: Int
 }

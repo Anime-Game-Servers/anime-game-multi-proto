@@ -10,5 +10,5 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @ProtoCommand(CommandType.NOTIFY)
 internal interface SyncScenePlayTeamEntityNotify {
     var sceneId : Int
-    var entityInfoList : List<org.anime_game_servers.multi_proto.gi.data.scene.entity.PlayTeamEntityInfo>
+    var entityInfoList : List<PlayTeamEntityInfo>
 }

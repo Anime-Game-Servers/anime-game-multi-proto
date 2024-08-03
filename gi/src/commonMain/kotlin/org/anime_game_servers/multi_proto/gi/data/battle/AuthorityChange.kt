@@ -9,6 +9,6 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 @ProtoModel
 internal interface AuthorityChange {
     var authorityPeerId: Int
-    var entityAuthorityInfo: org.anime_game_servers.multi_proto.gi.data.scene.entity.EntityAuthorityInfo
+    var entityAuthorityInfo: EntityAuthorityInfo
     var entityId: Int
 }

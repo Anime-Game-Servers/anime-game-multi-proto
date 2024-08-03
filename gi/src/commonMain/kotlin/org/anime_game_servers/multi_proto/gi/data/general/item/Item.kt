@@ -13,9 +13,9 @@ interface Item {
     var itemId: Int
     var guid: Long
     @OneOf(
-        OneOfEntry(org.anime_game_servers.multi_proto.gi.data.general.item.Material::class, "material"),
-        OneOfEntry(org.anime_game_servers.multi_proto.gi.data.general.item.Equip::class, "equip"),
-        OneOfEntry(org.anime_game_servers.multi_proto.gi.data.general.item.Furniture::class, "furniture")
+        OneOfEntry(Material::class, "material"),
+        OneOfEntry(Equip::class, "equip"),
+        OneOfEntry(Furniture::class, "furniture")
     )
     var detail: OneOfType
 }

@@ -13,5 +13,5 @@ internal interface ForceAddPlayerFriendRsp {
     var retcode: Int
     var targetUid: Int
     @AddedIn(GI_2_5_0)
-    var targetFriendBrief: org.anime_game_servers.multi_proto.gi.data.community.friends.FriendBrief
+    var targetFriendBrief: FriendBrief
 }

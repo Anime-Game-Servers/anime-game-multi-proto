@@ -13,9 +13,9 @@ internal interface SceneGalleryVintageHuntingInfo {
     var stageId: Int
 
     @OneOf(
-        OneOfEntry(org.anime_game_servers.multi_proto.gi.data.gallery.VintageHuntingFirstStageInfo::class, "first_stage_info"),
-        OneOfEntry(org.anime_game_servers.multi_proto.gi.data.gallery.VintageHuntingSecondStageInfo::class, "second_stage_info"),
-        OneOfEntry(org.anime_game_servers.multi_proto.gi.data.gallery.VintageHuntingThirdStageInfo::class, "third_stage_info"),
+        OneOfEntry(VintageHuntingFirstStageInfo::class, "first_stage_info"),
+        OneOfEntry(VintageHuntingSecondStageInfo::class, "second_stage_info"),
+        OneOfEntry(VintageHuntingThirdStageInfo::class, "third_stage_info"),
     )
     var info: OneOfType
 }

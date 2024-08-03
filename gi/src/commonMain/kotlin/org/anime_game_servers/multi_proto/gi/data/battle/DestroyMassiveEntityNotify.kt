@@ -9,5 +9,5 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @AddedIn(GI_CB2)
 @ProtoCommand(CLIENT)
 internal interface DestroyMassiveEntityNotify {
-    var massiveEntityList: List<org.anime_game_servers.multi_proto.gi.data.general.battle.ClientMassiveEntity>
+    var massiveEntityList: List<ClientMassiveEntity>
 }

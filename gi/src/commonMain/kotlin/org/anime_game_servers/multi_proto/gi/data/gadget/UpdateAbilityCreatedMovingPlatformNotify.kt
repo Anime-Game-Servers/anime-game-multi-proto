@@ -8,6 +8,6 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @AddedIn(Version.GI_1_2_0)
 @ProtoCommand(CommandType.NOTIFY)
 internal interface UpdateAbilityCreatedMovingPlatformNotify {
-    var opType: org.anime_game_servers.multi_proto.gi.data.gadget.OpType
+    var opType: OpType
     var entityId: Int
 }

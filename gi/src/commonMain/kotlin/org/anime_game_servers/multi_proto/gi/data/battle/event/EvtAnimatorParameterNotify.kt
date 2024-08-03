@@ -14,13 +14,13 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 internal interface EvtAnimatorParameterNotify {
     @RemovedIn(GI_0_9_0)
     var entityId: Int
-    var forwardType: org.anime_game_servers.multi_proto.gi.data.battle.ForwardType
+    var forwardType: ForwardType
     @RemovedIn(GI_0_9_0)
     var isServerCache: Boolean
     @RemovedIn(GI_0_9_0)
     var nameId: Int
     @RemovedIn(GI_0_9_0)
-    var value: org.anime_game_servers.multi_proto.gi.data.scene.entity.AnimatorParameterValueInfo
+    var value: AnimatorParameterValueInfo
     @AddedIn(GI_0_9_0)
-    var animatorParamInfo: org.anime_game_servers.multi_proto.gi.data.battle.event.EvtAnimatorParameterInfo
+    var animatorParamInfo: EvtAnimatorParameterInfo
 }

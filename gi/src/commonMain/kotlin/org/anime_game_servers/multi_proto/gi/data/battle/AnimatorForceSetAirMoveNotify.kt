@@ -1,6 +1,5 @@
 package org.anime_game_servers.multi_proto.gi.data.battle
 
-import org.anime_game_servers.multi_proto.gi.data.battle.ForwardType
 import org.anime_game_servers.core.base.Version.GI_CB1
 import org.anime_game_servers.core.base.annotations.AddedIn
 import org.anime_game_servers.core.base.annotations.proto.CommandType.*
@@ -10,6 +9,6 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @ProtoCommand(CLIENT)
 internal interface AnimatorForceSetAirMoveNotify {
     var entityId: Int
-    var forwardType: org.anime_game_servers.multi_proto.gi.data.battle.ForwardType
+    var forwardType: ForwardType
     var inAirMove: Boolean
 }

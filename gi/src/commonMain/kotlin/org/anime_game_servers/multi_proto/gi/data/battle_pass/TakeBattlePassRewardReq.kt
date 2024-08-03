@@ -8,5 +8,5 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @AddedIn(GI_0_9_0)
 @ProtoCommand(REQUEST)
 internal interface TakeBattlePassRewardReq {
-    var takeOptionList: List<org.anime_game_servers.multi_proto.gi.data.battle_pass.BattlePassRewardTakeOption>
+    var takeOptionList: List<BattlePassRewardTakeOption>
 }

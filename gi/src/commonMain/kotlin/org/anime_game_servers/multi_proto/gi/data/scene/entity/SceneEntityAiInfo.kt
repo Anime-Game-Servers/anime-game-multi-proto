@@ -11,7 +11,7 @@ internal interface SceneEntityAiInfo {
     var isAiOpen: Boolean
     var bornPos: Vector
     var skillCdMap: Map<Int, Int>
-    var servantInfo: org.anime_game_servers.multi_proto.gi.data.scene.entity.ServantInfo
+    var servantInfo: ServantInfo
     var aiThreatMap: Map<Int, Int>
     var skillGroupCdMap: Map<Int, Int>
     var curTactic: Int

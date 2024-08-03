@@ -8,5 +8,5 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 @ProtoModel
 internal interface BattlePassRewardTakeOption {
     var optionIdx: Int
-    var tag: org.anime_game_servers.multi_proto.gi.data.battle_pass.BattlePassRewardTag
+    var tag: BattlePassRewardTag
 }

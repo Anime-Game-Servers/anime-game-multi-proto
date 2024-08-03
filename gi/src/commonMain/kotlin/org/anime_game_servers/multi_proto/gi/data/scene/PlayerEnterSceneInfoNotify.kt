@@ -13,10 +13,10 @@ import org.anime_game_servers.core.base.Version.GI_1_0_0
 @ProtoCommand(CommandType.NOTIFY)
 internal interface PlayerEnterSceneInfoNotify {
     var curAvatarEntityId : Int
-    var avatarEnterInfo : List<org.anime_game_servers.multi_proto.gi.data.scene.AvatarEnterSceneInfo>
-    var teamEnterInfo : org.anime_game_servers.multi_proto.gi.data.scene.TeamEnterSceneInfo
+    var avatarEnterInfo : List<AvatarEnterSceneInfo>
+    var teamEnterInfo : TeamEnterSceneInfo
     @AddedIn(GI_CB2)
-    var mpLevelEntityInfo : org.anime_game_servers.multi_proto.gi.data.scene.entity.MPLevelEntityInfo
+    var mpLevelEntityInfo : MPLevelEntityInfo
     @AddedIn(GI_1_0_0)
     var enterSceneToken : Int
 }

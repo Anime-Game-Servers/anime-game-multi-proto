@@ -42,9 +42,9 @@ interface PlayerLoginRsp {
     @AddedIn(Version.GI_0_9_0) @RemovedIn(Version.GI_1_0_0)
     var isResNeedRelogin: Boolean
     @AddedIn(Version.GI_0_9_0)
-    var resVersionConfig: org.anime_game_servers.multi_proto.gi.data.general.server.ResVersionConfig
+    var resVersionConfig: ResVersionConfig
     @AddedIn(Version.GI_0_9_0)
-    var blockInfoMap: Map<Int, org.anime_game_servers.multi_proto.gi.data.player.BlockInfo>
+    var blockInfoMap: Map<Int, BlockInfo>
     @AddedIn(Version.GI_0_9_0)
     var clientVersionSuffix: String
     @AddedIn(Version.GI_0_9_0)
@@ -52,7 +52,7 @@ interface PlayerLoginRsp {
     @AddedIn(Version.GI_0_9_0) @RemovedIn(Version.GI_1_0_0)
     var resVersionSuffix: String
     @AddedIn(Version.GI_1_0_0)
-    var shortAbilityHashMap: List<org.anime_game_servers.multi_proto.gi.data.player.ShortAbilityHashPair>
+    var shortAbilityHashMap: List<ShortAbilityHashPair>
     @AddedIn(Version.GI_1_0_0)
     var scInfo: ByteArray
     @AddedIn(Version.GI_1_0_0)
@@ -62,13 +62,13 @@ interface PlayerLoginRsp {
     @AddedIn(Version.GI_1_0_0)
     var registerCps: String
     @AddedIn(Version.GI_1_1_0)
-    var featureBlockInfoList: List<org.anime_game_servers.multi_proto.gi.data.player.FeatureBlockInfo>
+    var featureBlockInfoList: List<FeatureBlockInfo>
     @AddedIn(Version.GI_1_1_0)
     var isDataNeedRelogin: Boolean
     @AddedIn(Version.GI_1_1_0)
     var countryCode: String
     @AddedIn(Version.GI_1_2_0)
-    var nextResVersionConfig: org.anime_game_servers.multi_proto.gi.data.general.server.ResVersionConfig
+    var nextResVersionConfig: ResVersionConfig
     @AddedIn(Version.GI_1_2_0)
     var nextResourceUrl: String
     @AddedIn(Version.GI_1_5_0)

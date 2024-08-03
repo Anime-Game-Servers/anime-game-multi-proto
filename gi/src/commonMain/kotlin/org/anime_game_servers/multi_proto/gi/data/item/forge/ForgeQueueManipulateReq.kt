@@ -9,5 +9,5 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @ProtoCommand(REQUEST)
 internal interface ForgeQueueManipulateReq {
     var forgeQueueId: Int
-    var manipulateType: org.anime_game_servers.multi_proto.gi.data.item.forge.ForgeQueueManipulateType
+    var manipulateType: ForgeQueueManipulateType
 }

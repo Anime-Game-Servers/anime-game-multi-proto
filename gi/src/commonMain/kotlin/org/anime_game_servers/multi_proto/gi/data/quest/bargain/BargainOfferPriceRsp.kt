@@ -8,7 +8,7 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @AddedIn(GI_0_9_0)
 @ProtoCommand(RESPONSE)
 internal interface BargainOfferPriceRsp {
-    var bargainResult: org.anime_game_servers.multi_proto.gi.data.quest.bargain.BargainResultType
+    var bargainResult: BargainResultType
     var curMood: Int
     var resultParam: Int
     var retCode: Int

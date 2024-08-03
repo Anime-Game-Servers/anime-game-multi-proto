@@ -14,5 +14,5 @@ interface GadgetGeneralRewardInfo {
     var qualifyUidList: List<Int>
 
     @AddedIn(Version.GI_1_4_0)
-    var itemParam: org.anime_game_servers.multi_proto.gi.data.general.item.ItemParam
+    var itemParam: ItemParam
 }

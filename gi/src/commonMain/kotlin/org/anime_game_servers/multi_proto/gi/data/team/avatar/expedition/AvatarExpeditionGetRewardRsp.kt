@@ -13,7 +13,7 @@ internal interface AvatarExpeditionGetRewardRsp {
     var expeditionInfoMap: Map<Long, AvatarExpeditionInfo>
     var retcode: Int
     @AddedIn(GI_2_5_0)
-    var extraItemList: List<org.anime_game_servers.multi_proto.gi.data.general.item.ItemParam>
+    var extraItemList: List<ItemParam>
     @AddedIn(GI_2_5_0)
-    var itemList: List<org.anime_game_servers.multi_proto.gi.data.general.item.ItemParam>
+    var itemList: List<ItemParam>
 }

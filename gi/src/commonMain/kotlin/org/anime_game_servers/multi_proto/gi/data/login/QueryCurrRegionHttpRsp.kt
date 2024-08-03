@@ -9,7 +9,7 @@ import org.anime_game_servers.core.base.annotations.proto.*
 @ProtoCommand(CommandType.RESPONSE)
 interface QueryCurrRegionHttpRsp {
     var msg: String
-    var regionInfo: org.anime_game_servers.multi_proto.gi.data.general.server.RegionInfo
+    var regionInfo: RegionInfo
     var clientSecretKey: ByteArray
     var regionCustomConfigEncrypted: ByteArray
     var clientRegionCustomConfigEncrypted: ByteArray

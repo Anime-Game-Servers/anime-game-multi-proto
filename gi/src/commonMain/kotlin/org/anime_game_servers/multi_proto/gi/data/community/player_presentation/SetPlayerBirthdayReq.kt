@@ -9,5 +9,5 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @AddedIn(Version.GI_0_9_0)
 @ProtoCommand(CommandType.REQUEST)
 interface SetPlayerBirthdayReq {
-    var birthday: org.anime_game_servers.multi_proto.gi.data.community.player_presentation.Birthday
+    var birthday: Birthday
 }

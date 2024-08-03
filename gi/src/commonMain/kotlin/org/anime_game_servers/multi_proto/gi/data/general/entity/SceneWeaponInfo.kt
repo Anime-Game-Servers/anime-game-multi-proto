@@ -17,8 +17,8 @@ internal interface SceneWeaponInfo {
     var guid: Long
     var level: Int
     var promoteLevel: Int
-    var abilityInfo: org.anime_game_servers.multi_proto.gi.data.general.ability.AbilitySyncStateInfo
+    var abilityInfo: AbilitySyncStateInfo
     var affixMap: Map<Int, Int>
     @AddedIn(Version.GI_2_6_0)
-    var rendererChangedInfo: org.anime_game_servers.multi_proto.gi.data.scene.entity.EntityRendererChangedInfo
+    var rendererChangedInfo: EntityRendererChangedInfo
 }

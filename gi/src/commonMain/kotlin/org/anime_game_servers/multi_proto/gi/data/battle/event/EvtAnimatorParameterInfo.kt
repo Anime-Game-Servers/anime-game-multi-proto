@@ -11,5 +11,5 @@ internal interface EvtAnimatorParameterInfo {
     var entityId: Int
     var isServerCache: Boolean
     var nameId: Int
-    var value: org.anime_game_servers.multi_proto.gi.data.scene.entity.AnimatorParameterValueInfo
+    var value: AnimatorParameterValueInfo
 }

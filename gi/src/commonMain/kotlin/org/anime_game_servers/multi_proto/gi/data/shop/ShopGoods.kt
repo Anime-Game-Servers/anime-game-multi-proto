@@ -9,10 +9,10 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 @ProtoModel
 interface ShopGoods {
     var goodsId: Int
-    var goodsItem: org.anime_game_servers.multi_proto.gi.data.general.item.ItemParam
+    var goodsItem: ItemParam
     var scoin: Int
     var hcoin: Int
-    var costItemList: List<org.anime_game_servers.multi_proto.gi.data.general.item.ItemParam>
+    var costItemList: List<ItemParam>
     var boughtNum: Int
     var buyLimit: Int
     var beginTime: Int

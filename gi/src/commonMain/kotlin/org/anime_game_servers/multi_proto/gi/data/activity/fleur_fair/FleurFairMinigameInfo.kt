@@ -16,9 +16,9 @@ interface FleurFairMinigameInfo {
     
     @OneOf(
         types = [
-            OneOfEntry(org.anime_game_servers.multi_proto.gi.data.activity.fleur_fair.FleurFairBalloonInfo::class, "balloon_info"),
-            OneOfEntry(org.anime_game_servers.multi_proto.gi.data.activity.fleur_fair.FleurFairFallInfo::class, "fall_info"),
-            OneOfEntry(org.anime_game_servers.multi_proto.gi.data.activity.fleur_fair.FleurFairMusicGameInfo::class, "music_info"),
+            OneOfEntry(FleurFairBalloonInfo::class, "balloon_info"),
+            OneOfEntry(FleurFairFallInfo::class, "fall_info"),
+            OneOfEntry(FleurFairMusicGameInfo::class, "music_info"),
         ]
     )
     var detail: OneOfType

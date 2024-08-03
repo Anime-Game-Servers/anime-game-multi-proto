@@ -8,9 +8,9 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 @ProtoModel
 internal interface AbilitySyncStateInfo {
     var isInited: Boolean
-    var dynamicValueMap: List<org.anime_game_servers.multi_proto.gi.data.general.ability.AbilityScalarValueEntry>
-    var appliedAbilities: List<org.anime_game_servers.multi_proto.gi.data.general.ability.AbilityAppliedAbility>
-    var appliedModifiers: List<org.anime_game_servers.multi_proto.gi.data.general.ability.AbilityAppliedModifier>
-    var mixinRecoverInfos: List<org.anime_game_servers.multi_proto.gi.data.general.ability.AbilityMixinRecoverInfo>
-    var sgvDynamicValueMap: List<org.anime_game_servers.multi_proto.gi.data.general.ability.AbilityScalarValueEntry>
+    var dynamicValueMap: List<AbilityScalarValueEntry>
+    var appliedAbilities: List<AbilityAppliedAbility>
+    var appliedModifiers: List<AbilityAppliedModifier>
+    var mixinRecoverInfos: List<AbilityMixinRecoverInfo>
+    var sgvDynamicValueMap: List<AbilityScalarValueEntry>
 }

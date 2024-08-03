@@ -9,6 +9,6 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @ProtoCommand(NOTIFY)
 internal interface AbilityInvocationFailNotify {
     var entityId: Int
-    var invoke: org.anime_game_servers.multi_proto.gi.data.ability.AbilityInvokeEntry
+    var invoke: AbilityInvokeEntry
     var reason: String
 }

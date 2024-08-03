@@ -8,5 +8,5 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @AddedIn(Version.GI_0_9_0)
 @ProtoCommand(CommandType.NOTIFY)
 internal interface ActivityInfoNotify {
-    var activityInfo: org.anime_game_servers.multi_proto.gi.data.activity.ActivityInfo
+    var activityInfo: ActivityInfo
 }

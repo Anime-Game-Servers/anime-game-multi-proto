@@ -36,11 +36,11 @@ internal interface PlatformInfo {
     @AddedIn(GI_1_1_0) @RemovedIn(GI_1_3_0)
     var isUseConfigRoute: Boolean
     @AddedIn(GI_1_3_0)
-    var movingPlatformType: org.anime_game_servers.multi_proto.gi.data.scene.entity.MovingPlatformType
+    var movingPlatformType: MovingPlatformType
     @AddedIn(GI_1_2_0)
     var isActive: Boolean
     @AddedIn(GI_1_3_0)
-    var route: org.anime_game_servers.multi_proto.gi.data.scene.entity.Route
+    var route: Route
     @AddedIn(GI_1_3_0)
     var pointId: Int
 }

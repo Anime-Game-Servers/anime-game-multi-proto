@@ -9,5 +9,5 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @ProtoCommand(NOTIFY)
 internal interface FleurFairFallSettleNotify {
     var minigameId: Int
-    var settleInfoMap: Map<Int, org.anime_game_servers.multi_proto.gi.data.activity.fleur_fair.FleurFairFallSettleInfo>
+    var settleInfoMap: Map<Int, FleurFairFallSettleInfo>
 }

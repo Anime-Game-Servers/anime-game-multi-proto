@@ -9,7 +9,7 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @ProtoCommand(RESPONSE)
 interface LevelupCityRsp {
     var areaId: Int
-    var cityInfo: org.anime_game_servers.multi_proto.gi.data.scene.CityInfo
+    var cityInfo: CityInfo
     var retcode: Int
     var sceneId: Int
 }

@@ -12,9 +12,9 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @AddedIn(Version.GI_2_7_0)
 @ProtoCommand(CommandType.REQUEST)
 interface GetUgcReq {
-    var ugcType: org.anime_game_servers.multi_proto.gi.data.activity.user_generated_content.UgcType
+    var ugcType: UgcType
     var ugcGuid: Long
-    var getUgcType: org.anime_game_servers.multi_proto.gi.data.activity.user_generated_content.GetUgcType
+    var getUgcType: GetUgcType
     var isRequireBrief: Boolean
-    var ugcRecordUsage: org.anime_game_servers.multi_proto.gi.data.activity.user_generated_content.RecordUsage
+    var ugcRecordUsage: RecordUsage
 }

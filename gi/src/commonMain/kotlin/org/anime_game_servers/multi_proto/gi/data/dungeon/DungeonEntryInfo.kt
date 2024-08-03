@@ -23,5 +23,5 @@ internal interface DungeonEntryInfo {
     @AddedIn(GI_1_2_0)
     var nextRefreshTime: Int
     @AddedIn(GI_1_5_0)
-    var weeklyBossResinDiscountInfo: org.anime_game_servers.multi_proto.gi.data.scene.entity.WeeklyBossResinDiscountInfo
+    var weeklyBossResinDiscountInfo: WeeklyBossResinDiscountInfo
 }

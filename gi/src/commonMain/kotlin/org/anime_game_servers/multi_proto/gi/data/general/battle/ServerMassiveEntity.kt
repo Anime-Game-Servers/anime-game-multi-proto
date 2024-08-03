@@ -18,9 +18,9 @@ internal interface ServerMassiveEntity {
     
     @OneOf(
         types = [
-            OneOfEntry(org.anime_game_servers.multi_proto.gi.data.general.battle.MassiveBoxInfo::class, "box_info"),
-            OneOfEntry(org.anime_game_servers.multi_proto.gi.data.general.battle.MassiveGrassInfo::class, "grass_info"),
-            OneOfEntry(org.anime_game_servers.multi_proto.gi.data.general.battle.MassiveWaterInfo::class, "water_info"),
+            OneOfEntry(MassiveBoxInfo::class, "box_info"),
+            OneOfEntry(MassiveGrassInfo::class, "grass_info"),
+            OneOfEntry(MassiveWaterInfo::class, "water_info"),
         ]
     )
     var entityInfo: OneOfType

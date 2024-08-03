@@ -8,5 +8,5 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @AddedIn(Version.GI_1_1_0)
 @ProtoCommand(CommandType.NOTIFY)
 internal interface AsterMidCampInfoNotify {
-    var info: org.anime_game_servers.multi_proto.gi.data.activity.aster.AsterMidCampInfo
+    var info: AsterMidCampInfo
 }

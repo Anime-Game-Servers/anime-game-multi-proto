@@ -8,6 +8,6 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @AddedIn(Version.GI_1_2_0)
 @ProtoCommand(CommandType.RESPONSE)
 interface PullPrivateChatRsp {
-    var chatInfo: List<org.anime_game_servers.multi_proto.gi.data.community.chat.ChatInfo>
+    var chatInfo: List<ChatInfo>
     var retCode: Int
 }

@@ -9,7 +9,7 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @AddedIn(Version.GI_CB1)
 @ProtoCommand(CommandType.RESPONSE)
 internal interface GetOnlinePlayerListRsp {
-    var playerInfoList: List<org.anime_game_servers.multi_proto.gi.data.scene.entity.OnlinePlayerInfo>
+    var playerInfoList: List<OnlinePlayerInfo>
     @AddedIn(Version.GI_1_1_0)
     var param: Int
     var retCode: Int

@@ -10,7 +10,7 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @ProtoCommand(RESPONSE)
 internal interface TakeCityReputationParentQuestRsp {
     var cityId: Int
-    var itemList: List<org.anime_game_servers.multi_proto.gi.data.general.item.ItemParam>
+    var itemList: List<ItemParam>
     var parentQuestList: List<Int>
     var retCode: Int
 }

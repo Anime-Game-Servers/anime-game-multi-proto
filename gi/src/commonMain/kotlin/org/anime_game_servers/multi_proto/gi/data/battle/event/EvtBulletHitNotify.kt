@@ -14,7 +14,7 @@ internal interface EvtBulletHitNotify {
     var forwardPeer: Int
     var forwardType: org.anime_game_servers.multi_proto.gi.data.battle.ForwardType
     var hitBoxIndex: Int
-    var hitColliderType: org.anime_game_servers.multi_proto.gi.data.battle.event.HitColliderType
+    var hitColliderType: HitColliderType
     var hitEntityId: Int
     var hitNormal: Vector
     var hitPoint: Vector

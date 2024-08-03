@@ -14,5 +14,5 @@ interface EchoShellDetailInfo {
     @AddedIn(GI_2_8_0)
     var passDungeonList: List<Int>
     @AddedIn(GI_2_8_0)
-    var summerTimeDungeonList: List<org.anime_game_servers.multi_proto.gi.data.activity.echo_shell.SummerTimeDungeonInfo>
+    var summerTimeDungeonList: List<SummerTimeDungeonInfo>
 }

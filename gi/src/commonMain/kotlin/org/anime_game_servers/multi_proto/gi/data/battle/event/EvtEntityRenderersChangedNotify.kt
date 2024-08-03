@@ -12,5 +12,5 @@ internal interface EvtEntityRenderersChangedNotify {
     var entityId: Int
     var forwardType: org.anime_game_servers.multi_proto.gi.data.battle.ForwardType
     var isServerCache: Boolean
-    var rendererChangedInfo: org.anime_game_servers.multi_proto.gi.data.scene.entity.EntityRendererChangedInfo
+    var rendererChangedInfo: EntityRendererChangedInfo
 }

@@ -10,7 +10,7 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 @ProtoModel
 internal interface AbilityMixinScenePropSync {
     var deleteIdList: List<Long>
-    var massivePropList: List<org.anime_game_servers.multi_proto.gi.data.general.ability.MassivePropSyncInfo>
+    var massivePropList: List<MassivePropSyncInfo>
     @AddedIn(GI_2_0_0)
     var isClearAll: Boolean
 }

@@ -9,6 +9,6 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @ProtoCommand(CommandType.REQUEST)
 interface VehicleInteractReq {
     var entityId: Int
-    var interactType: org.anime_game_servers.multi_proto.gi.data.gadget.VehicleInteractType
+    var interactType: VehicleInteractType
     var pos: Int
 }

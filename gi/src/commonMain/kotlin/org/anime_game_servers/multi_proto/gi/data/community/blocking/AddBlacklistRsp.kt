@@ -10,5 +10,5 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @ProtoCommand(RESPONSE)
 internal interface AddBlacklistRsp {
     var retcode: Int
-    var targetFriendBrief: org.anime_game_servers.multi_proto.gi.data.community.friends.FriendBrief
+    var targetFriendBrief: FriendBrief
 }

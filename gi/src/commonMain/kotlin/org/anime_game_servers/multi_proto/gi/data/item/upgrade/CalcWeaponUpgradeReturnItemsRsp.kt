@@ -9,7 +9,7 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @AddedIn(GI_1_1_0)
 @ProtoCommand(RESPONSE)
 internal interface CalcWeaponUpgradeReturnItemsRsp {
-    var itemParamList: List<org.anime_game_servers.multi_proto.gi.data.general.item.ItemParam>
+    var itemParamList: List<ItemParam>
     var targetWeaponGuid: Long
     var retCode: Int
 }

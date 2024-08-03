@@ -10,5 +10,5 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 internal interface MPLevelEntityInfo {
     var entityId: Int
     var authorityPeerId: Int
-    var abilityInfo: org.anime_game_servers.multi_proto.gi.data.general.ability.AbilitySyncStateInfo
+    var abilityInfo: AbilitySyncStateInfo
 }

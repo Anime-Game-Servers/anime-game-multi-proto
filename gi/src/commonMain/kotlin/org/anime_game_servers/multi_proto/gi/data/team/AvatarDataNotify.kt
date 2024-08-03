@@ -13,7 +13,7 @@ import org.anime_game_servers.core.base.Version.GI_3_0_0
 @AddedIn(GI_CB2)
 @ProtoCommand(CommandType.NOTIFY)
 internal interface AvatarDataNotify {
-    var avatarList: List<org.anime_game_servers.multi_proto.gi.data.general.avatar.AvatarInfo>
+    var avatarList: List<AvatarInfo>
     var avatarTeamMap: Map<Int, AvatarTeam>
     var curAvatarTeamId: Int
     var chooseAvatarGuid: Long

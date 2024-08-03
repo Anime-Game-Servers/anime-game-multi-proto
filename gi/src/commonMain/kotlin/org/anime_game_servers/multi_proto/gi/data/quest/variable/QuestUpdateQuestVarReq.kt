@@ -11,7 +11,7 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @ProtoCommand(REQUEST)
 internal interface QuestUpdateQuestVarReq {
     var questId: Int
-    var questVarOpList: List<org.anime_game_servers.multi_proto.gi.data.quest.variable.QuestVarOp>
+    var questVarOpList: List<QuestVarOp>
     @AddedIn(GI_0_9_0)
     var parentQuestId: Int
     @AddedIn(GI_1_2_0)

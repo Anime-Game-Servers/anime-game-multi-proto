@@ -25,8 +25,8 @@ internal interface MassiveEntityElementOpBatchNotify {
     
     @OneOf(
         types = [
-            OneOfEntry(org.anime_game_servers.multi_proto.gi.data.general.battle.ShapeBox::class, "shape_box"),
-            OneOfEntry(org.anime_game_servers.multi_proto.gi.data.general.battle.ShapeSphere::class, "shape_sphere"),
+            OneOfEntry(ShapeBox::class, "shape_box"),
+            OneOfEntry(ShapeSphere::class, "shape_sphere"),
         ]
     )
     var checkShape: OneOfType

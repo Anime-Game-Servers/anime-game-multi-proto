@@ -7,5 +7,5 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 @AddedIn(GI_CB1)
 @ProtoModel
 internal interface QuestListNotify {
-    var questList: List<org.anime_game_servers.multi_proto.gi.data.quest.child.Quest>
+    var questList: List<Quest>
 }

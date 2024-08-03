@@ -17,5 +17,5 @@ internal interface PlayTeamEntityInfo {
     @RemovedIn(GI_1_2_0)
     var playId: Int
     var gadgetConfigId: Int
-    var abilityInfo: org.anime_game_servers.multi_proto.gi.data.general.ability.AbilitySyncStateInfo
+    var abilityInfo: AbilitySyncStateInfo
 }

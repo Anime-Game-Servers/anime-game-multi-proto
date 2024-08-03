@@ -8,6 +8,6 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @AddedIn(GI_3_0_0)
 @ProtoCommand(NOTIFY)
 internal interface ParentQuestInferenceDataNotify {
-    var inferencePageList: List<org.anime_game_servers.multi_proto.gi.data.quest.inference.InferencePageInfo>
+    var inferencePageList: List<InferencePageInfo>
     var parentQuestId: Int
 }

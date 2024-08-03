@@ -9,7 +9,7 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @ProtoCommand(CommandType.RESPONSE)
 internal interface GetActivityInfoRsp {
     var retcode: Int
-    var activityInfoList: List<org.anime_game_servers.multi_proto.gi.data.activity.ActivityInfo>
+    var activityInfoList: List<ActivityInfo>
     @AddedIn(Version.GI_1_2_0)
     var activatedSaleIdList: List<Int>
     //@AddedIn(Version.GI_2_1_0)

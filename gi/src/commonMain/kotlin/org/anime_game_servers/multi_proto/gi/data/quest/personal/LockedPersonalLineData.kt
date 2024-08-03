@@ -10,7 +10,7 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 @AddedIn(GI_1_0_0)
 @ProtoModel(alternativeNames = ["LockedPersonallineData"])
 internal interface LockedPersonalLineData {
-    var lockReason: org.anime_game_servers.multi_proto.gi.data.quest.personal.LockReason
+    var lockReason: LockReason
     var personalLineId: Int
     
     @OneOf(

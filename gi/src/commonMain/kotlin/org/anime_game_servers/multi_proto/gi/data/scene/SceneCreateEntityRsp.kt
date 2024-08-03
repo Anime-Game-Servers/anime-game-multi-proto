@@ -10,6 +10,6 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @ProtoCommand(CommandType.RESPONSE)
 internal interface SceneCreateEntityRsp {
     var entityId: Int
-    var entity: org.anime_game_servers.multi_proto.gi.data.general.entity.CreateEntityInfo
+    var entity: CreateEntityInfo
     var retCode: Int
 }

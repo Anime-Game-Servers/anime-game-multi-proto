@@ -9,5 +9,5 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @ProtoCommand(CommandType.NOTIFY)
 internal interface GadgetGeneralRewardInfoNotify {
     var entityId: Int
-    var generalRewardInfo: org.anime_game_servers.multi_proto.gi.data.gadget.GadgetGeneralRewardInfo
+    var generalRewardInfo: GadgetGeneralRewardInfo
 }

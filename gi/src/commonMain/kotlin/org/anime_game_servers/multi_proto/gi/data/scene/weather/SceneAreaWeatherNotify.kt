@@ -15,7 +15,7 @@ import org.anime_game_servers.core.base.Version.GI_1_0_0
 interface SceneAreaWeatherNotify {
     var weatherGadgetId : Int
     var weatherValueMap : Map<Int, String>
-    @AddedIn(Version.GI_CB2)
+    @AddedIn(GI_CB2)
     var weatherAreaId : Int
     @AddedIn(GI_CB2)
     var climateType : Int

@@ -7,10 +7,10 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 @AddedIn(Version.GI_1_1_0)
 @ProtoModel
 interface AsterActivityDetailInfo {
-    var asterLittle: org.anime_game_servers.multi_proto.gi.data.activity.aster.AsterLittleDetailInfo
-    var asterMid: org.anime_game_servers.multi_proto.gi.data.activity.aster.AsterMidDetailInfo
-    var asterLarge: org.anime_game_servers.multi_proto.gi.data.activity.aster.AsterLargeDetailInfo
-    var asterProgress: org.anime_game_servers.multi_proto.gi.data.activity.aster.AsterProgressDetailInfo
+    var asterLittle: AsterLittleDetailInfo
+    var asterMid: AsterMidDetailInfo
+    var asterLarge: AsterLargeDetailInfo
+    var asterProgress: AsterProgressDetailInfo
     var asterCredit: Int
     var asterToken: Int
     var isSpecialRewardTaken: Boolean

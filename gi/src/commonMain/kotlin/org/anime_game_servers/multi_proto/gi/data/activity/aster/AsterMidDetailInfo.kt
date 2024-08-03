@@ -8,7 +8,7 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 @ProtoModel
 interface AsterMidDetailInfo {
     var isOpen: Boolean
-    var campList: List<org.anime_game_servers.multi_proto.gi.data.activity.aster.AsterMidCampInfo>
+    var campList: List<AsterMidCampInfo>
     var collectCount: Int
     var beginTime: Int
 }

@@ -10,8 +10,8 @@ import org.anime_game_servers.core.base.annotations.proto.*
 @ProtoCommand(CommandType.RESPONSE)
 interface GetUgcBriefInfoRsp {
     var ugcGuid: Long
-    var ugcType: org.anime_game_servers.multi_proto.gi.data.activity.user_generated_content.UgcType
-    @OneOf(OneOfEntry(org.anime_game_servers.multi_proto.gi.data.activity.user_generated_content.music_game.UgcMusicBriefInfo::class, "music_brief_info"))
+    var ugcType: UgcType
+    @OneOf(OneOfEntry(UgcMusicBriefInfo::class, "music_brief_info"))
     var brief: OneOfType
     var retcode: Int
 }

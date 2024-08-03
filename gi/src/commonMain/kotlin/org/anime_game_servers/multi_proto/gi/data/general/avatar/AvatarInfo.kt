@@ -18,11 +18,11 @@ internal interface AvatarInfo {
     var fightPropMap: Map<Int, Float>
     @RemovedIn(Version.GI_0_9_0)
     var isTrialAvatar: Boolean
-    var trialAvatarInfo: org.anime_game_servers.multi_proto.gi.data.general.avatar.TrialAvatarInfo
-    var skillMap: Map<Int, org.anime_game_servers.multi_proto.gi.data.general.avatar.AvatarSkillInfo>
+    var trialAvatarInfo: TrialAvatarInfo
+    var skillMap: Map<Int, AvatarSkillInfo>
     var skillDepotId: Int
     @AddedIn(Version.GI_CB2)
-    var fetterInfo: org.anime_game_servers.multi_proto.gi.data.general.avatar.AvatarFetterInfo
+    var fetterInfo: AvatarFetterInfo
     @AddedIn(Version.GI_CB2)
     var coreProudSkillLevel: Int
     @AddedIn(Version.GI_CB2)
@@ -30,7 +30,7 @@ internal interface AvatarInfo {
     @AddedIn(Version.GI_CB2)
     var skillLevelMap: Map<Int, Int>
     @AddedIn(Version.GI_CB2)
-    var expeditionState: org.anime_game_servers.multi_proto.gi.data.general.avatar.AvatarExpeditionState
+    var expeditionState: AvatarExpeditionState
     @AddedIn(Version.GI_CB2)
     var proudSkillExtraLevelMap: Map<Int, Int>
     @AddedIn(Version.GI_CB2)
@@ -42,7 +42,7 @@ internal interface AvatarInfo {
     @AddedIn(Version.GI_1_0_0)
     var wearingFlycloakId: Int
     @AddedIn(Version.GI_1_0_0)
-    var equipAffixList: List<org.anime_game_servers.multi_proto.gi.data.general.avatar.AvatarEquipAffixInfo>
+    var equipAffixList: List<AvatarEquipAffixInfo>
     @AddedIn(Version.GI_1_1_0)
     var bornTime: Int
     @AddedIn(Version.GI_1_2_0)
@@ -50,7 +50,7 @@ internal interface AvatarInfo {
     @AddedIn(Version.GI_1_6_0)
     var costumeId: Int
     @AddedIn(Version.GI_1_6_0)
-    var excelInfo: org.anime_game_servers.multi_proto.gi.data.general.avatar.AvatarExcelInfo
+    var excelInfo: AvatarExcelInfo
     @AddedIn(Version.GI_2_1_0)
     var animHash: Int
 }

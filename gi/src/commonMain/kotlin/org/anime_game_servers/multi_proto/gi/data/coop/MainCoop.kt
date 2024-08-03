@@ -12,6 +12,6 @@ internal interface MainCoop {
     var savePointIdList: List<Int>
     var seenEndingMap: Map<Int, Int>
     var selfConfidence: Int
-    var status: org.anime_game_servers.multi_proto.gi.data.coop.Status
+    var status: Status
     var tempVarMap: Map<Int, Int>
 }

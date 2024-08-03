@@ -29,5 +29,5 @@ internal interface EvtRushMoveNotify {
     @RemovedIn(GI_0_9_0)
     var velocity: Vector
     @AddedIn(GI_0_9_0)
-    var evtRushMoveInfo: org.anime_game_servers.multi_proto.gi.data.battle.event.EvtRushMoveInfo
+    var evtRushMoveInfo: EvtRushMoveInfo
 }

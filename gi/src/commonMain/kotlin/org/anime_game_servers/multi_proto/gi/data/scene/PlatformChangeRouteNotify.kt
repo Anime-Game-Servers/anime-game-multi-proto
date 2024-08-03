@@ -13,7 +13,7 @@ import org.anime_game_servers.core.base.Version.GI_1_2_0
 @ProtoCommand(CommandType.NOTIFY)
 internal interface PlatformChangeRouteNotify {
     var entityId: Int
-    var platform: org.anime_game_servers.multi_proto.gi.data.scene.entity.PlatformInfo
+    var platform: PlatformInfo
     @AddedIn(GI_1_2_0)
     var sceneTime: Int
 }

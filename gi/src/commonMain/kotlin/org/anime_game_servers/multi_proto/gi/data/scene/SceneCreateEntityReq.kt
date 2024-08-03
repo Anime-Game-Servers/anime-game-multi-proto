@@ -10,8 +10,8 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @AddedIn(Version.GI_CB1)
 @ProtoCommand(CommandType.REQUEST)
 internal interface SceneCreateEntityReq {
-    var entity: org.anime_game_servers.multi_proto.gi.data.general.entity.CreateEntityInfo
-    var reason: org.anime_game_servers.multi_proto.gi.data.scene.entity.CreateReason
+    var entity: CreateEntityInfo
+    var reason: CreateReason
     @AddedIn(Version.GI_CB2)
     var isDestroyWhenDisconnect: Boolean
 }

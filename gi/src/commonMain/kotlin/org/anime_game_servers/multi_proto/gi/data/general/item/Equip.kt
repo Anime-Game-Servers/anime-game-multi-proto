@@ -11,8 +11,8 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 @ProtoModel
 interface Equip {
     @OneOf(
-        OneOfEntry(org.anime_game_servers.multi_proto.gi.data.general.item.Reliquary::class, "reliquary"),
-        OneOfEntry(org.anime_game_servers.multi_proto.gi.data.general.item.Weapon::class, "weapon")
+        OneOfEntry(Reliquary::class, "reliquary"),
+        OneOfEntry(Weapon::class, "weapon")
     )
     var detail: OneOfType
     @AddedIn(Version.GI_1_1_0)

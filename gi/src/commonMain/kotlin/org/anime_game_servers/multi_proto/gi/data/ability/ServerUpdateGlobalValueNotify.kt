@@ -12,7 +12,7 @@ internal interface ServerUpdateGlobalValueNotify {
     var delta: Float
     var entityId: Int
     var keyHash: Int
-    var updateType: org.anime_game_servers.multi_proto.gi.data.ability.UpdateType
+    var updateType: UpdateType
     @AddedIn(GI_1_5_0)
     var value: Float
 }

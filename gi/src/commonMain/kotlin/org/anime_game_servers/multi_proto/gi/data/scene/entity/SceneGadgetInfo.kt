@@ -31,7 +31,7 @@ internal interface SceneGadgetInfo {
     var groupId: Int
     var configId: Int
     var ownerEntityId: Int
-    var bornType: org.anime_game_servers.multi_proto.gi.data.scene.entity.GadgetBornType
+    var bornType: GadgetBornType
     var gadgetState: Int
     var gadgetType: Int
     var isShowCutscene: Boolean
@@ -44,7 +44,7 @@ internal interface SceneGadgetInfo {
     @AddedIn(GI_1_0_0)
     var propOwnerEntityId: Int
     @AddedIn(GI_1_3_0)
-    var platform: org.anime_game_servers.multi_proto.gi.data.scene.entity.PlatformInfo
+    var platform: PlatformInfo
     @AddedIn(GI_1_3_0)
     var interactUidList: List<Int>
     @AddedIn(GI_1_4_0)
@@ -52,32 +52,32 @@ internal interface SceneGadgetInfo {
     @AddedIn(GI_1_4_0)
     var gadgetTalkState: Int
     @AddedIn(GI_0_9_0)
-    var playInfo: org.anime_game_servers.multi_proto.gi.data.scene.entity.GadgetPlayInfo
+    var playInfo: GadgetPlayInfo
 
     @OneOf(
-        OneOfEntry(org.anime_game_servers.multi_proto.gi.data.general.item.Item::class, "trifle_item"),
+        OneOfEntry(Item::class, "trifle_item"),
         OneOfEntry(Int::class, "item_id", removedIn = GI_CB2),
-        OneOfEntry(org.anime_game_servers.multi_proto.gi.data.scene.entity.GatherGadgetInfo::class, "gather_gadget", addedIn = GI_CB2),
-        OneOfEntry(org.anime_game_servers.multi_proto.gi.data.scene.entity.WorktopInfo::class, "worktop"),
-        OneOfEntry(org.anime_game_servers.multi_proto.gi.data.scene.entity.ClientGadgetInfo::class, "client_gadget"),
-        OneOfEntry(org.anime_game_servers.multi_proto.gi.data.scene.entity.PlatformInfo::class, "item_id", removedIn = GI_1_3_0),
-        OneOfEntry(org.anime_game_servers.multi_proto.gi.data.scene.entity.WeatherInfo::class, "weather"),
-        OneOfEntry(org.anime_game_servers.multi_proto.gi.data.scene.entity.AbilityGadgetInfo::class, "ability_gadget"),
-        OneOfEntry(org.anime_game_servers.multi_proto.gi.data.scene.entity.StatueGadgetInfo::class, "statue_gadget", addedIn = GI_CB2),
-        OneOfEntry(org.anime_game_servers.multi_proto.gi.data.scene.entity.BossChestInfo::class, "boss_chest", addedIn = GI_0_9_0),
+        OneOfEntry(GatherGadgetInfo::class, "gather_gadget", addedIn = GI_CB2),
+        OneOfEntry(WorktopInfo::class, "worktop"),
+        OneOfEntry(ClientGadgetInfo::class, "client_gadget"),
+        OneOfEntry(PlatformInfo::class, "item_id", removedIn = GI_1_3_0),
+        OneOfEntry(WeatherInfo::class, "weather"),
+        OneOfEntry(AbilityGadgetInfo::class, "ability_gadget"),
+        OneOfEntry(StatueGadgetInfo::class, "statue_gadget", addedIn = GI_CB2),
+        OneOfEntry(BossChestInfo::class, "boss_chest", addedIn = GI_0_9_0),
         OneOfEntry(org.anime_game_servers.multi_proto.gi.data.gadget.BlossomChestInfo::class, "blossom_chest", addedIn = GI_0_9_0),
-        OneOfEntry(org.anime_game_servers.multi_proto.gi.data.scene.entity.MpPlayRewardInfo::class, "mp_play_reward", addedIn = GI_0_9_0),
+        OneOfEntry(MpPlayRewardInfo::class, "mp_play_reward", addedIn = GI_0_9_0),
         OneOfEntry(org.anime_game_servers.multi_proto.gi.data.gadget.GadgetGeneralRewardInfo::class, "general_reward", addedIn = GI_1_1_0),
-        OneOfEntry(org.anime_game_servers.multi_proto.gi.data.scene.entity.OfferingInfo::class, "offering_info", addedIn = GI_1_2_0),
+        OneOfEntry(OfferingInfo::class, "offering_info", addedIn = GI_1_2_0),
         OneOfEntry(org.anime_game_servers.multi_proto.gi.data.gadget.FoundationInfo::class, "foundation_info", addedIn = GI_1_3_0),
-        OneOfEntry(org.anime_game_servers.multi_proto.gi.data.general.vehicle.VehicleInfo::class, "vehicle_info", addedIn = GI_1_6_0),
+        OneOfEntry(VehicleInfo::class, "vehicle_info", addedIn = GI_1_6_0),
         OneOfEntry(org.anime_game_servers.multi_proto.gi.data.activity.echo_shell.EchoShellInfo::class, "shell_info", addedIn = GI_1_6_0),
-        OneOfEntry(org.anime_game_servers.multi_proto.gi.data.scene.entity.ScreenInfo::class, "screen_info", addedIn = GI_2_0_0),
-        OneOfEntry(org.anime_game_servers.multi_proto.gi.data.scene.entity.FishPoolInfo::class, "custom_gadget_tree_info", addedIn = GI_2_1_0),
+        OneOfEntry(ScreenInfo::class, "screen_info", addedIn = GI_2_0_0),
+        OneOfEntry(FishPoolInfo::class, "custom_gadget_tree_info", addedIn = GI_2_1_0),
         OneOfEntry(CustomGadgetTreeInfo::class, "custom_gadget_tree_info", addedIn = GI_2_2_0),
-        OneOfEntry(org.anime_game_servers.multi_proto.gi.data.scene.entity.RoguelikeGadgetInfo::class, "roguelike_gadget_info", addedIn = GI_2_2_0),
-        OneOfEntry(org.anime_game_servers.multi_proto.gi.data.scene.entity.NightCrowGadgetInfo::class, "night_crow_gadget_info", addedIn = GI_2_8_0),
-        OneOfEntry(org.anime_game_servers.multi_proto.gi.data.scene.entity.DeshretObeliskGadgetInfo::class, "deshret_obelisk_gadget_info", addedIn = GI_3_8_0),
+        OneOfEntry(RoguelikeGadgetInfo::class, "roguelike_gadget_info", addedIn = GI_2_2_0),
+        OneOfEntry(NightCrowGadgetInfo::class, "night_crow_gadget_info", addedIn = GI_2_8_0),
+        OneOfEntry(DeshretObeliskGadgetInfo::class, "deshret_obelisk_gadget_info", addedIn = GI_3_8_0),
     )
     var content: OneOfType
 }

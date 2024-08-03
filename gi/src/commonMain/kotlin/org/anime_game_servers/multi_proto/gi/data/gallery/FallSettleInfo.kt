@@ -12,6 +12,6 @@ internal interface FallSettleInfo {
     var catchCount: Int
     var flowerRingCatchCountMap: Map<Int, Int>
     var finalScore: Int
-    var playerInfo: org.anime_game_servers.multi_proto.gi.data.scene.entity.OnlinePlayerInfo
+    var playerInfo: OnlinePlayerInfo
     var remainTime: Int
 }

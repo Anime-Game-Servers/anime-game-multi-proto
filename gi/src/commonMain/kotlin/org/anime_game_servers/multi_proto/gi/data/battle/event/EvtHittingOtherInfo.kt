@@ -7,6 +7,6 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 @AddedIn(GI_0_9_0)
 @ProtoModel
 internal interface EvtHittingOtherInfo {
-    var attackResult: org.anime_game_servers.multi_proto.gi.data.battle.event.AttackResult
+    var attackResult: AttackResult
     var peerId: Int
 }

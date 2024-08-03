@@ -44,7 +44,7 @@ interface RegionInfo {
     @AddedIn(Version.GI_0_9_0) @RemovedIn(Version.GI_1_0_0)
     var resMd5: String
     @AddedIn(Version.GI_0_9_0)
-    var resVersionConfig: org.anime_game_servers.multi_proto.gi.data.general.server.ResVersionConfig
+    var resVersionConfig: ResVersionConfig
     @AddedIn(Version.GI_0_9_0)
     var secretKey: ByteArray
     @AddedIn(Version.GI_0_9_0)
@@ -70,7 +70,7 @@ interface RegionInfo {
     @AddedIn(Version.GI_1_2_0)
     var nextResourceUrl: String
     @AddedIn(Version.GI_1_2_0)
-    var nextResVersionConfig: org.anime_game_servers.multi_proto.gi.data.general.server.ResVersionConfig
+    var nextResVersionConfig: ResVersionConfig
     @AddedIn(Version.GI_3_2_0)
     var gameBiz: String
 }

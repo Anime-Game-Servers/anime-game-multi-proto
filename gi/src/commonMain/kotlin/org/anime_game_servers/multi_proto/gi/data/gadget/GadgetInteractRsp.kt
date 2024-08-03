@@ -9,8 +9,8 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @ProtoCommand(CommandType.RESPONSE)
 interface GadgetInteractRsp {
     var gadgetEntityId: Int
-    var interactType: org.anime_game_servers.multi_proto.gi.data.gadget.InteractType
-    var opType: org.anime_game_servers.multi_proto.gi.data.gadget.InterOpType
+    var interactType: InteractType
+    var opType: InterOpType
     var gadgetId: Int
     var retCode: Int
 }

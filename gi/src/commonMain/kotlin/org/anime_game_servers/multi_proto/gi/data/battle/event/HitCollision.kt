@@ -10,7 +10,7 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 @ProtoModel
 internal interface HitCollision {
     var hitBoxIndex: Int
-    var hitColliderType: org.anime_game_servers.multi_proto.gi.data.battle.event.HitColliderType
+    var hitColliderType: HitColliderType
     var hitDir: Vector
     var hitPoint: Vector
     @AddedIn(GI_1_4_0)

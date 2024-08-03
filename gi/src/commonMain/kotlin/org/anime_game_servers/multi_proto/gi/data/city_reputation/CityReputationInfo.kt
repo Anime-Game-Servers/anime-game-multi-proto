@@ -8,12 +8,12 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 @ProtoModel
 internal interface CityReputationInfo {
     var exp: Int
-    var exploreInfo: org.anime_game_servers.multi_proto.gi.data.city_reputation.CityReputationExploreInfo
-    var huntInfo: org.anime_game_servers.multi_proto.gi.data.city_reputation.CityReputationHuntInfo
+    var exploreInfo: CityReputationExploreInfo
+    var huntInfo: CityReputationHuntInfo
     var level: Int
     var nextRefreshTime: Int
-    var questInfo: org.anime_game_servers.multi_proto.gi.data.city_reputation.CityReputationQuestInfo
-    var requestInfo: org.anime_game_servers.multi_proto.gi.data.city_reputation.CityReputationRequestInfo
+    var questInfo: CityReputationQuestInfo
+    var requestInfo: CityReputationRequestInfo
     var takenLevelRewardList: List<Int>
     var totalAcceptRequestNum: Int
 }

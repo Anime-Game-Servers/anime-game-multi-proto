@@ -23,7 +23,7 @@ internal interface FriendBrief {
     var avatarId: Int
     var worldLevel: Int
     var signature: String
-    var onlineState: org.anime_game_servers.multi_proto.gi.data.community.friends.FriendOnlineState
+    var onlineState: FriendOnlineState
     var param: Int
     var isMpModeAvailable: Boolean
     var onlineId: String
@@ -41,7 +41,7 @@ internal interface FriendBrief {
     @AddedIn(GI_1_3_0)
     var showAvatarInfoList: List<org.anime_game_servers.multi_proto.gi.data.community.SocialShowAvatarInfo>
     @AddedIn(GI_1_5_0)
-    var friendEnterHomeOption: org.anime_game_servers.multi_proto.gi.data.community.friends.FriendEnterHomeOption
+    var friendEnterHomeOption: FriendEnterHomeOption
     @AddedIn(GI_1_6_0)
     var profilePicture: ProfilePicture
     @AddedIn(GI_2_0_0)

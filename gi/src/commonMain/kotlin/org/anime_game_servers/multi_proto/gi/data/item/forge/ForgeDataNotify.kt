@@ -11,7 +11,7 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 internal interface ForgeDataNotify {
     var forgeIdList: List<Int>
     @AddedIn(GI_1_2_0)
-    var forgeQueueMap: Map<Int, org.anime_game_servers.multi_proto.gi.data.item.forge.ForgeQueueData>
+    var forgeQueueMap: Map<Int, ForgeQueueData>
     @AddedIn(GI_1_2_0)
     var maxQueueNum: Int
 }

@@ -19,11 +19,11 @@ internal interface AbilityInvocationFixedNotify {
     @RemovedIn(GI_0_9_0)
     var forwardPeers: List<Int>
     @RemovedIn(GI_0_9_0)
-    var forwardType: org.anime_game_servers.multi_proto.gi.data.battle.ForwardType
-    var invoke1st: org.anime_game_servers.multi_proto.gi.data.ability.AbilityInvokeEntry
-    var invoke2nd: org.anime_game_servers.multi_proto.gi.data.ability.AbilityInvokeEntry
-    var invoke3rd: org.anime_game_servers.multi_proto.gi.data.ability.AbilityInvokeEntry
-    var invoke4th: org.anime_game_servers.multi_proto.gi.data.ability.AbilityInvokeEntry
-    var invoke5th: org.anime_game_servers.multi_proto.gi.data.ability.AbilityInvokeEntry
-    var invoke6th: org.anime_game_servers.multi_proto.gi.data.ability.AbilityInvokeEntry
+    var forwardType: ForwardType
+    var invoke1st: AbilityInvokeEntry
+    var invoke2nd: AbilityInvokeEntry
+    var invoke3rd: AbilityInvokeEntry
+    var invoke4th: AbilityInvokeEntry
+    var invoke5th: AbilityInvokeEntry
+    var invoke6th: AbilityInvokeEntry
 }

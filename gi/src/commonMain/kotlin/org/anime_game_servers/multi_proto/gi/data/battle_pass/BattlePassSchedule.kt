@@ -10,16 +10,16 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 @ProtoModel
 internal interface BattlePassSchedule {
     var beginTime: Int
-    var curCycle: org.anime_game_servers.multi_proto.gi.data.battle_pass.BattlePassCycle
+    var curCycle: BattlePassCycle
     var endTime: Int
     var isExtraPaidRewardTaken: Boolean
     var isViewed: Boolean
     var level: Int
     var point: Int
-    var productInfo: org.anime_game_servers.multi_proto.gi.data.battle_pass.BattlePassProduct
-    var rewardTakenList: List<org.anime_game_servers.multi_proto.gi.data.battle_pass.BattlePassRewardTag>
+    var productInfo: BattlePassProduct
+    var rewardTakenList: List<BattlePassRewardTag>
     var scheduleId: Int
-    var unlockStatus: org.anime_game_servers.multi_proto.gi.data.battle_pass.BattlePassUnlockStatus
+    var unlockStatus: BattlePassUnlockStatus
     @AddedIn(GI_1_0_0)
     var curCyclePoints: Int
     @AddedIn(GI_2_4_0)

@@ -10,7 +10,7 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @ProtoCommand(CommandType.RESPONSE)
 interface VehicleInteractRsp {
     var entityId: Int
-    var interactType: org.anime_game_servers.multi_proto.gi.data.gadget.VehicleInteractType
-    var member: org.anime_game_servers.multi_proto.gi.data.general.vehicle.VehicleMember
+    var interactType: VehicleInteractType
+    var member: VehicleMember
     var retCode: Int
 }

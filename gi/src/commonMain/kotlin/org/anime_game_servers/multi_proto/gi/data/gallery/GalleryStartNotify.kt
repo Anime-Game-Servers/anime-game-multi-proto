@@ -17,7 +17,7 @@ internal interface GalleryStartNotify {
     var startTime: Int
 
     @OneOf(types = [
-        OneOfEntry(org.anime_game_servers.multi_proto.gi.data.gallery.GalleryFlowerStartParam::class, "flower")
+        OneOfEntry(GalleryFlowerStartParam::class, "flower")
     ])
     var detail: OneOfType
 }

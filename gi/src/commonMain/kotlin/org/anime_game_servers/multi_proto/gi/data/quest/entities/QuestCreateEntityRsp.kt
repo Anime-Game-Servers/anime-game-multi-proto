@@ -10,7 +10,7 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @ProtoCommand(CommandType.RESPONSE)
 internal interface QuestCreateEntityRsp {
     var entityId: Int
-    var entity: org.anime_game_servers.multi_proto.gi.data.general.entity.CreateEntityInfo
+    var entity: CreateEntityInfo
     var questId: Int
     var isRewind: Boolean
     @AddedIn(Version.GI_0_9_0)

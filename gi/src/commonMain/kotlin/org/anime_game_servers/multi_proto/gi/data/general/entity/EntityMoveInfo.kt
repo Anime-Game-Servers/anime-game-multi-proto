@@ -9,7 +9,7 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 @ProtoModel
 internal interface EntityMoveInfo {
     var entityId: Int
-    var motionInfo: org.anime_game_servers.multi_proto.gi.data.scene.entity.MotionInfo
+    var motionInfo: MotionInfo
     var sceneTime: Int
     var reliableSeq: Int
     var isReliable: Boolean

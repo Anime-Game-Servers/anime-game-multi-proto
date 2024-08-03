@@ -9,7 +9,7 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 @ProtoModel
 interface CrucibleActivityDetailInfo {
     var costTime : Int
-    var uidInfoList: List<org.anime_game_servers.multi_proto.gi.data.activity.crucible.CrucibleBattleUidInfo>
+    var uidInfoList: List<CrucibleBattleUidInfo>
     var pos: Vector
     @AddedIn(Version.GI_1_0_0)
     var battleWorldLevel: Int

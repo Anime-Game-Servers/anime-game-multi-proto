@@ -13,6 +13,6 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @ProtoCommand(CommandType.RESPONSE)
 interface SaveUgcRsp {
     var ugcGuid: Long
-    var ugcType: org.anime_game_servers.multi_proto.gi.data.activity.user_generated_content.UgcType
+    var ugcType: UgcType
     var retcode: Int
 }

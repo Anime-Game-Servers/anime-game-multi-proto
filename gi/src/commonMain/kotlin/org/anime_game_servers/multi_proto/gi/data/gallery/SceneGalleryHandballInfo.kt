@@ -8,5 +8,5 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 @ProtoModel
 internal interface SceneGalleryHandballInfo {
     var isHaveBall: Boolean
-    var ballPlaceInfo: org.anime_game_servers.multi_proto.gi.data.gallery.PlaceInfo
+    var ballPlaceInfo: PlaceInfo
 }

@@ -10,7 +10,7 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @ProtoCommand(REQUEST)
 internal interface PlayerReportReq {
     var content: String
-    var reason: org.anime_game_servers.multi_proto.gi.data.community.administration.ReportReasonType
+    var reason: ReportReasonType
     var targetUid: Int
     @AddedIn(GI_1_5_0)
     var targetHomeModuleId: Int

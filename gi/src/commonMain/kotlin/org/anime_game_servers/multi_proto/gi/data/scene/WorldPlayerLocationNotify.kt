@@ -11,7 +11,7 @@ import org.anime_game_servers.core.base.Version.GI_1_6_0
 @AddedIn(GI_CB2)
 @ProtoCommand(CommandType.NOTIFY)
 internal interface WorldPlayerLocationNotify {
-    var playerLocList: List<org.anime_game_servers.multi_proto.gi.data.scene.PlayerLocationInfo>
+    var playerLocList: List<PlayerLocationInfo>
     @AddedIn(GI_1_6_0)
-    var playerWorldLocList: List<org.anime_game_servers.multi_proto.gi.data.scene.PlayerWorldLocationInfo>
+    var playerWorldLocList: List<PlayerWorldLocationInfo>
 }

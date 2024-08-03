@@ -12,5 +12,5 @@ internal interface BalloonSettleInfo {
     var shootCount: Int
     var maxCombo: Int
     var finalScore: Int
-    var playerInfo: org.anime_game_servers.multi_proto.gi.data.scene.entity.OnlinePlayerInfo
+    var playerInfo: OnlinePlayerInfo
 }

@@ -14,9 +14,9 @@ internal interface WindSeedClientNotify {
     
     @OneOf(
         types = [
-            OneOfEntry(org.anime_game_servers.multi_proto.gi.data.ability.AddWindBulletNotify::class, "add_wind_bullet_notify"),
-            OneOfEntry(org.anime_game_servers.multi_proto.gi.data.ability.AreaNotify::class, "area_notify"),
-            OneOfEntry(org.anime_game_servers.multi_proto.gi.data.ability.RefreshNotify::class, "refresh_notify"),
+            OneOfEntry(AddWindBulletNotify::class, "add_wind_bullet_notify"),
+            OneOfEntry(AreaNotify::class, "area_notify"),
+            OneOfEntry(RefreshNotify::class, "refresh_notify"),
         ]
     )
     var notify: OneOfType

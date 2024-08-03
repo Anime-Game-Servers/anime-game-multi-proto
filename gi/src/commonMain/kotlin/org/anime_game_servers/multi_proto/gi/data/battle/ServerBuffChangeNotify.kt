@@ -11,8 +11,8 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @ProtoCommand(NOTIFY)
 internal interface ServerBuffChangeNotify {
     var avatarGuidList: List<Long>
-    var serverBuffChangeType: org.anime_game_servers.multi_proto.gi.data.battle.ServerBuffChangeType
-    var serverBuffList: List<org.anime_game_servers.multi_proto.gi.data.general.ability.ServerBuff>
+    var serverBuffChangeType: ServerBuffChangeType
+    var serverBuffList: List<ServerBuff>
     @AddedIn(GI_2_2_0)
     var entityIdList: List<Int>
     @AddedIn(GI_2_2_0)

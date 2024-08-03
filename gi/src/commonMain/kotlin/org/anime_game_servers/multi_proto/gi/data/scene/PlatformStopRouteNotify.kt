@@ -15,5 +15,5 @@ internal interface PlatformStopRouteNotify {
     var entityId: Int
     var sceneTime: Int
     @AddedIn(GI_1_0_0)
-    var platform: org.anime_game_servers.multi_proto.gi.data.scene.entity.PlatformInfo
+    var platform: PlatformInfo
 }

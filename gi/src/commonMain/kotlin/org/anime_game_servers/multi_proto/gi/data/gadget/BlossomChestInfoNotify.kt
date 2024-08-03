@@ -9,5 +9,5 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @ProtoCommand(CommandType.NOTIFY)
 internal interface BlossomChestInfoNotify {
     var entityId: Int
-    var blossomChestInfo: org.anime_game_servers.multi_proto.gi.data.gadget.BlossomChestInfo
+    var blossomChestInfo: BlossomChestInfo
 }

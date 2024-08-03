@@ -8,5 +8,5 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 @ProtoModel
 internal interface CityReputationRequestInfo {
     var isOpen: Boolean
-    var requestInfoList: List<org.anime_game_servers.multi_proto.gi.data.city_reputation.RequestInfo>
+    var requestInfoList: List<RequestInfo>
 }

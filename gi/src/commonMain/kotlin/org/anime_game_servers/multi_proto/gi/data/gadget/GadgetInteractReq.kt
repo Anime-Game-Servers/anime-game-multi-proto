@@ -10,13 +10,13 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 interface GadgetInteractReq {
     var gadgetEntityId: Int
     var gadgetId: Int
-    var opType: org.anime_game_servers.multi_proto.gi.data.gadget.InterOpType
+    var opType: InterOpType
 
     @AddedIn(Version.GI_1_1_0)
     var isUseCondenseResin: Boolean
 
     @AddedIn(Version.GI_1_2_0)
-    var resinCostType: org.anime_game_servers.multi_proto.gi.data.gadget.ResinCostType
+    var resinCostType: ResinCostType
 
     @AddedIn(Version.GI_2_5_0)
     var uiInteractId: Int

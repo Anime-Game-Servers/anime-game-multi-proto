@@ -9,5 +9,5 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @ProtoCommand(NOTIFY)
 internal interface BargainStartNotify {
     var bargainId: Int
-    var snapshot: org.anime_game_servers.multi_proto.gi.data.quest.bargain.BargainSnapshot
+    var snapshot: BargainSnapshot
 }

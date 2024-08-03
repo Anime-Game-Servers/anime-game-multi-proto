@@ -13,11 +13,11 @@ import org.anime_game_servers.core.base.Version.GI_0_9_0
 internal interface AvatarEnterSceneInfo {
     var avatarGuid: Long
     var avatarEntityId: Int
-    var avatarAbilityInfo: org.anime_game_servers.multi_proto.gi.data.general.ability.AbilitySyncStateInfo
+    var avatarAbilityInfo: AbilitySyncStateInfo
     var buffIdList: List<Int>
     var weaponGuid: Long
     var weaponEntityId: Int
-    var weaponAbilityInfo: org.anime_game_servers.multi_proto.gi.data.general.ability.AbilitySyncStateInfo
+    var weaponAbilityInfo: AbilitySyncStateInfo
     @AddedIn(GI_0_9_0)
-    var serverBuffList: List<org.anime_game_servers.multi_proto.gi.data.general.ability.ServerBuff>
+    var serverBuffList: List<ServerBuff>
 }

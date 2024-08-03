@@ -11,5 +11,5 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @RemovedIn(GI_0_9_0)
 @ProtoCommand(CLIENT)
 internal interface ElementReactionLogNotify {
-    var logList: List<org.anime_game_servers.multi_proto.gi.data.ability.ElementReactionLog>
+    var logList: List<ElementReactionLog>
 }

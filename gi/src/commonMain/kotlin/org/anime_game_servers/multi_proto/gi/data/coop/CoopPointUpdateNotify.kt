@@ -8,5 +8,5 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @AddedIn(GI_1_4_0)
 @ProtoCommand(NOTIFY)
 internal interface CoopPointUpdateNotify {
-    var coopPoint: org.anime_game_servers.multi_proto.gi.data.coop.CoopPoint
+    var coopPoint: CoopPoint
 }

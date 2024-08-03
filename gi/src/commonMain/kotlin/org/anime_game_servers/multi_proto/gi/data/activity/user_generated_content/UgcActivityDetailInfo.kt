@@ -11,5 +11,5 @@ interface UgcActivityDetailInfo {
     var isUgcFeaturesClosed: Boolean
     var customDungeonGroupId: Int
     var isEnableUgc: Boolean
-    var officialCustomDungeonList: List<org.anime_game_servers.multi_proto.gi.data.activity.user_generated_content.dungeon.OfficialCustomDungeon>
+    var officialCustomDungeonList: List<OfficialCustomDungeon>
 }

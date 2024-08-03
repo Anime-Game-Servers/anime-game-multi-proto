@@ -8,5 +8,5 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @AddedIn(Version.GI_3_0_0)
 @ProtoCommand(CommandType.NOTIFY)
 internal interface DeshretObeliskChestInfoNotify {
-    var chestInfoList: List<org.anime_game_servers.multi_proto.gi.data.gadget.DeshretObeliskChestInfo>
+    var chestInfoList: List<DeshretObeliskChestInfo>
 }

@@ -51,7 +51,7 @@ interface PlayerLoginReq {
     @AddedIn(Version.GI_1_0_0)
     var tag: Int
     @AddedIn(Version.GI_1_1_0)
-    var trackingIoInfo: org.anime_game_servers.multi_proto.gi.data.player.TrackingIOInfo
+    var trackingIoInfo: TrackingIOInfo
     @AddedIn(Version.GI_1_1_0)
     var countryCode: String
     @AddedIn(Version.GI_1_2_0)
@@ -71,7 +71,7 @@ interface PlayerLoginReq {
     @AddedIn(Version.GI_2_0_0)
     var targetHomeParam: Int
     @AddedIn(Version.GI_2_1_0)
-    var adjustTrackingInfo: org.anime_game_servers.multi_proto.gi.data.player.AdjustTrackingInfo
+    var adjustTrackingInfo: AdjustTrackingInfo
     @AddedIn(Version.GI_2_3_0)
     var birthday: String
     @AddedIn(Version.GI_2_6_0)

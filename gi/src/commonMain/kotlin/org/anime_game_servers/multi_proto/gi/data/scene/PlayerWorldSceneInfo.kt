@@ -10,5 +10,5 @@ internal interface PlayerWorldSceneInfo {
     var sceneId: Int
     var isLocked: Boolean
     var sceneTagIdList: List<Int>
-    var mapLayerInfo: org.anime_game_servers.multi_proto.gi.data.scene.MapLayerInfo
+    var mapLayerInfo: MapLayerInfo
 }

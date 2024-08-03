@@ -11,7 +11,7 @@ internal interface PersonalLineAllDataRsp {
     var canBeUnlockedPersonalLineList: List<Int>
     var curFinishedDailyTaskCount: Int
     var legendaryKeyCount: Int
-    var lockedPersonalLineList: List<org.anime_game_servers.multi_proto.gi.data.quest.personal.LockedPersonalLineData>
+    var lockedPersonalLineList: List<LockedPersonalLineData>
     var ongoingPersonalLineList: List<Int>
     var retCode: Int
 }

@@ -11,5 +11,5 @@ internal interface StartCoopPointRsp {
     var coopPoint: Int
     var isStart: Boolean
     var retcode: Int
-    var startMainCoop: org.anime_game_servers.multi_proto.gi.data.coop.MainCoop
+    var startMainCoop: MainCoop
 }

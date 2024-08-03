@@ -17,5 +17,5 @@ internal interface ScenePlayerInfo {
     @AddedIn(GI_CB2)
     var sceneId: Int
     @AddedIn(GI_CB2)
-    var onlinePlayerInfo: org.anime_game_servers.multi_proto.gi.data.scene.entity.OnlinePlayerInfo
+    var onlinePlayerInfo: OnlinePlayerInfo
 }

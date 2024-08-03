@@ -9,7 +9,7 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 internal interface BattlePassMission {
     var curProgress: Int
     var missionId: Int
-    var missionStatus: org.anime_game_servers.multi_proto.gi.data.battle_pass.MissionStatus
+    var missionStatus: MissionStatus
     var missionType: Int
     var rewardBattlePassPoint: Int
     var totalProgress: Int

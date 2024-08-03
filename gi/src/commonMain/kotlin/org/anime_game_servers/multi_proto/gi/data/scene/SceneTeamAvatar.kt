@@ -20,24 +20,24 @@ internal interface SceneTeamAvatar {
     var avatarGuid: Long
     var sceneId: Int
     var entityId: Int
-    var avatarInfo: org.anime_game_servers.multi_proto.gi.data.general.avatar.AvatarInfo
-    var sceneAvatarInfo: org.anime_game_servers.multi_proto.gi.data.scene.entity.SceneAvatarInfo
+    var avatarInfo: AvatarInfo
+    var sceneAvatarInfo: SceneAvatarInfo
     @AddedIn(GI_1_0_0)
-    var avatarAbilityInfo: org.anime_game_servers.multi_proto.gi.data.general.ability.AbilitySyncStateInfo
+    var avatarAbilityInfo: AbilitySyncStateInfo
     @AddedIn(GI_1_0_0)
-    var serverBuffList: List<org.anime_game_servers.multi_proto.gi.data.general.ability.ServerBuff>
+    var serverBuffList: List<ServerBuff>
     @AddedIn(GI_1_0_0)
     var weaponGuid: Long
     @AddedIn(GI_1_0_0)
     var weaponEntityId: Int
     @AddedIn(GI_1_0_0)
-    var weaponAbilityInfo: org.anime_game_servers.multi_proto.gi.data.general.ability.AbilitySyncStateInfo
+    var weaponAbilityInfo: AbilitySyncStateInfo
     @AddedIn(GI_1_0_0)
-    var abilityControlBlock: org.anime_game_servers.multi_proto.gi.data.general.ability.AbilityControlBlock
+    var abilityControlBlock: AbilityControlBlock
     @AddedIn(GI_1_0_0)
     var isReconnect: Boolean
     @AddedIn(GI_1_1_0)
-    var sceneEntityInfo: org.anime_game_servers.multi_proto.gi.data.scene.entity.SceneEntityInfo
+    var sceneEntityInfo: SceneEntityInfo
     @AddedIn(GI_1_1_0)
     var isOnScene: Boolean
     @AddedIn(GI_1_1_0)

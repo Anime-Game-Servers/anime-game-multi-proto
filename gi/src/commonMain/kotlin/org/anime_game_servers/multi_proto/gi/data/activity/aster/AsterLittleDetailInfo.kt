@@ -9,7 +9,7 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 interface AsterLittleDetailInfo {
     var isOpen: Boolean
     var stageId: Int
-    var stageState: org.anime_game_servers.multi_proto.gi.data.activity.aster.AsterLittleStageState
+    var stageState: AsterLittleStageState
     var beginTime: Int
     var stageBeginTime: Int
 }

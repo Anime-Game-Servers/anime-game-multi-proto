@@ -9,5 +9,5 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 internal interface BattlePassRewardTag {
     var level: Int
     var rewardId: Int
-    var unlockStatus: org.anime_game_servers.multi_proto.gi.data.battle_pass.BattlePassUnlockStatus
+    var unlockStatus: BattlePassUnlockStatus
 }

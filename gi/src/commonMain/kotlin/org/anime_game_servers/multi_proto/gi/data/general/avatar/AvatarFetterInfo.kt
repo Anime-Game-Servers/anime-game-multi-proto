@@ -17,5 +17,5 @@ internal interface AvatarFetterInfo {
     @AddedIn(Version.GI_1_0_0)
     var rewardedFetterLevelList: List<Int>
     @AddedIn(Version.GI_1_0_0)
-    var fetterList: List<org.anime_game_servers.multi_proto.gi.data.general.avatar.FetterData>
+    var fetterList: List<FetterData>
 }

@@ -10,8 +10,8 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @AddedIn(Version.GI_CB2)
 @ProtoCommand(CommandType.NOTIFY)
 internal interface SceneTeamUpdateNotify {
-    var sceneTeamAvatarList : List<org.anime_game_servers.multi_proto.gi.data.scene.SceneTeamAvatar>
+    var sceneTeamAvatarList : List<SceneTeamAvatar>
     var isInMp : Boolean
     @RemovedIn(Version.GI_1_0_0)
-    var displayCurAvatarList : List<org.anime_game_servers.multi_proto.gi.data.scene.MPDisplayCurAvatar>
+    var displayCurAvatarList : List<MPDisplayCurAvatar>
 }

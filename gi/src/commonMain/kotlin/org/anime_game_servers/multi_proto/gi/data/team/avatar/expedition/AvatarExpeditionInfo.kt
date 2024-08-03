@@ -12,7 +12,7 @@ internal interface AvatarExpeditionInfo {
     var expId: Int
     var hourTime: Int
     var startTime: Int
-    var state: org.anime_game_servers.multi_proto.gi.data.general.avatar.AvatarExpeditionState
+    var state: AvatarExpeditionState
     @AddedIn(GI_1_0_0)
     var shortenRatio: Float
 }

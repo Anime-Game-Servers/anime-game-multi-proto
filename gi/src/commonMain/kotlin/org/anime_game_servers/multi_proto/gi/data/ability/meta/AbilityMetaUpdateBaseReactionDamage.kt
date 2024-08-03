@@ -9,9 +9,9 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 @AddedIn(GI_1_4_0)
 @ProtoModel
 internal interface AbilityMetaUpdateBaseReactionDamage {
-    var globalValueKey: org.anime_game_servers.multi_proto.gi.data.general.ability.AbilityString
+    var globalValueKey: AbilityString
     var reactionType: Int
     var sourceCasterId: Int
     @AddedIn(GI_3_2_0)
-    var abilityName: org.anime_game_servers.multi_proto.gi.data.general.ability.AbilityString
+    var abilityName: AbilityString
 }

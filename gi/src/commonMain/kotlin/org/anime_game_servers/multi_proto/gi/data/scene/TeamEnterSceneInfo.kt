@@ -12,7 +12,7 @@ import org.anime_game_servers.core.base.Version.GI_1_6_0
 @ProtoModel
 internal interface TeamEnterSceneInfo {
     var teamEntityId: Int
-    var teamAbilityInfo: org.anime_game_servers.multi_proto.gi.data.general.ability.AbilitySyncStateInfo
+    var teamAbilityInfo: AbilitySyncStateInfo
     @AddedIn(GI_1_6_0)
-    var abilityControlBlock: org.anime_game_servers.multi_proto.gi.data.general.ability.AbilityControlBlock
+    var abilityControlBlock: AbilityControlBlock
 }

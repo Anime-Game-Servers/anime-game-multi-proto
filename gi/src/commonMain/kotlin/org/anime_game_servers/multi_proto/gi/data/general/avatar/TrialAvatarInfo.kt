@@ -9,7 +9,7 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 @ProtoModel
 internal interface TrialAvatarInfo {
     var trialAvatarId: Int
-    var trialEquipList: List<org.anime_game_servers.multi_proto.gi.data.general.item.Item>
+    var trialEquipList: List<Item>
     @AddedIn(Version.GI_CB2)
-    var grantRecord: org.anime_game_servers.multi_proto.gi.data.general.avatar.TrialAvatarGrantRecord
+    var grantRecord: TrialAvatarGrantRecord
 }

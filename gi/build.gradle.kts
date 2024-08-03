@@ -33,7 +33,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(project(":base"))
+                api(project(":base"))
                 implementation("pro.streem.pbandk:pbandk-runtime:0.14.2")
                 implementation("org.anime_game_servers.core:gi:0.1")
             }

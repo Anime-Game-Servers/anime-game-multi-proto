@@ -8,5 +8,5 @@ import org.anime_game_servers.core.base.annotations.proto.*
 @ProtoCommand(CommandType.NOTIFY)
 internal interface GalleryFallScoreNotify {
     var galleryId: Int
-    var uidBriefMap: Map<Int, org.anime_game_servers.multi_proto.gi.data.gallery.FallPlayerBrief>
+    var uidBriefMap: Map<Int, FallPlayerBrief>
 }

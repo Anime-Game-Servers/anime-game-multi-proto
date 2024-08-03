@@ -8,5 +8,5 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @AddedIn(GI_CB1)
 @ProtoCommand(CLIENT)
 internal interface EvtAiSyncSkillCdNotify {
-    var aiCdMap: Map<Int, org.anime_game_servers.multi_proto.gi.data.battle.event.AiSkillCdInfo>
+    var aiCdMap: Map<Int, AiSkillCdInfo>
 }

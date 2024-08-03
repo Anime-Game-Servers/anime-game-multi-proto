@@ -13,5 +13,5 @@ internal interface ReliquaryUpgradeReq {
     var foodReliquaryGuidList: List<Long>
     var targetReliquaryGuid: Long
     @AddedIn(GI_1_4_0)
-    var itemParamList: List<org.anime_game_servers.multi_proto.gi.data.general.item.ItemParam>
+    var itemParamList: List<ItemParam>
 }

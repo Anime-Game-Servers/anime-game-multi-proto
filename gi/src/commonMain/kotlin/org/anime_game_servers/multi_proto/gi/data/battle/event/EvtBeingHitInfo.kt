@@ -10,7 +10,7 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 @AddedIn(GI_CB2)
 @ProtoModel
 internal interface EvtBeingHitInfo {
-    var attackResult: org.anime_game_servers.multi_proto.gi.data.battle.event.AttackResult
+    var attackResult: AttackResult
     @RemovedIn(GI_0_9_0)
     var forwardType: org.anime_game_servers.multi_proto.gi.data.battle.ForwardType
     var peerId: Int

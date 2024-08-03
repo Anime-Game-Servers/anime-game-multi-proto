@@ -8,5 +8,5 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @AddedIn(Version.GI_1_2_0)
 @ProtoCommand(CommandType.NOTIFY)
 interface PrivateChatNotify {
-    var chatInfo: org.anime_game_servers.multi_proto.gi.data.community.chat.ChatInfo
+    var chatInfo: ChatInfo
 }

@@ -17,7 +17,7 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 @AddedIn(GI_CB1)
 @ProtoModel
 internal interface AttackResult {
-    var abilityIdentifier: org.anime_game_servers.multi_proto.gi.data.battle.event.AbilityIdentifier
+    var abilityIdentifier: AbilityIdentifier
     var animEventId: String
     @RemovedIn(GI_1_1_0)
     var attackTag: String
@@ -37,8 +37,8 @@ internal interface AttackResult {
     var elementType: Int
     var endureBreak: Int
     var gadgetDamageActionIdx: Int
-    var hitCollision: org.anime_game_servers.multi_proto.gi.data.battle.event.HitCollision
-    var hitEffResult: org.anime_game_servers.multi_proto.gi.data.battle.event.AttackHitEffectResult
+    var hitCollision: HitCollision
+    var hitEffResult: AttackHitEffectResult
     var hitPosType: Int
     var hitRetreatAngleCompat: Int
     var isCrit: Boolean

@@ -35,7 +35,7 @@ internal interface CreateEntityInfo {
     var entity : OneOfType
 
     @OneOf(
-        OneOfEntry(org.anime_game_servers.multi_proto.gi.data.general.entity.CreateGadgetInfo::class, "gadget"),
+        OneOfEntry(CreateGadgetInfo::class, "gadget"),
     )
     var entityCreateInfo : OneOfType
 }

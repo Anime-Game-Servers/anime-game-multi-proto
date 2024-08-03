@@ -10,7 +10,7 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @ProtoCommand(NOTIFY)
 internal interface BattlePassBuySuccNotify {
     var addPoint: Int
-    var itemList: List<org.anime_game_servers.multi_proto.gi.data.general.item.ItemParam>
+    var itemList: List<ItemParam>
     var productPlayType: Int
     var scheduleId: Int
 }

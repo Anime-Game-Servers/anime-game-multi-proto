@@ -10,7 +10,7 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @AddedIn(Version.GI_CB1)
 @ProtoCommand(CommandType.NOTIFY)
 internal interface SceneEntityAppearNotify {
-    var appearType : org.anime_game_servers.multi_proto.gi.data.scene.VisionType
+    var appearType : VisionType
     var param : Int
-    var entityList : List<org.anime_game_servers.multi_proto.gi.data.scene.entity.SceneEntityInfo>
+    var entityList : List<SceneEntityInfo>
 }

@@ -22,7 +22,7 @@ interface ChatInfo {
     @OneOf(
         OneOfEntry(String::class, "text"),
         OneOfEntry(Int::class, "icon"),
-        OneOfEntry(org.anime_game_servers.multi_proto.gi.data.community.chat.SystemHint::class, "system_hint")
+        OneOfEntry(SystemHint::class, "system_hint")
     )
     var content:OneOfType
 }

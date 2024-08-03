@@ -8,5 +8,5 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 @ProtoModel
 interface Material {
     var count: Int
-    var deleteInfo: org.anime_game_servers.multi_proto.gi.data.general.item.MaterialDeleteInfo
+    var deleteInfo: MaterialDeleteInfo
 }

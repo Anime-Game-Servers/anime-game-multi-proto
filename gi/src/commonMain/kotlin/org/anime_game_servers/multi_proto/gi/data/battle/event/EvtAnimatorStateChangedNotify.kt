@@ -25,5 +25,5 @@ internal interface EvtAnimatorStateChangedNotify {
     @RemovedIn(GI_0_9_0)
     var pos: Vector
     @AddedIn(GI_0_9_0)
-    var evtAnimatorStateChangedInfo: org.anime_game_servers.multi_proto.gi.data.battle.event.EvtAnimatorStateChangedInfo
+    var evtAnimatorStateChangedInfo: EvtAnimatorStateChangedInfo
 }

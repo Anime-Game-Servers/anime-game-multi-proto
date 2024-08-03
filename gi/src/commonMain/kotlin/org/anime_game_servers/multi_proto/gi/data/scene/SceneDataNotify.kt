@@ -12,5 +12,5 @@ internal interface SceneDataNotify {
     @AddedIn(GI_2_8_0)
     var sceneTagIdList : List<Int>
     @AddedIn(GI_4_0_0)
-    var mapLayerInfo: org.anime_game_servers.multi_proto.gi.data.scene.MapLayerInfo
+    var mapLayerInfo: MapLayerInfo
 }

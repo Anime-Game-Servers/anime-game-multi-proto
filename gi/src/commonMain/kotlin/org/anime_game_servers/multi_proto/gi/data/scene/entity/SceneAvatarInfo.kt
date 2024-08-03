@@ -17,8 +17,8 @@ internal interface SceneAvatarInfo {
     var equipIdList: List<Int>
     var skillDepotId: Int
     var talentIdList: List<Int>
-    var weapon: org.anime_game_servers.multi_proto.gi.data.general.entity.SceneWeaponInfo
-    var reliquaryList: List<org.anime_game_servers.multi_proto.gi.data.general.entity.SceneReliquaryInfo>
+    var weapon: SceneWeaponInfo
+    var reliquaryList: List<SceneReliquaryInfo>
     @AddedIn(Version.GI_CB2)
     var coreProudSkillLevel: Int
     @AddedIn(Version.GI_CB2)
@@ -28,7 +28,7 @@ internal interface SceneAvatarInfo {
     @AddedIn(Version.GI_CB2)
     var proudSkillExtraLevelMap: Map<Int, Int>
     @AddedIn(Version.GI_0_9_0)
-    var serverBuffList: List<org.anime_game_servers.multi_proto.gi.data.general.ability.ServerBuff>
+    var serverBuffList: List<ServerBuff>
     @AddedIn(Version.GI_0_9_0)
     var teamResonanceList: List<Int>
     @AddedIn(Version.GI_1_0_0)
@@ -38,9 +38,9 @@ internal interface SceneAvatarInfo {
     @AddedIn(Version.GI_1_6_0)
     var costumeId: Int
     @AddedIn(Version.GI_1_6_0)
-    var curVehicleInfo: org.anime_game_servers.multi_proto.gi.data.scene.entity.CurVehicleInfo
+    var curVehicleInfo: CurVehicleInfo
     @AddedIn(Version.GI_1_6_0)
-    var excelInfo: org.anime_game_servers.multi_proto.gi.data.scene.entity.AvatarExcelInfo
+    var excelInfo: AvatarExcelInfo
     @AddedIn(Version.GI_2_1_0)
     var animHash: Int
 }

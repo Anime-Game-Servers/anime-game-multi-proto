@@ -14,7 +14,7 @@ internal interface AbilityMixinRecoverInfo {
     var localId: Int
     var dataList: List<Int>
     var isServerbuffModifier: Boolean
-    var massivePropList: List<org.anime_game_servers.multi_proto.gi.data.general.ability.MassivePropSyncInfo>
+    var massivePropList: List<MassivePropSyncInfo>
     @OneOf(
         OneOfEntry(Int::class, "instanced_ability_id"),
         OneOfEntry(Int::class, "instanced_modifier_id"),

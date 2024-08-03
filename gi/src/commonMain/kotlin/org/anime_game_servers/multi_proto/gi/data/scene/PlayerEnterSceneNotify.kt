@@ -13,7 +13,7 @@ internal interface PlayerEnterSceneNotify {
     var sceneId : Int
     var pos : Vector
     var sceneBeginTime : Long
-    var type : org.anime_game_servers.multi_proto.gi.data.scene.EnterType
+    var type : EnterType
     var targetUid : Int
     var prevSceneId : Int
     var prevPos : Vector
@@ -40,5 +40,5 @@ internal interface PlayerEnterSceneNotify {
     @AddedIn(GI_4_0_0)
     var LAJGLCIFKCP : Int //TODO identify this field
     @AddedIn(GI_4_0_0)
-    var mapLayerInfo : org.anime_game_servers.multi_proto.gi.data.scene.MapLayerInfo
+    var mapLayerInfo : MapLayerInfo
 }

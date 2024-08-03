@@ -9,5 +9,5 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 internal interface CoopPoint {
     var id: Int
     var selfConfidence: Int
-    var state: org.anime_game_servers.multi_proto.gi.data.coop.CoopPointState
+    var state: CoopPointState
 }

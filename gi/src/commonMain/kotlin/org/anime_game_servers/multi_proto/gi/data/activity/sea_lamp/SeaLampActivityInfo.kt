@@ -11,7 +11,7 @@ interface SeaLampActivityInfo {
     var popularity: Int
     var seaLampCoin: Int
     var isContentClosed: Boolean
-    var sectionInfoList: List<org.anime_game_servers.multi_proto.gi.data.activity.sea_lamp.SeaLampSectionInfo>
+    var sectionInfoList: List<SeaLampSectionInfo>
     var mechanicusId: Int
     var isMechanicusOpen: Boolean
     var firstDayStartTime: Int

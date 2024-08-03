@@ -9,7 +9,7 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @ProtoCommand(CommandType.RESPONSE)
 interface FoundationRsp {
     var gadgetEntityId: Int
-    var opType: org.anime_game_servers.multi_proto.gi.data.gadget.FoundationOpType
+    var opType: FoundationOpType
     var buildingId: Int
     var pointConfigId: Int
     var retCode: Int

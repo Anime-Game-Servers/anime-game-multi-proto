@@ -14,7 +14,7 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 internal interface AvatarAbilityResetNotify {
     @RemovedIn(GI_0_9_0)
     var entityId: Int
-    var resetReason: org.anime_game_servers.multi_proto.gi.data.ability.AbilityResetReason
+    var resetReason: AbilityResetReason
     @AddedIn(GI_0_9_0)
     var entityIdList: List<Int>
 }

@@ -9,5 +9,5 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @ProtoCommand(CommandType.NOTIFY)
 interface ActivityUpdateWatcherNotify {
     var activityId: Int
-    var watcherInfo: org.anime_game_servers.multi_proto.gi.data.activity.ActivityWatcherInfo
+    var watcherInfo: ActivityWatcherInfo
 }

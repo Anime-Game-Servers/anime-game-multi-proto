@@ -8,6 +8,6 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @AddedIn(GI_0_9_0)
 @ProtoCommand(RESPONSE)
 internal interface GetAllActivatedBargainDataRsp {
-    var snapshotList: List<org.anime_game_servers.multi_proto.gi.data.quest.bargain.BargainSnapshot>
+    var snapshotList: List<BargainSnapshot>
     var retCode: Int
 }

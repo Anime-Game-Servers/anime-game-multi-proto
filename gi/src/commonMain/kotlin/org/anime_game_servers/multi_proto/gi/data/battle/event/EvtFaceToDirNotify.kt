@@ -17,5 +17,5 @@ internal interface EvtFaceToDirNotify {
     var faceDir: Vector
     var forwardType: org.anime_game_servers.multi_proto.gi.data.battle.ForwardType
     @AddedIn(GI_0_9_0)
-    var evtFaceToDirInfo: org.anime_game_servers.multi_proto.gi.data.battle.event.EvtFaceToDirInfo
+    var evtFaceToDirInfo: EvtFaceToDirInfo
 }

@@ -9,5 +9,5 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @ProtoCommand(NOTIFY)
 internal interface LuaSetOptionNotify {
     var luaSetParam: String
-    var optionType: org.anime_game_servers.multi_proto.gi.data.battle.LuaOptionType
+    var optionType: LuaOptionType
 }

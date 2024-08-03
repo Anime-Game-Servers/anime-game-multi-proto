@@ -9,5 +9,5 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @AddedIn(Version.GI_CB1)
 @ProtoCommand(CommandType.NOTIFY)
 internal interface ScenePlayerInfoNotify {
-    var playerInfoList : List<org.anime_game_servers.multi_proto.gi.data.scene.ScenePlayerInfo>
+    var playerInfoList : List<ScenePlayerInfo>
 }

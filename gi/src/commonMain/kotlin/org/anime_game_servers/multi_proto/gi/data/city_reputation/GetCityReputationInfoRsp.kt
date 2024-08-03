@@ -9,6 +9,6 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @ProtoCommand(RESPONSE)
 internal interface GetCityReputationInfoRsp {
     var cityId: Int
-    var cityReputationInfo: org.anime_game_servers.multi_proto.gi.data.city_reputation.CityReputationInfo
+    var cityReputationInfo: CityReputationInfo
     var retCode: Int
 }

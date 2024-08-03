@@ -8,6 +8,6 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @AddedIn(GI_CB2)
 @ProtoCommand(RESPONSE)
 internal interface MarkMapRsp {
-    var markList: List<org.anime_game_servers.multi_proto.gi.data.scene.map.MapMarkPoint>
+    var markList: List<MapMarkPoint>
     var retcode: Int
 }

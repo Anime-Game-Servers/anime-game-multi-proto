@@ -11,5 +11,5 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @ProtoCommand(CommandType.NOTIFY)
 internal interface AbilityChangeNotify {
     var entityId: Int
-    var abilityControlBlock: org.anime_game_servers.multi_proto.gi.data.general.ability.AbilityControlBlock
+    var abilityControlBlock: AbilityControlBlock
 }

@@ -11,7 +11,7 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
  */
 @ProtoModel
 interface MusicGameActivityDetailInfo {
-    var musicGameRecordMap: Map<Int, org.anime_game_servers.multi_proto.gi.data.activity.music_game.MusicGameRecord>
-    var ugcRecordList: List<org.anime_game_servers.multi_proto.gi.data.activity.user_generated_content.music_game.UgcMusicBriefInfo>
-    var ugcSearchList: List<org.anime_game_servers.multi_proto.gi.data.activity.user_generated_content.music_game.UgcMusicBriefInfo>
+    var musicGameRecordMap: Map<Int, MusicGameRecord>
+    var ugcRecordList: List<UgcMusicBriefInfo>
+    var ugcSearchList: List<UgcMusicBriefInfo>
 }

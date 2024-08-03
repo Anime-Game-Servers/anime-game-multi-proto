@@ -12,5 +12,5 @@ internal interface MaterialDeleteReturnNotify {
     var deleteMaterialMap: Map<Int, Int>
     var returnItemMap: Map<Int, Int>
     @AddedIn(GI_2_2_0)
-    var type: org.anime_game_servers.multi_proto.gi.data.item.MaterialDeleteReturnType
+    var type: MaterialDeleteReturnType
 }

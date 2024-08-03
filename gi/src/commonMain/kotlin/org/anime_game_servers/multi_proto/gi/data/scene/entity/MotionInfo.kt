@@ -11,7 +11,7 @@ internal interface MotionInfo {
     var pos: Vector
     var rot: Vector
     var speed: Vector
-    var state: org.anime_game_servers.multi_proto.gi.data.scene.entity.MotionState
+    var state: MotionState
     var params: List<Vector>
     @AddedIn(Version.GI_1_2_0)
     var refPos: Vector

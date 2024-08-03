@@ -8,5 +8,5 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 @ProtoModel
 internal interface CoopReward {
     var id: Int
-    var state: org.anime_game_servers.multi_proto.gi.data.coop.CoopRewardState
+    var state: CoopRewardState
 }

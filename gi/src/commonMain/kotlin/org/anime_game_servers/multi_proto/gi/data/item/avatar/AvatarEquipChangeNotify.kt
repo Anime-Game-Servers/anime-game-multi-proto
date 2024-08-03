@@ -15,6 +15,6 @@ internal interface AvatarEquipChangeNotify {
     var equipGuid: Long
     var equipType: Int
     var itemId: Int
-    var weapon: org.anime_game_servers.multi_proto.gi.data.general.entity.SceneWeaponInfo
-    var reliquary: org.anime_game_servers.multi_proto.gi.data.general.entity.SceneReliquaryInfo
+    var weapon: SceneWeaponInfo
+    var reliquary: SceneReliquaryInfo
 }

@@ -8,7 +8,7 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @AddedIn(Version.GI_2_7_0)
 @ProtoCommand(CommandType.RESPONSE)
 interface CheckUgcUpdateRsp {
-    var ugcType: org.anime_game_servers.multi_proto.gi.data.activity.user_generated_content.UgcType
+    var ugcType: UgcType
     var updateUgcGuidList: List<Long>
     var returnCode: Int
 }

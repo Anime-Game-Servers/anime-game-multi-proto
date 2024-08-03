@@ -13,9 +13,9 @@ internal interface AbilityMixinWindSeedSpawner {
     
     @OneOf(
         types = [
-            OneOfEntry(org.anime_game_servers.multi_proto.gi.data.ability.mixin.AddSignal::class, "add_signal"),
-            OneOfEntry(org.anime_game_servers.multi_proto.gi.data.ability.mixin.CatchSeed::class, "catch_seed"),
-            OneOfEntry(org.anime_game_servers.multi_proto.gi.data.ability.mixin.RefreshSeed::class, "refresh_seed"),
+            OneOfEntry(AddSignal::class, "add_signal"),
+            OneOfEntry(CatchSeed::class, "catch_seed"),
+            OneOfEntry(RefreshSeed::class, "refresh_seed"),
         ]
     )
     var cmd: OneOfType

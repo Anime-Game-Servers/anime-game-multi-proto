@@ -21,7 +21,7 @@ internal interface SocialDetail {
     var level: Int
     var avatarId: Int
     var signature: String
-    var birthday: org.anime_game_servers.multi_proto.gi.data.community.player_presentation.Birthday
+    var birthday: Birthday
     var worldLevel: Int
     var reservedList: List<Int>
     var onlineState: org.anime_game_servers.multi_proto.gi.data.community.friends.FriendOnlineState

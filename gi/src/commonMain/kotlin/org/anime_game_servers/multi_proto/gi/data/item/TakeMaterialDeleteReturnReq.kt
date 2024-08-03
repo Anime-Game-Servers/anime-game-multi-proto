@@ -10,5 +10,5 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @ProtoCommand(REQUEST)
 internal interface TakeMaterialDeleteReturnReq {
     @AddedIn(GI_2_2_0)
-    var type: org.anime_game_servers.multi_proto.gi.data.item.MaterialDeleteReturnType
+    var type: MaterialDeleteReturnType
 }

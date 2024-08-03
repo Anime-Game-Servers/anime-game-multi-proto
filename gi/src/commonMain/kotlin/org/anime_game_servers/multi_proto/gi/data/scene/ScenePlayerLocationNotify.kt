@@ -11,7 +11,7 @@ import org.anime_game_servers.core.base.Version.GI_1_6_0
 @ProtoCommand(CommandType.NOTIFY)
 internal interface ScenePlayerLocationNotify {
     var sceneId : Int
-    var playerLocList : List<org.anime_game_servers.multi_proto.gi.data.scene.PlayerLocationInfo>
+    var playerLocList : List<PlayerLocationInfo>
     @AddedIn(GI_1_6_0)
-    var vehicleLocList : List<org.anime_game_servers.multi_proto.gi.data.scene.VehicleLocationInfo>
+    var vehicleLocList : List<VehicleLocationInfo>
 }

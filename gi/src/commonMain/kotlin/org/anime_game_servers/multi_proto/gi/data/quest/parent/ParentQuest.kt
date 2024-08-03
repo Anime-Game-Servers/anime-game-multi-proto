@@ -14,11 +14,11 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 @AddedIn(GI_CB1)
 @ProtoModel
 internal interface ParentQuest {
-    var childQuestList: List<org.anime_game_servers.multi_proto.gi.data.quest.parent.ChildQuest>
+    var childQuestList: List<ChildQuest>
     var isFinished: Boolean
     var isRandom: Boolean
     var parentQuestId: Int
-    var randomInfo: org.anime_game_servers.multi_proto.gi.data.quest.parent.ParentQuestRandomInfo
+    var randomInfo: ParentQuestRandomInfo
     @AddedIn(GI_CB2)
     var questVar: List<Int>
     @AddedIn(GI_0_9_0)
@@ -30,5 +30,5 @@ internal interface ParentQuest {
     @AddedIn(GI_2_7_0)
     var videoKey: Long
     @AddedIn(GI_3_0_0)
-    var inferencePageList: List<org.anime_game_servers.multi_proto.gi.data.quest.inference.InferencePageInfo>
+    var inferencePageList: List<InferencePageInfo>
 }

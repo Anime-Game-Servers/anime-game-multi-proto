@@ -10,6 +10,6 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @ProtoCommand(REQUEST)
 internal interface CalcWeaponUpgradeReturnItemsReq {
     var foodWeaponGuidList: List<Long>
-    var itemParamList: List<org.anime_game_servers.multi_proto.gi.data.general.item.ItemParam>
+    var itemParamList: List<ItemParam>
     var targetWeaponGuid: Long
 }

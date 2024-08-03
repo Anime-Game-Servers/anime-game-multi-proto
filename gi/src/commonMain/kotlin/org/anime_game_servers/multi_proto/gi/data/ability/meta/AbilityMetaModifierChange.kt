@@ -14,14 +14,14 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 @AddedIn(GI_CB1)
 @ProtoModel
 internal interface AbilityMetaModifierChange {
-    var action: org.anime_game_servers.multi_proto.gi.data.ability.ModifierAction
+    var action: ModifierAction
     var applyEntityId: Int
-    var attachedInstancedModifier: org.anime_game_servers.multi_proto.gi.data.general.ability.AbilityAttachedModifier
+    var attachedInstancedModifier: AbilityAttachedModifier
     var isMuteRemote: Boolean
     var modifierLocalId: Int
-    var parentAbilityName: org.anime_game_servers.multi_proto.gi.data.general.ability.AbilityString
-    var parentAbilityOverride: org.anime_game_servers.multi_proto.gi.data.general.ability.AbilityString
-    var properties: List<org.anime_game_servers.multi_proto.gi.data.ability.ModifierProperty>
+    var parentAbilityName: AbilityString
+    var parentAbilityOverride: AbilityString
+    var properties: List<ModifierProperty>
     @AddedIn(GI_CB2)
     var isAttachedParentAbility: Boolean
     @AddedIn(GI_0_9_0)

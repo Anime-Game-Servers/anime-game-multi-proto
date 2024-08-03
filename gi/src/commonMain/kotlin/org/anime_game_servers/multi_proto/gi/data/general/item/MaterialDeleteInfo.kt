@@ -12,9 +12,9 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 interface MaterialDeleteInfo {
     var hasDeleteConfig: Boolean
     @OneOf(
-        OneOfEntry(org.anime_game_servers.multi_proto.gi.data.general.item.CountDownDelete::class, "count_down_delete"),
-        OneOfEntry(org.anime_game_servers.multi_proto.gi.data.general.item.DateTimeDelete::class, "date_delete"),
-        OneOfEntry(org.anime_game_servers.multi_proto.gi.data.general.item.DelayWeekCountDownDelete::class, "delay_week_count_down_delete")
+        OneOfEntry(CountDownDelete::class, "count_down_delete"),
+        OneOfEntry(DateTimeDelete::class, "date_delete"),
+        OneOfEntry(DelayWeekCountDownDelete::class, "delay_week_count_down_delete")
     )
     var deleteInfo: OneOfType
 }

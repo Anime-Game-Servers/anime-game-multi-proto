@@ -10,8 +10,8 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 @AddedIn(Version.GI_CB1)
 @ProtoModel
 internal interface AbilityScalarValueEntry {
-    var key: org.anime_game_servers.multi_proto.gi.data.general.ability.AbilityString
-    var valueType: org.anime_game_servers.multi_proto.gi.data.general.ability.AbilityScalarType
+    var key: AbilityString
+    var valueType: AbilityScalarType
     @OneOf(
         OneOfEntry(Float::class, "float_value"),
         OneOfEntry(String::class, "string_value"),

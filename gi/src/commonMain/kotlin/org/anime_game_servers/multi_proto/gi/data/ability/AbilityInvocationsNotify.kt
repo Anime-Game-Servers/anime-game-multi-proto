@@ -19,6 +19,6 @@ internal interface AbilityInvocationsNotify {
     @RemovedIn(GI_0_9_0)
     var forwardPeers: List<Int>
     @RemovedIn(GI_0_9_0)
-    var forwardType: org.anime_game_servers.multi_proto.gi.data.battle.ForwardType
-    var invokes: List<org.anime_game_servers.multi_proto.gi.data.ability.AbilityInvokeEntry>
+    var forwardType: ForwardType
+    var invokes: List<AbilityInvokeEntry>
 }

@@ -18,7 +18,7 @@ internal interface GadgetPlayInfo {
     var progress: Int
 
     @OneOf(
-        OneOfEntry(org.anime_game_servers.multi_proto.gi.data.scene.entity.GadgetCrucibleInfo::class, "crucible_info"),
+        OneOfEntry(GadgetCrucibleInfo::class, "crucible_info"),
     )
     var playInfo: OneOfType
 }

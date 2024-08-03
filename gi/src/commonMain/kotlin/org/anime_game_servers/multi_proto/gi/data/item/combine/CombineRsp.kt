@@ -12,10 +12,10 @@ internal interface CombineRsp {
     var avatarGuid: Long
     var combineCount: Int
     var combineId: Int
-    var costItemList: List<org.anime_game_servers.multi_proto.gi.data.general.item.ItemParam>
-    var resultItemList: List<org.anime_game_servers.multi_proto.gi.data.general.item.ItemParam>
-    var totalExtraItemList: List<org.anime_game_servers.multi_proto.gi.data.general.item.ItemParam>
-    var totalRandomItemList: List<org.anime_game_servers.multi_proto.gi.data.general.item.ItemParam>
-    var totalReturnItemList: List<org.anime_game_servers.multi_proto.gi.data.general.item.ItemParam>
+    var costItemList: List<ItemParam>
+    var resultItemList: List<ItemParam>
+    var totalExtraItemList: List<ItemParam>
+    var totalRandomItemList: List<ItemParam>
+    var totalReturnItemList: List<ItemParam>
     var retCode: Int
 }

@@ -16,5 +16,5 @@ internal interface EvtSetAttackTargetNotify {
     var entityId: Int
     var forwardType: org.anime_game_servers.multi_proto.gi.data.battle.ForwardType
     @AddedIn(GI_0_9_0)
-    var evtSetAttackTargetInfo: org.anime_game_servers.multi_proto.gi.data.battle.event.EvtSetAttackTargetInfo
+    var evtSetAttackTargetInfo: EvtSetAttackTargetInfo
 }

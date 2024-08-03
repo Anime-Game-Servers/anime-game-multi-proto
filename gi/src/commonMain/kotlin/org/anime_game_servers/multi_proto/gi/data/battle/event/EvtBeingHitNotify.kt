@@ -11,12 +11,12 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @ProtoCommand(CLIENT)
 internal interface EvtBeingHitNotify {
     @RemovedIn(GI_CB2)
-    var attackResult: org.anime_game_servers.multi_proto.gi.data.battle.event.AttackResult
+    var attackResult: AttackResult
     var forwardType: org.anime_game_servers.multi_proto.gi.data.battle.ForwardType
     @RemovedIn(GI_CB2)
     var peerId: Int
     @RemovedIn(GI_CB2)
     var sceneTime: Int
     @AddedIn(GI_CB2)
-    var beingHitInfo: org.anime_game_servers.multi_proto.gi.data.battle.event.EvtBeingHitInfo
+    var beingHitInfo: EvtBeingHitInfo
 }

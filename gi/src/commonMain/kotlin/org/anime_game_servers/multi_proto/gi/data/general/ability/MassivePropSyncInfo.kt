@@ -11,5 +11,5 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 @ProtoModel
 internal interface MassivePropSyncInfo {
     var id: Long
-    var propList: List<org.anime_game_servers.multi_proto.gi.data.general.ability.MassivePropParam>
+    var propList: List<MassivePropParam>
 }

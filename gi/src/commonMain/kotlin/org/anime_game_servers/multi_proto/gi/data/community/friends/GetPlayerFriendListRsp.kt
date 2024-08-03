@@ -10,9 +10,9 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @AddedIn(GI_0_9_0)
 @ProtoCommand(RESPONSE)
 internal interface GetPlayerFriendListRsp {
-    var askFriendList: List<org.anime_game_servers.multi_proto.gi.data.community.friends.FriendBrief>
+    var askFriendList: List<FriendBrief>
     @RemovedIn(GI_1_0_0)
-    var blacklist: List<org.anime_game_servers.multi_proto.gi.data.community.friends.FriendBrief>
-    var friendList: List<org.anime_game_servers.multi_proto.gi.data.community.friends.FriendBrief>
+    var blacklist: List<FriendBrief>
+    var friendList: List<FriendBrief>
     var retcode: Int
 }

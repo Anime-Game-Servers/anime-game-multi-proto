@@ -7,7 +7,7 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 @AddedIn(Version.GI_2_8_0)
 @ProtoModel
 internal interface SceneGalleryIslandPartyRaftInfo {
-    var startSource: org.anime_game_servers.multi_proto.gi.data.gallery.GalleryStartSource
+    var startSource: GalleryStartSource
     var raftEntityId: Int
     var pointId: Int
     var component: Int

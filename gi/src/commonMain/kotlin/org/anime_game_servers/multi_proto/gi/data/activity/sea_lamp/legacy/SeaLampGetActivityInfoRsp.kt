@@ -10,7 +10,7 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @AddedIn(Version.GI_CB2) @RemovedIn(Version.GI_0_9_0)
 @ProtoCommand(CommandType.RESPONSE)
 interface SeaLampGetActivityInfoRsp {
-    var activityInfo: org.anime_game_servers.multi_proto.gi.data.activity.sea_lamp.legacy.SeaLampActivityInfo
-    var activityPlayerInfo: org.anime_game_servers.multi_proto.gi.data.activity.sea_lamp.SeaLampActivityPlayerInfo
+    var activityInfo: SeaLampActivityInfo
+    var activityPlayerInfo: SeaLampActivityPlayerInfo
     var retcode: Int
 }

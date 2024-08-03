@@ -15,8 +15,8 @@ internal interface ShowEquip {
     var itemId: Int
     @OneOf(
         types = [
-            OneOfEntry(org.anime_game_servers.multi_proto.gi.data.general.item.Reliquary::class, "reliquary"),
-            OneOfEntry(org.anime_game_servers.multi_proto.gi.data.general.item.Weapon::class, "weapon"),
+            OneOfEntry(Reliquary::class, "reliquary"),
+            OneOfEntry(Weapon::class, "weapon"),
         ]
     )
     var detail: OneOfType

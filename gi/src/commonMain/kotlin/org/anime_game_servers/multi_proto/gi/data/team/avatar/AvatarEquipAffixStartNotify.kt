@@ -10,5 +10,5 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @ProtoCommand(NOTIFY)
 internal interface AvatarEquipAffixStartNotify {
     var avatarGuid: Long
-    var equipAffixInfo: org.anime_game_servers.multi_proto.gi.data.general.avatar.AvatarEquipAffixInfo
+    var equipAffixInfo: AvatarEquipAffixInfo
 }

@@ -17,13 +17,13 @@ internal interface OnlinePlayerInfo {
     var uid: Int
     var nickname: String
     @RemovedIn(GI_CB2)
-    var state: org.anime_game_servers.multi_proto.gi.data.scene.entity.OnlinePlayerState
+    var state: OnlinePlayerState
     @AddedIn(GI_CB2)
     var playerLevel: Int
     @AddedIn(GI_CB2)
     var avatarId: Int
     @AddedIn(GI_CB2)
-    var mpSettingType: org.anime_game_servers.multi_proto.gi.data.scene.entity.MpSettingType
+    var mpSettingType: MpSettingType
     @AddedIn(GI_CB2)
     var curPlayerNumInWorld: Int
     @AddedIn(GI_0_9_0)

@@ -15,5 +15,5 @@ internal interface WeaponUpgradeRsp {
     var targetWeaponGuid: Long
     var retCode: Int
     @AddedIn(GI_1_1_0)
-    var itemParamList: List<org.anime_game_servers.multi_proto.gi.data.general.item.ItemParam>
+    var itemParamList: List<ItemParam>
 }

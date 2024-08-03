@@ -12,5 +12,5 @@ internal interface BossChestInfo {
     var remainUidList: List<Int>
     var qualifyUidList: List<Int>
     @AddedIn(Version.GI_1_5_0)
-    var uidDiscountMap: Map<Int, org.anime_game_servers.multi_proto.gi.data.scene.entity.WeeklyBossResinDiscountInfo>
+    var uidDiscountMap: Map<Int, WeeklyBossResinDiscountInfo>
 }

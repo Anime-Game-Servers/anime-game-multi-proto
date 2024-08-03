@@ -14,7 +14,7 @@ internal interface SceneMonsterInfo {
     var monsterId: Int
     var groupId: Int
     var configId: Int
-    var weaponList: List<org.anime_game_servers.multi_proto.gi.data.general.entity.SceneWeaponInfo>
+    var weaponList: List<SceneWeaponInfo>
     var authorityPeerId: Int
     var affixList: List<Int>
     var isElite: Boolean
@@ -22,7 +22,7 @@ internal interface SceneMonsterInfo {
     var summonedTag: Int
     var summonTagMap: Map<Int, Int>
     var poseId: Int
-    var bornType: org.anime_game_servers.multi_proto.gi.data.scene.entity.MonsterBornType
+    var bornType: MonsterBornType
     @AddedIn(Version.GI_0_9_0)
     var blockId: Int
     @AddedIn(Version.GI_0_9_0)
@@ -34,7 +34,7 @@ internal interface SceneMonsterInfo {
     @AddedIn(Version.GI_0_9_0)
     var attackTargetId: Int
     @AddedIn(Version.GI_1_3_0)
-    var monsterRoute: org.anime_game_servers.multi_proto.gi.data.scene.entity.MonsterRoute
+    var monsterRoute: MonsterRoute
     @AddedIn(Version.GI_1_3_0)
     var aiConfigId: Int
     @AddedIn(Version.GI_2_0_0)
@@ -47,8 +47,8 @@ internal interface SceneMonsterInfo {
     var killNum: Int
     @AddedIn(Version.GI_2_1_0)
     @OneOf(
-        OneOfEntry(org.anime_game_servers.multi_proto.gi.data.scene.entity.SceneFishInfo::class, "fish_info"),
-        OneOfEntry(org.anime_game_servers.multi_proto.gi.data.scene.entity.FishtankFishInfo::class, "fishtank_fish_info")
+        OneOfEntry(SceneFishInfo::class, "fish_info"),
+        OneOfEntry(FishtankFishInfo::class, "fishtank_fish_info")
     )
     var content: OneOfType
 }
