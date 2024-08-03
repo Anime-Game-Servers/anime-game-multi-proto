@@ -1,9 +1,9 @@
 package messages
-import interfaces.ProtoModel
-import interfaces.ProtoModelDecoder
 import messages.activity.music_game.MusicGameActivityDetailInfo
 import messages.activity.summer_time.SummerTimeDetailInfo
 import org.anime_game_servers.core.base.Version
+import org.anime_game_servers.multi_proto.core.interfaces.ProtoModel
+import org.anime_game_servers.multi_proto.core.interfaces.ProtoModelDecoder
 import pbandk.decodeFromByteArray
 import pbandk.encodeToByteArray
 import protos.V3_2.ActivityInfo

@@ -1,4 +1,4 @@
-import BaseGenerator.Companion.snakeToLowerCamelCase
+
 import com.google.devtools.ksp.KspExperimental
 import com.google.devtools.ksp.getDeclaredProperties
 import com.google.devtools.ksp.getKotlinClassByName

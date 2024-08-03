@@ -1,9 +1,9 @@
 
 pluginManagement {
     plugins {
-        id("com.google.devtools.ksp") version "1.9.22-1.0.16"
+        id("com.google.devtools.ksp") version "1.9.24-1.0.20"
         //kotlin("jvm") version "1.9.22" apply false
-        kotlin("multiplatform") version "1.9.22" apply false
+        kotlin("multiplatform") version "1.9.24" apply false
     }
     repositories {
         gradlePluginPortal()
@@ -17,6 +17,7 @@ plugins {
 rootProject.name = "multi-proto"
 
 include(":processor")
+include(":core")
 include(":gi")
 
 project(":processor").projectDir = File("codeGenerator/processor")

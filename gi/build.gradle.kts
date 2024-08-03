@@ -9,8 +9,8 @@ group = "org.anime_game_servers.multi_proto"
 version = "0.2.$protoVersion"
 
 kotlin {
+    jvmToolchain(17)
     jvm {
-        jvmToolchain(17)
         withJava()
         testRuns["test"].executionTask.configure {
             useJUnitPlatform()
@@ -33,6 +33,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
+                implementation(project(":core"))
                 implementation("pro.streem.pbandk:pbandk-runtime:0.14.2")
                 implementation("org.anime_game_servers.core:gi:0.1")
             }

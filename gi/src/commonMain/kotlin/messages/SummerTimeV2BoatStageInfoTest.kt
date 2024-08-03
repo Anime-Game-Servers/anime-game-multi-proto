@@ -18,9 +18,9 @@ data class SummerTimeV2BoatStageInfoTest(
 
 
     companion object {
-        fun parseBy(data:ByteArray,version: VERSION) : SummerTimeV2BoatStageInfoTest?{
+        fun parseBy(data:ByteArray,version: Version) : SummerTimeV2BoatStageInfoTest?{
             return when (version.namespace) {
-                VERSION.V3_2_0.namespace -> parseV3_2(data)
+                Version.GI_3_2_0.namespace -> parseV3_2(data)
                 //VERSION.V3_3_0.namespace -> parseV3_3(data)
                 else -> return SummerTimeV2BoatStageInfoTest()
             }
@@ -39,9 +39,9 @@ data class SummerTimeV2BoatStageInfoTest(
         }*/
     }
 
-    fun encodeToByteArray(version: VERSION): ByteArray? {
+    fun encodeToByteArray(version: Version): ByteArray? {
         return when (version.namespace) {
-            VERSION.V3_2_0.namespace -> protos.V3_2.SummerTimeV2BoatStageInfo(openTime, isOpen, stageId, bestScore).encodeToByteArray()
+            Version.GI_3_2_0.namespace -> protos.V3_2.SummerTimeV2BoatStageInfo(openTime, isOpen, stageId, bestScore).encodeToByteArray()
             //VERSION.V3_3_0.namespace -> protos.V3_3.SummerTimeV2BoatStageInfo(openTime, isOpen, stageId, bestScore).encodeToByteArray()
             else -> null
         }

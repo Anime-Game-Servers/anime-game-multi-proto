@@ -1,6 +1,7 @@
 import com.google.devtools.ksp.*
 import com.google.devtools.ksp.processing.*
 import com.google.devtools.ksp.symbol.*
+import org.anime_game_servers.multi_proto.core.annotations.ModuleMetaData
 import java.io.File
 import java.io.OutputStream
 
@@ -207,7 +208,7 @@ class FunctionProcessor(
 
         val compiledProtos = resolver.getClassSymbolsByAnnotation(COMPILED_PROTO_ANNOTATION)
 
-        val versionClassWorkaround = resolver.getClassSymbolsByAnnotation(PROTO_VERSION_ENUM_ANNOTATION).firstOrNull()
+        val versionClassWorkaround = resolver.getClassSymbolsByAnnotation(ModuleMetaData::class.java.canonicalName).firstOrNull()
         val versionClass = resolver.getClassDeclarationByName(VERSION_ENUM_CLASS) ?: run {
             logger.error("[resources] Unable to find version class $VERSION_ENUM_CLASS")
             return emptyList()
@@ -215,7 +216,7 @@ class FunctionProcessor(
 
         val resourcesPath = versionClassWorkaround?.let {
             it.containingFile?.let { file ->
-                val basePath = file.filePath.removeSuffix("kotlin/messages/VERSION.kt")
+                val basePath = file.filePath.removeSuffix("kotlin/${file.fileName}")
                 logger.warn("[resources] BasePath: $basePath")
                 basePath+"resources"
             }?: run {

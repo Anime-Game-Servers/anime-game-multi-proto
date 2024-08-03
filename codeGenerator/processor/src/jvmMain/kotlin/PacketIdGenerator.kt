@@ -1,5 +1,6 @@
 import com.google.devtools.ksp.processing.KSPLogger
 import com.google.devtools.ksp.symbol.*
+import org.anime_game_servers.multi_proto.core.interfaces.PacketIdProvider
 import java.io.OutputStream
 import java.util.*
 
@@ -14,7 +15,7 @@ class PacketIdGenerator(
     }
 
     fun addImports(file: OutputStream) {
-        file += "import interfaces.PacketIdProvider\n"
+        file += "import ${PacketIdProvider::class.java.canonicalName}\n"
     }
 
     fun addBody(file: OutputStream, className: String, packetIdMap: PacketIdResult) {
