@@ -1,4 +1,4 @@
-package org.anime_game_servers.multi_proto.gi.data.community.administration
+package org.anime_game_servers.multi_proto.gi.data.administration.community
 
 import org.anime_game_servers.core.base.Version.GI_2_7_0
 import org.anime_game_servers.core.base.annotations.AddedIn
