@@ -329,10 +329,10 @@ abstract class BaseGenerator(
         val toEntries = Type.byType(outType, this) == Type.MAP_ENTRY
         return "$varName.filter {it.value != null}.associateByTo(mutableMapOf(), ${mapConversion(inArgs, outArg, dataMethod, outTypeName, toEntries, forceNonNullVal = true)})"
     }
-    fun mapToMap(inArgs: Pair<KSType, KSType>, outArg:Pair<KSType, KSType>, varName: String, dataMethod: DataMethodInfo, outType:KSType, resolver: Resolver) : String {
+    fun mapToMap(inArgs: Pair<KSType, KSType>, outArg:Pair<KSType, KSType>, varName: String, dataMethod: DataMethodInfo, outType:KSType, resolver: Resolver, isNullSave:Boolean=false) : String {
         val outTypeName = outType.getFullClassName()
         val toEntries = Type.byType(outType, this) == Type.MAP_ENTRY
-        return "$varName.associateByTo(mutableMapOf(), ${mapConversion(inArgs, outArg, dataMethod, outTypeName, toEntries)})"
+        return "$varName.entries.associateByTo(mutableMapOf(), ${mapConversion(inArgs, outArg, dataMethod, outTypeName, toEntries, isNullSave = isNullSave)})"
     }
     fun mapConversion(inArgs: Pair<KSType, KSType>, outArg:Pair<KSType, KSType>,
                       dataMethodInfo: DataMethodInfo, outTypeName:String, toEntries:Boolean, isNullSave:Boolean=false, forceNonNullVal:Boolean=false) : String{
@@ -429,6 +429,11 @@ abstract class BaseGenerator(
                         val outPair = getMapEntryTypePair(outType.type, resolver)
                         return collectionToMap(inPair, outPair, varName, dataMethod, outType.type, resolver)
                     }
+                    if (type == Type.MAP) {
+                        val nullable  = inKeyType!!.isMarkedNullable || inValueType!!.isMarkedNullable || outKeyType.isMarkedNullable || outValueType!!.isMarkedNullable
+                        return mapToMap(Pair(inKeyType!!, inValueType!!), Pair(outKeyType!!, outValueType!!), varName, dataMethod, outType.type, isNullSave = !nullable, resolver =  resolver)
+                    }
+                    logger.warn("possible missing map type handling $varName")
                     "emptyMap()"
                 } // TODO convert
                 Type.BYTE_ARRAY -> ""
