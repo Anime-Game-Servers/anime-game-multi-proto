@@ -156,7 +156,17 @@ abstract class BaseGenerator(
             
             val type = Type.byType(it.value.type, this)
             file.id(indentation)+= when (type) {
-                Type.SIMPLE -> "$baseVarName = $sourceVarName,\n"
+                Type.SIMPLE -> {
+                    "$baseVarName = ${
+                        convertSimple(
+                            it.value,
+                            sourceMember,
+                            sourceVarName,
+                            dataMethod,
+                            resolver
+                        )
+                    },\n"
+                }
                 Type.COLLECTION -> {
                     "${getFullNameForTarget(it.value, it.value.name, sourceMember)} = ${
                         convertToCollection(
@@ -448,6 +458,19 @@ abstract class BaseGenerator(
                 }
             }
         } ?: "emptyList()"
+    }
+
+    private fun convertSimple(
+        outType: MemberInfo,
+        inType: MemberInfo,
+        varName: String,
+        dataMethod: DataMethodInfo,
+        resolver: Resolver): String{
+        val inTypeCategory = Type.byType(inType.type, this)
+        if(outType.type.getFullClassName() == "kotlin.Int" && inTypeCategory == Type.ENUM){
+            return "$varName.${dataMethod.methodName}().value"
+        }
+        return "$varName"
     }
 
     protected fun getTypeString(variable: Map.Entry<String,MemberInfo>): String {
