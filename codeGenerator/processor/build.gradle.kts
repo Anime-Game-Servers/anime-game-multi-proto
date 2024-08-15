@@ -17,6 +17,7 @@ kotlin {
             dependencies {
                 implementation("com.google.devtools.ksp:symbol-processing-api:1.9.24-1.0.20")
                 implementation(project(":base"))
+                implementation("org.anime_game_servers.core:base:0.1")
             }
         }
         val jvmTest by getting

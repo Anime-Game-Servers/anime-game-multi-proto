@@ -1,6 +1,7 @@
 import com.google.devtools.ksp.*
 import com.google.devtools.ksp.processing.*
 import com.google.devtools.ksp.symbol.*
+import org.anime_game_servers.core.base.Version
 import org.anime_game_servers.multi_proto.core.annotations.ModuleMetaData
 import java.io.File
 import java.io.OutputStream
@@ -13,13 +14,10 @@ const val PROTO_COMMAND_ANNOTATION = "$BASE_PROTO_ANNOTATION_PATH.ProtoCommand"
 const val PROTO_VERSION_ENUM_ANNOTATION = "$BASE_PROTO_ANNOTATION_PATH.ProtoVersionEnum"
 const val PROTO_ONE_OF_ANNOTATION = "$BASE_PROTO_ANNOTATION_PATH.OneOf"
 
-const val BASE_ADDED_IN_ANNOTATION = "$BASE_ANNOTATION_PATH.AddedIn"
-const val BASE_REMOVED_IN_ANNOTATION = "$BASE_ANNOTATION_PATH.RemovedIn"
-
 const val COMPILED_PROTO_ANNOTATION = "pbandk.Export"
 //const val VERSION_ENUM_CLASS = "messages.VERSION"
-const val VERSION_ENUM_CLASS_NAME = "Version"
-const val VERSION_ENUM_CLASS = "org.anime_game_servers.core.base.$VERSION_ENUM_CLASS_NAME"
+val VERSION_ENUM_CLASS_NAME : String = Version::class.java.simpleName
+val VERSION_ENUM_CLASS : String = Version::class.java.canonicalName
 
 
 /**
