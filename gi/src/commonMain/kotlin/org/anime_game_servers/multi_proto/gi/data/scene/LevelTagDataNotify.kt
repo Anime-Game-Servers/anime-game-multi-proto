@@ -9,5 +9,5 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @AddedIn(GI_2_4_0)
 @ProtoCommand(CommandType.NOTIFY)
 internal interface LevelTagDataNotify {
-    var levelTagIdList : List<String>
+    var levelTagIdList : List<Int>
 }
