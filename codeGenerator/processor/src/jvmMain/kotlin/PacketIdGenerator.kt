@@ -5,10 +5,11 @@ import java.io.OutputStream
 import java.util.*
 
 class PacketIdGenerator(
-    val logger: KSPLogger
+    val logger: KSPLogger,
+    val basePacket: String
 ) {
     fun createClassForProto(file: OutputStream, className: String, packetIdMap: PacketIdResult) {
-        file += "package packet_id\n"
+        file += "package ${basePacket}.packet_id\n"
         addImports(file)
         addBody(file, className, packetIdMap)
         file.close()
@@ -46,7 +47,7 @@ class PacketIdGenerator(
 
 
     fun createClassForVersionMapper(file: OutputStream, versions: Collection<String>) {
-        file += "package packet_id\n"
+        file += "package ${basePacket}.packet_id\n"
         addVersionMapperImports(file)
         addVersionMapperBody(file, versions)
         file.close()

@@ -119,7 +119,8 @@ class FunctionProcessor(
     }
     fun generatePackageIdFile(logger: KSPLogger,
                               versionPackageIdMap: Map<String, PacketIdGenerator.PacketIdResult>){
-        val versionGenerator = PacketIdGenerator(logger)
+        val basePacket = options["basePacket"] ?: ""
+        val versionGenerator = PacketIdGenerator(logger, basePacket)
         versionPackageIdMap.forEach { (versionName, packageIdMaps) ->
             logger.info("generating packageIds files: ${packageIdMaps.dependencies.joinToString { it.toString() }}")
             val file: OutputStream = codeGenerator.createNewFile(
@@ -127,7 +128,7 @@ class FunctionProcessor(
                 // Learn more about incremental processing in KSP from the official docs:
                 // https://kotlinlang.org/docs/ksp-incremental.html
                 dependencies = Dependencies(true, *packageIdMaps.dependencies.toTypedArray()),
-                packageName = "package_id",
+                packageName = "$basePacket.packet_id",
                 fileName = versionName
             )
             logger.info("generating ${packageIdMaps.dependencies.joinToString { it.toString() }}")
@@ -142,7 +143,7 @@ class FunctionProcessor(
             // Learn more about incremental processing in KSP from the official docs:
             // https://kotlinlang.org/docs/ksp-incremental.html
             dependencies = Dependencies(true, *versionPackageIdMap.values.first().dependencies.toTypedArray()),
-            packageName = "package_id",
+            packageName = "$basePacket.packet_id",
             fileName = "PackageIds"
         )
 

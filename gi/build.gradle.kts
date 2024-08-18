@@ -8,6 +8,10 @@ val protoVersion = 32
 group = "org.anime_game_servers.multi_proto"
 version = "0.2.$protoVersion"
 
+ksp {
+    arg("basePacket", "org.anime_game_servers.multi_proto.gi")
+}
+
 kotlin {
     jvmToolchain(17)
     jvm {
