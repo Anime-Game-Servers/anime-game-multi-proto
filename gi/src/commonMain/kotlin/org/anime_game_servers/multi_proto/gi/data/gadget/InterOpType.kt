@@ -7,7 +7,7 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoEnum
 
 @AddedIn(Version.GI_CB1)
 @ProtoEnum
-enum class InterOpType {
+internal enum class InterOpType {
     @AltName("INTER_OP_TYPE_FINISH")
     INTER_OP_FINISH,
     @AltName("INTER_OP_TYPE_START")

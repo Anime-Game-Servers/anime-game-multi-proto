@@ -7,7 +7,7 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoEnum
 
 @AddedIn(Version.GI_1_6_0)
 @ProtoEnum
-enum class VehicleInteractType {
+internal enum class VehicleInteractType {
     @AltName("VEHICLE_INTERACT_TYPE_NONE")
     VEHICLE_INTERACT_NONE,
     @AltName("VEHICLE_INTERACT_TYPE_IN")

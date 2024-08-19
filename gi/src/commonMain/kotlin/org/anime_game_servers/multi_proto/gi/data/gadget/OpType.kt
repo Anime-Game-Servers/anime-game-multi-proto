@@ -7,7 +7,7 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoEnum
 
 @AddedIn(Version.GI_1_2_0)
 @ProtoEnum("UpdateAbilityCreatedMovingPlatformNotify")
-enum class OpType {
+internal enum class OpType {
     @AltName("OP_TYPE_NONE")
     OP_NONE,
     @AltName("OP_TYPE_ACTIVATE")

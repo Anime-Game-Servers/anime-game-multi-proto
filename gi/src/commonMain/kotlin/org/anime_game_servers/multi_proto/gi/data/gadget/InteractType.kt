@@ -7,7 +7,7 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoEnum
 
 @AddedIn(Version.GI_CB1)
 @ProtoEnum
-enum class InteractType {
+internal enum class InteractType {
     @AltName("INTERACT_TYPE_NONE")
     INTERACT_NONE,
     @AltName("INTERACT_TYPE_PICK_ITEM")

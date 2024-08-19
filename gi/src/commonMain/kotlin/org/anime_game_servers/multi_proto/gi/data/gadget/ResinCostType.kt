@@ -6,7 +6,7 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoEnum
 
 @AddedIn(Version.GI_1_2_0)
 @ProtoEnum
-enum class ResinCostType {
+internal enum class ResinCostType {
     RESIN_COST_TYPE_NONE,
     RESIN_COST_TYPE_NORMAL,
     RESIN_COST_TYPE_CONDENSE,

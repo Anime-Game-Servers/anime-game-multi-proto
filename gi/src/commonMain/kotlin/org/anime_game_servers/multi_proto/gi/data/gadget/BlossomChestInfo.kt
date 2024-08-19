@@ -6,11 +6,11 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 
 @AddedIn(GI_0_9_0)
 @ProtoModel
-interface BlossomChestInfo {
-    var resin: Int
+internal interface BlossomChestInfo {
+    var deadTime: Int
     var qualifyUidList: List<Int>
     var remainUidList: List<Int>
-    var deadTime: Int
+    var resin: Int
     @AddedIn(GI_1_2_0)
     var blossomRefreshType: Int
     @AddedIn(GI_1_3_0)
