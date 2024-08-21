@@ -3,7 +3,7 @@ package org.anime_game_servers.multi_proto.gi.data.dungeon.progression
 import org.anime_game_servers.multi_proto.gi.data.activity.channeller_slab.ChannellerSlabLoopDungeonResultInfo
 import org.anime_game_servers.multi_proto.gi.data.activity.effigy_challenge.EffigyChallengeDungeonResultInfo
 import org.anime_game_servers.multi_proto.gi.data.activity.roguelike_dungeon.RoguelikeDungeonSettleInfo
-import org.anime_game_servers.multi_proto.gi.data.tower.TowerLevelEndNotify
+import org.anime_game_servers.multi_proto.gi.data.spiral_abyss.run.TowerLevelEndNotify
 import org.anime_game_servers.core.base.Version.GI_CB1
 import org.anime_game_servers.core.base.Version.GI_1_1_0
 import org.anime_game_servers.core.base.Version.GI_1_4_0
