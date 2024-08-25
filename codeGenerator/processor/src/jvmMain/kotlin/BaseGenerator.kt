@@ -149,6 +149,9 @@ abstract class BaseGenerator(
         dataMethod: DataMethodInfo
     ) {
         targetMembers.forEach {
+            if (!it.value.isPrimaryConstructorMember){
+                return@forEach
+            }
             val matching = sourceMembers.values.filter { value ->
                 value.names.forEach { sourceName ->
                     it.value.names.forEach { targetName ->
@@ -286,15 +289,11 @@ abstract class BaseGenerator(
                     ""
                 }
             }
-            Type.ENUM -> {
-                logger.warn("trying to map collection with enum types $varName $outParameterName $inParameter")
-                ""
-            }
             Type.ONE_OF -> {
                 logger.warn("trying to map collection with oneoff types $varName $outParameterName $inParameter")
                 ""
             }
-            Type.DATA -> {
+            Type.DATA , Type.ENUM -> {
                 val dataTarget = dataMethod.getDataCall("it", outParameter.getFullClassName(), true)
                 "$varName.map { $dataTarget }"
             }
@@ -713,12 +712,25 @@ abstract class BaseGenerator(
             return names
         }
 
-        data class MemberInfo(val name: String, val names: List<String>, val type: KSType)
+
+
+        fun KSPropertyDeclaration.isPropertyInConstructor(classDec: KSClassDeclaration): Boolean {
+            if(classDec.classKind == ClassKind.INTERFACE){
+                return true
+            }
+
+            val primaryConstructor = classDec.primaryConstructor ?: return false
+            val names = this.getNames()
+            val constructorParameters = primaryConstructor.parameters.filter { it.name?.asString() in names }
+            return constructorParameters.isNotEmpty()
+        }
+
+        data class MemberInfo(val name: String, val names: List<String>, val type: KSType, val isPrimaryConstructorMember: Boolean = false)
         fun getMembers(definition: KSClassDeclaration) = mutableMapOf<String, MemberInfo>().apply {
             definition.declarations.filter { it is KSPropertyDeclaration }
                 .associateByTo(this, { it.simpleName.asString().lowercase() },
                     { (it as KSPropertyDeclaration).let { property ->
-                        MemberInfo(property.simpleName.asString(), property.getNames(), property.type.resolve())
+                        MemberInfo(property.simpleName.asString(), property.getNames(), property.type.resolve(), property.isPropertyInConstructor(definition))
                 }})
         }
 
