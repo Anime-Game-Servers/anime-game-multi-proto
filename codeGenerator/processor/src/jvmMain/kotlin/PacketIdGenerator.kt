@@ -3,6 +3,7 @@ import com.google.devtools.ksp.symbol.*
 import org.anime_game_servers.multi_proto.core.interfaces.PacketIdProvider
 import java.io.OutputStream
 import java.util.*
+import kotlin.collections.List
 
 class PacketIdGenerator(
     val logger: KSPLogger,
@@ -21,13 +22,34 @@ class PacketIdGenerator(
 
     fun addBody(file: OutputStream, className: String, packetIdMap: PacketIdResult) {
         file += "class $className : PacketIdProvider {\n"
-        generatePacketNameFun(file, packetIdMap.nameIdMap)
+        generatePacketNameMainFun(file, packetIdMap.nameIdMap)
         generatePacketIdFun(file, packetIdMap.idNameMap)
         file += "}\n"
     }
 
-    fun generatePacketNameFun(file: OutputStream, packetIdMap: Map<String, Int>) {
-        file.id(4) += ("override fun getPacketId(packetName:String) = when(packetName) {\n")
+    private fun generatePacketNameMainFun(file: OutputStream, packetIdMap: Map<String, Int>) {
+        val characterMap : MutableMap<Char, MutableList<Pair<String, Int>>> = mutableMapOf()
+        val characters = packetIdMap.entries.map {
+            val char = it.key.first()
+            val list = characterMap.computeIfAbsent(char) { mutableListOf() }
+            list.add(it.toPair())
+            return@map char
+        }.distinct()
+        file.id(4) += ("override fun getPacketId(packetName:String) : Int { \n")
+        file.id(4) += ("val firstChar = packetName.firstOrNull() \n")
+        file.id(8) += ("return when(firstChar) {\n")
+        characters.forEach { character ->
+            file.id(12) += ("'$character' ->  getPacketId${character}(packetName)\n")
+        }
+        file.id(12) += ("else -> 999999\n")
+        file.id(8) += ("}\n")
+        file.id(4) += ("}\n")
+        characters.forEach { character ->
+            generatePacketNameFunForChar(file, character, characterMap[character]!!)
+        }
+    }
+    private fun generatePacketNameFunForChar(file: OutputStream, startChar: Char, packetIdMap: List<Pair<String, Int>>) {
+        file.id(4) += ("private fun getPacketId$startChar(packetName:String) = when(packetName) {\n")
         packetIdMap.forEach { (packetName, packetId) ->
             file.id(8) += ("\"$packetName\" ->  $packetId\n")
         }
@@ -36,8 +58,25 @@ class PacketIdGenerator(
     }
 
 
-    fun generatePacketIdFun(file: OutputStream, packetIdMap: Map<Int, String>) {
-        file.id(4) += ("override fun getPacketName(packetId:Int) = when(packetId) {\n")
+    private fun generatePacketIdFun(file: OutputStream, packetIdMap: Map<Int, String>) {
+        val idGroupMap = packetIdMap.entries.map { it.toPair() }.groupBy { it.first / 1000 }
+        val idGroups = idGroupMap.keys.sorted()
+        file.id(4) += ("override fun getPacketName(packetId: Int) : String? {\n")
+        file.id(4) += ("val packetIdGroup = packetId/1000 \n")
+        file.id(8) += ("return when(packetIdGroup) {\n")
+        idGroups.forEach { groupId ->
+            file.id(12) += ("$groupId -> getPacketName$groupId(packetId)\n")
+        }
+        file.id(12) += ("else -> null\n")
+        file.id(8) += ("}\n")
+        file.id(4) += ("}\n")
+        idGroups.forEach { groupId ->
+            generatePacketIdFun(file, groupId, idGroupMap[groupId]!!.sortedBy { it.first })
+        }
+    }
+
+    private fun generatePacketIdFun(file: OutputStream, group: Int, packetIdMap: List<Pair<Int, String>>) {
+        file.id(4) += ("private fun getPacketName$group(packetId: Int) = when(packetId) {\n")
         packetIdMap.forEach { (packetId, packetName) ->
             file.id(8) += ("$packetId -> \"$packetName\"\n")
         }
