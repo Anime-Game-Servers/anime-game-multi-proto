@@ -100,7 +100,7 @@ open class DataGenerator(
                     protoData.members.forEach { member ->
                         val className = if(oneOfData.allowTypeBasedMapping) oneOfClass.name else fieldName.getClassName()
                         if(member.value.type.starProjection().declaration.simpleName.asString().equals(oneOfClass.name, true) &&
-                            compareIgnoreCase(member.key, fieldName) && member.value.isPrimaryConstructorMember) {
+                            compareIgnoreCase(member.key, fieldName)) {
                             val accessor = if(oneOfClass.isProtoModel) "${oneOfClass.packageName}.${oneOfClass.name}.${protoData.parseFunctionName}(value.value)" else "value.value"
                             file.id(20) += "is ${protoData.packageName}.${protoData.className}.${oneOfData.wrapperName}.${member.value.name.capitalizeFirstLetter()} -> \n"
                             //file.id(24) += "${className}(${oneOfClass.packageName}.${oneOfClass.name}.${protoData.parseFunctionName}(value.value))\n"
