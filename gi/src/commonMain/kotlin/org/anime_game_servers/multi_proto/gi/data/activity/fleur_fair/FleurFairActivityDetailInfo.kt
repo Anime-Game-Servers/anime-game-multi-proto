@@ -6,7 +6,7 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 
 @AddedIn(GI_1_4_0)
 @ProtoModel
-interface FleurFairActivityDetailInfo {
+internal interface FleurFairActivityDetailInfo {
     var chapterInfoList: List<FleurFairChapterInfo>
     var contentCloseTime: Int
     var dungeonPunishOverTime: Int

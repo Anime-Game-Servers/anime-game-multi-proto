@@ -2,13 +2,17 @@ package org.anime_game_servers.multi_proto.gi.data.activity.sea_lamp
 
 import org.anime_game_servers.core.base.annotations.AddedIn
 import org.anime_game_servers.core.base.Version
+import org.anime_game_servers.core.base.Version.GI_0_9_0
+import org.anime_game_servers.core.base.Version.GI_CB2
 import org.anime_game_servers.core.base.annotations.proto.CommandType
+import org.anime_game_servers.core.base.annotations.proto.CommandType.RESPONSE
 import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
+import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 
-@AddedIn(Version.GI_CB2)
-@ProtoCommand(CommandType.REQUEST)
-interface SeaLampTakePhaseRewardRsp {
-    var retcode: Int
-    @AddedIn(Version.GI_0_9_0)
+@AddedIn(GI_CB2)
+@ProtoCommand(RESPONSE)
+internal interface SeaLampTakePhaseRewardRsp {
+    @AddedIn(GI_0_9_0)
     var phaseId: Int
+    var retcode: Retcode
 }

@@ -6,7 +6,7 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 
 @AddedIn(GI_1_4_0)
 @ProtoModel
-interface FleurFairDungeonSectionInfo {
+internal interface FleurFairDungeonSectionInfo {
     var isOpen: Boolean
     var openTime: Int
     var sectionId: Int

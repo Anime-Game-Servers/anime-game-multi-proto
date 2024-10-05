@@ -7,6 +7,6 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 
 @AddedIn(GI_1_4_0)
 @ProtoCommand(REQUEST)
-interface FleurFairReplayMiniGameReq {
+internal interface FleurFairReplayMiniGameReq {
     var minigameId: Int
 }

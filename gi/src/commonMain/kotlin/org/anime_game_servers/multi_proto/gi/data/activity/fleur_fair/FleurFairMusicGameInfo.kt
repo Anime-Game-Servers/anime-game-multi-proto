@@ -6,6 +6,6 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 
 @AddedIn(GI_1_4_0)
 @ProtoModel
-interface FleurFairMusicGameInfo {
+internal interface FleurFairMusicGameInfo {
     var musicRecordMap: Map<Int, FleurFairMusicRecord>
 }

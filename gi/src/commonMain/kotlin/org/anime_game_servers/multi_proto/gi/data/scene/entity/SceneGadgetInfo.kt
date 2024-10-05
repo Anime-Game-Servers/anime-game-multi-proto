@@ -9,7 +9,7 @@ import org.anime_game_servers.core.base.annotations.proto.OneOf
 import org.anime_game_servers.core.base.annotations.proto.OneOfEntry
 import org.anime_game_servers.core.base.annotations.proto.OneOfType
 import org.anime_game_servers.core.base.annotations.proto.ProtoModel
-import org.anime_game_servers.multi_proto.gi.data.activity.echo_shell.EchoShellInfo
+import org.anime_game_servers.multi_proto.gi.data.activity.echo_shell.gadget.EchoShellInfo
 import org.anime_game_servers.multi_proto.gi.data.gadget.BlossomChestInfo
 import org.anime_game_servers.multi_proto.gi.data.gadget.FoundationInfo
 import org.anime_game_servers.multi_proto.gi.data.gadget.GadgetGeneralRewardInfo

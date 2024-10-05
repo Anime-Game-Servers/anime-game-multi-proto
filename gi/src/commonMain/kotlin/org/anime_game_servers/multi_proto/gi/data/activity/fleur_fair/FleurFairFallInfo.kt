@@ -6,6 +6,6 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 
 @AddedIn(GI_1_4_0)
 @ProtoModel
-interface FleurFairFallInfo {
+internal interface FleurFairFallInfo {
     var bestScore: Int
 }

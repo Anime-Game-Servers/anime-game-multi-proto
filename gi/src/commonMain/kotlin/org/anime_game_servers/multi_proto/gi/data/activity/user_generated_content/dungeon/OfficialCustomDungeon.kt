@@ -6,7 +6,7 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 
 @AddedIn(GI_2_5_0)
 @ProtoModel
-interface OfficialCustomDungeon {
+internal interface OfficialCustomDungeon {
     var dungeonId: Int
     var winTimes: Int
 }

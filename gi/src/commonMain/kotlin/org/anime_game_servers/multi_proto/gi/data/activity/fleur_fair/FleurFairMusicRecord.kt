@@ -6,7 +6,7 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 
 @AddedIn(GI_1_4_0)
 @ProtoModel
-interface FleurFairMusicRecord {
+internal interface FleurFairMusicRecord {
     var isUnlock: Boolean
     var maxCombo: Int
     var maxScore: Int

@@ -9,7 +9,7 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 
 @AddedIn(GI_1_4_0)
 @ProtoModel
-interface FleurFairMinigameInfo {
+internal interface FleurFairMinigameInfo {
     var isOpen: Boolean
     var minigameId: Int
     var openTime: Int
