@@ -79,6 +79,7 @@ import org.anime_game_servers.multi_proto.gi.data.activity.mist_trial.MistTrialA
 import org.anime_game_servers.multi_proto.gi.data.activity.moonfin_trial.MoonfinTrialActivityDetailInfo
 import org.anime_game_servers.multi_proto.gi.data.activity.muqadas_potion.MuqadasPotionActivityDetailInfo
 import org.anime_game_servers.multi_proto.gi.data.activity.photo.PhotoActivityDetailInfo
+import org.anime_game_servers.multi_proto.gi.data.activity.plant_flower.PlantFlowerActivityDetailInfo
 import org.anime_game_servers.multi_proto.gi.data.activity.potion.PotionActivityDetailInfo
 import org.anime_game_servers.multi_proto.gi.data.activity.rock_board.RockBoardExploreDetailInfo
 import org.anime_game_servers.multi_proto.gi.data.activity.rogue_diary.RogueDiaryActivityDetailInfo
@@ -94,7 +95,6 @@ import org.anime_game_servers.multi_proto.gi.data.activity.vintage.VintageActivi
 import org.anime_game_servers.multi_proto.gi.data.activity.water_spirit.WaterSpiritActivityDetailInfo
 import org.anime_game_servers.multi_proto.gi.data.activity.wind_field.WindFieldDetailInfo
 import org.anime_game_servers.multi_proto.gi.data.activity.winter_camp.WinterCampActivityDetailInfo
-import protos.V3_2.PlantFlowerActivityDetailInfo
 
 @AddedIn(GI_0_9_0)
 @ProtoModel
