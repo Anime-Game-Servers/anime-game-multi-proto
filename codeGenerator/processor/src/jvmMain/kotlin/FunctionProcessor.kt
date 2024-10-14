@@ -1,6 +1,8 @@
 import com.google.devtools.ksp.*
 import com.google.devtools.ksp.processing.*
 import com.google.devtools.ksp.symbol.*
+import org.anime_game_servers.core.base.Version
+import org.anime_game_servers.multi_proto.core.annotations.ModuleMetaData
 import java.io.File
 import java.io.OutputStream
 
@@ -12,13 +14,10 @@ const val PROTO_COMMAND_ANNOTATION = "$BASE_PROTO_ANNOTATION_PATH.ProtoCommand"
 const val PROTO_VERSION_ENUM_ANNOTATION = "$BASE_PROTO_ANNOTATION_PATH.ProtoVersionEnum"
 const val PROTO_ONE_OF_ANNOTATION = "$BASE_PROTO_ANNOTATION_PATH.OneOf"
 
-const val BASE_ADDED_IN_ANNOTATION = "$BASE_ANNOTATION_PATH.AddedIn"
-const val BASE_REMOVED_IN_ANNOTATION = "$BASE_ANNOTATION_PATH.RemovedIn"
-
 const val COMPILED_PROTO_ANNOTATION = "pbandk.Export"
 //const val VERSION_ENUM_CLASS = "messages.VERSION"
-const val VERSION_ENUM_CLASS_NAME = "Version"
-const val VERSION_ENUM_CLASS = "org.anime_game_servers.core.base.$VERSION_ENUM_CLASS_NAME"
+val VERSION_ENUM_CLASS_NAME : String = Version::class.java.simpleName
+val VERSION_ENUM_CLASS : String = Version::class.java.canonicalName
 
 
 /**
@@ -120,7 +119,8 @@ class FunctionProcessor(
     }
     fun generatePackageIdFile(logger: KSPLogger,
                               versionPackageIdMap: Map<String, PacketIdGenerator.PacketIdResult>){
-        val versionGenerator = PacketIdGenerator(logger)
+        val basePacket = options["basePacket"] ?: ""
+        val versionGenerator = PacketIdGenerator(logger, basePacket)
         versionPackageIdMap.forEach { (versionName, packageIdMaps) ->
             logger.info("generating packageIds files: ${packageIdMaps.dependencies.joinToString { it.toString() }}")
             val file: OutputStream = codeGenerator.createNewFile(
@@ -128,7 +128,7 @@ class FunctionProcessor(
                 // Learn more about incremental processing in KSP from the official docs:
                 // https://kotlinlang.org/docs/ksp-incremental.html
                 dependencies = Dependencies(true, *packageIdMaps.dependencies.toTypedArray()),
-                packageName = "package_id",
+                packageName = "$basePacket.packet_id",
                 fileName = versionName
             )
             logger.info("generating ${packageIdMaps.dependencies.joinToString { it.toString() }}")
@@ -143,7 +143,7 @@ class FunctionProcessor(
             // Learn more about incremental processing in KSP from the official docs:
             // https://kotlinlang.org/docs/ksp-incremental.html
             dependencies = Dependencies(true, *versionPackageIdMap.values.first().dependencies.toTypedArray()),
-            packageName = "package_id",
+            packageName = "$basePacket.packet_id",
             fileName = "PackageIds"
         )
 
@@ -207,7 +207,7 @@ class FunctionProcessor(
 
         val compiledProtos = resolver.getClassSymbolsByAnnotation(COMPILED_PROTO_ANNOTATION)
 
-        val versionClassWorkaround = resolver.getClassSymbolsByAnnotation(PROTO_VERSION_ENUM_ANNOTATION).firstOrNull()
+        val versionClassWorkaround = resolver.getClassSymbolsByAnnotation(ModuleMetaData::class.java.canonicalName).firstOrNull()
         val versionClass = resolver.getClassDeclarationByName(VERSION_ENUM_CLASS) ?: run {
             logger.error("[resources] Unable to find version class $VERSION_ENUM_CLASS")
             return emptyList()
@@ -215,7 +215,7 @@ class FunctionProcessor(
 
         val resourcesPath = versionClassWorkaround?.let {
             it.containingFile?.let { file ->
-                val basePath = file.filePath.removeSuffix("kotlin/messages/VERSION.kt")
+                val basePath = file.filePath.removeSuffix("kotlin/${file.fileName}")
                 logger.warn("[resources] BasePath: $basePath")
                 basePath+"resources"
             }?: run {

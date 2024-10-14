@@ -5,8 +5,11 @@
 ##gradle
 .gradle
 
+.kotlin
+
 ## protos
 /protos
+/gi/src/commonMain/kotlin/protos
 
 ## build stuff
 build

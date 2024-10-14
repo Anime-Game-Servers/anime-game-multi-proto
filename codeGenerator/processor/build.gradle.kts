@@ -4,8 +4,8 @@ plugins {
 group = "org.anime_game_servers.multi_proto"
 version = "0.1"
 kotlin {
+    jvmToolchain(17)
     jvm {
-        jvmToolchain(17)
         withJava()
         testRuns["test"].executionTask.configure {
             useJUnitPlatform()
@@ -15,7 +15,9 @@ kotlin {
     sourceSets {
         val jvmMain by getting {
             dependencies {
-                implementation("com.google.devtools.ksp:symbol-processing-api:1.9.21-1.0.16")
+                implementation("com.google.devtools.ksp:symbol-processing-api:1.9.24-1.0.20")
+                implementation(project(":base"))
+                implementation("org.anime_game_servers.core:base:0.1")
             }
         }
         val jvmTest by getting

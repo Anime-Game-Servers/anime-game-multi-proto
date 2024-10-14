@@ -1,0 +1,20 @@
+package org.anime_game_servers.multi_proto.gi.data.mail
+
+import org.anime_game_servers.core.base.annotations.AddedIn
+import org.anime_game_servers.core.base.Version.GI_CB1
+import org.anime_game_servers.core.base.Version.GI_1_5_0
+import org.anime_game_servers.core.base.Version.GI_2_4_0
+import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
+import org.anime_game_servers.core.base.annotations.proto.CommandType.RESPONSE
+import org.anime_game_servers.multi_proto.gi.data.general.Retcode
+
+@AddedIn(GI_CB1)
+@ProtoCommand(RESPONSE)
+internal interface GetAllMailRsp {
+    var retCode: Retcode
+    var mailList: List<MailData>
+    @AddedIn(GI_1_5_0)
+    var isTruncated: Boolean
+    @AddedIn(GI_2_4_0)
+    var isCollected: Boolean
+}

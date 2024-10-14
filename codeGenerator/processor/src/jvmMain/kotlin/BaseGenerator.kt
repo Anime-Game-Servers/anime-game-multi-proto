@@ -1,10 +1,13 @@
-import BaseGenerator.Companion.snakeToLowerCamelCase
+
 import com.google.devtools.ksp.KspExperimental
 import com.google.devtools.ksp.getDeclaredProperties
 import com.google.devtools.ksp.getKotlinClassByName
 import com.google.devtools.ksp.processing.KSPLogger
 import com.google.devtools.ksp.processing.Resolver
 import com.google.devtools.ksp.symbol.*
+import org.anime_game_servers.core.base.Version
+import org.anime_game_servers.core.base.annotations.AddedIn
+import org.anime_game_servers.core.base.annotations.RemovedIn
 import java.io.OutputStream
 import java.util.*
 
@@ -30,9 +33,9 @@ abstract class BaseGenerator(
     }
 
     open fun addImports(file:OutputStream, classInfo: ClassInfo){
-        file += "import $VERSION_ENUM_CLASS\n"+
-                "import $BASE_ADDED_IN_ANNOTATION\n"+
-                "import $BASE_REMOVED_IN_ANNOTATION\n"+
+        file += "import ${Version::class.java.canonicalName}\n"+
+                "import ${AddedIn::class.java.canonicalName}\n"+
+                "import ${RemovedIn::class.java.canonicalName}\n"+
                 "import kotlin.jvm.JvmStatic\n"+
                 "import kotlin.jvm.JvmOverloads\n"
     }
@@ -146,22 +149,48 @@ abstract class BaseGenerator(
         dataMethod: DataMethodInfo
     ) {
         targetMembers.forEach {
-            if (!sourceMembers.containsKey(it.key)) {
+            if (!it.value.isPrimaryConstructorMember){
                 return@forEach
             }
-            val sourceMember = sourceMembers[it.key]!!
+            val matching = sourceMembers.values.filter { value ->
+                value.names.forEach { sourceName ->
+                    it.value.names.forEach { targetName ->
+                        if(sourceName.equals(targetName, true)){
+                            return@filter true
+                        }
+                    }
+                }
+                return@filter false
+            }
+            if (matching.isEmpty()) {
+                return@forEach
+            }
+            if(matching.size > 1){
+                logger.warn("multiple matching source members for ${it.key}")
+            }
+            val sourceMember = matching.first()
             val baseVarName = "`${it.value.name.getVariableName()}`"
             val baseSourceVarName = "`${sourceMember.name.getVariableName()}`"
             val sourceVarName = sourcePrefix?.let {pf -> "$pf.${baseSourceVarName}" } ?: baseSourceVarName
             
             val type = Type.byType(it.value.type, this)
             file.id(indentation)+= when (type) {
-                Type.SIMPLE -> "$baseVarName = $sourceVarName,\n"
+                Type.SIMPLE -> {
+                    "$baseVarName = ${
+                        convertSimple(
+                            it.value,
+                            sourceMember,
+                            sourceVarName,
+                            dataMethod,
+                            resolver
+                        )
+                    },\n"
+                }
                 Type.COLLECTION -> {
                     "${getFullNameForTarget(it.value, it.value.name, sourceMember)} = ${
                         convertToCollection(
                             it.value,
-                            sourceMembers[it.key]!!,
+                            sourceMember,
                             sourceVarName,
                             dataMethod,
                             resolver
@@ -234,10 +263,23 @@ abstract class BaseGenerator(
         //logger.warn("list equals ${inType == outType} ${outParameter==inParameter}\n\t$outParameterName\t${inParameter?.declaration?.simpleName?.asString()}")
         //logger.warn("field type: $varName $outParameterName ${Type.byType(outParameter, this)} ${Type.byType(inType, this)} o$outParameter i$inParameter\n")
         return when (Type.byType(outParameter, this)) {
-            Type.SIMPLE -> "emptyList()"// TODO convert
+            Type.SIMPLE -> {
+                if(inParameter == outParameter){
+                    varName
+                } else {// TODO convert
+                    logger.warn("simple collections with different types $varName $outParameterName $inParameter")
+                    "emptyList()"
+                }
+            }
             Type.COLLECTION -> "$outParameterName($varName)"
-            Type.BYTE_ARRAY -> ""
-            Type.MAP -> ""
+            Type.BYTE_ARRAY -> {
+                logger.warn("bytearray collection $varName")
+                ""
+            }
+            Type.MAP -> {
+                logger.warn("trying to map map to collection $varName $outParameterName $inParameter")
+                ""
+            }
             Type.MAP_ENTRY -> {
                 val outTypes = getMapEntryTypePair(outParameter,resolver)
                 if(Type.byType(inType.type, this) == Type.MAP){
@@ -247,10 +289,11 @@ abstract class BaseGenerator(
                     ""
                 }
             }
-            Type.ENUM -> "" //TODO
-            Type.ONE_OF -> "" //TODO
-
-            Type.DATA -> {
+            Type.ONE_OF -> {
+                logger.warn("trying to map collection with oneoff types $varName $outParameterName $inParameter")
+                ""
+            }
+            Type.DATA , Type.ENUM -> {
                 val dataTarget = dataMethod.getDataCall("it", outParameter.getFullClassName(), true)
                 "$varName.map { $dataTarget }"
             }
@@ -329,10 +372,10 @@ abstract class BaseGenerator(
         val toEntries = Type.byType(outType, this) == Type.MAP_ENTRY
         return "$varName.filter {it.value != null}.associateByTo(mutableMapOf(), ${mapConversion(inArgs, outArg, dataMethod, outTypeName, toEntries, forceNonNullVal = true)})"
     }
-    fun mapToMap(inArgs: Pair<KSType, KSType>, outArg:Pair<KSType, KSType>, varName: String, dataMethod: DataMethodInfo, outType:KSType, resolver: Resolver) : String {
+    fun mapToMap(inArgs: Pair<KSType, KSType>, outArg:Pair<KSType, KSType>, varName: String, dataMethod: DataMethodInfo, outType:KSType, resolver: Resolver, isNullSave:Boolean=false) : String {
         val outTypeName = outType.getFullClassName()
         val toEntries = Type.byType(outType, this) == Type.MAP_ENTRY
-        return "$varName.associateByTo(mutableMapOf(), ${mapConversion(inArgs, outArg, dataMethod, outTypeName, toEntries)})"
+        return "$varName.entries.associateByTo(mutableMapOf(), ${mapConversion(inArgs, outArg, dataMethod, outTypeName, toEntries, isNullSave = isNullSave)})"
     }
     fun mapConversion(inArgs: Pair<KSType, KSType>, outArg:Pair<KSType, KSType>,
                       dataMethodInfo: DataMethodInfo, outTypeName:String, toEntries:Boolean, isNullSave:Boolean=false, forceNonNullVal:Boolean=false) : String{
@@ -429,20 +472,59 @@ abstract class BaseGenerator(
                         val outPair = getMapEntryTypePair(outType.type, resolver)
                         return collectionToMap(inPair, outPair, varName, dataMethod, outType.type, resolver)
                     }
+                    if (type == Type.MAP) {
+                        val nullable  = inKeyType!!.isMarkedNullable || inValueType!!.isMarkedNullable || outKeyType.isMarkedNullable || outValueType!!.isMarkedNullable
+                        return mapToMap(Pair(inKeyType!!, inValueType!!), Pair(outKeyType!!, outValueType!!), varName, dataMethod, outType.type, isNullSave = !nullable, resolver =  resolver)
+                    }
+                    logger.warn("possible missing map type handling $varName")
                     "emptyMap()"
                 } // TODO convert
-                Type.BYTE_ARRAY -> ""
-                Type.COLLECTION -> ""
-                Type.MAP -> ""
-                Type.MAP_ENTRY -> ""
-                Type.ENUM -> ""
-                Type.ONE_OF -> ""
+                Type.BYTE_ARRAY -> {
+                    logger.warn("trying to map bytearray to map $varName $outKeyType:$outValueType $inKeyType:$inValueType")
+                    ""
+                }
+                Type.COLLECTION -> {
+                    logger.warn("trying to map collection to map $varName $outKeyType:$outValueType $inKeyType:$inValueType")
+                    ""
+                }
+                Type.MAP -> {
+                    logger.warn("trying to map map to map $varName $outKeyType:$outValueType $inKeyType:$inValueType")
+                    ""
+                }
+                Type.MAP_ENTRY -> {
+                    logger.warn("trying to map mapEntry to map $varName $outKeyType:$outValueType $inKeyType:$inValueType")
+                    ""
+                }
+                Type.ENUM -> {
+                    logger.warn("trying to map enum to map $varName $outKeyType:$outValueType $inKeyType:$inValueType")
+                    ""
+                }
+                Type.ONE_OF -> {
+                    logger.warn("trying to map oneof to map $varName $outKeyType:$outValueType $inKeyType:$inValueType")
+                    ""
+                }
                 Type.DATA -> {
                     val dataTarget = dataMethod.getDataCall("it", it.getFullClassName())
                     "`$varName`.map { $dataTarget }"
                 }
             }
-        } ?: "emptyList()"
+        } ?: run {
+            logger.warn("trying to map with outKeyType null to map $varName $outKeyType:$outValueType $inKeyType:$inValueType")
+            "emptyList()"
+        }
+    }
+
+    private fun convertSimple(
+        outType: MemberInfo,
+        inType: MemberInfo,
+        varName: String,
+        dataMethod: DataMethodInfo,
+        resolver: Resolver): String{
+        val inTypeCategory = Type.byType(inType.type, this)
+        if(outType.type.getFullClassName() == "kotlin.Int" && inTypeCategory == Type.ENUM){
+            return "$varName.${dataMethod.methodName}().value"
+        }
+        return "$varName"
     }
 
     protected fun getTypeString(variable: Map.Entry<String,MemberInfo>): String {
@@ -619,11 +701,37 @@ abstract class BaseGenerator(
         }
     }
 
+
+
     companion object {
-        data class MemberInfo(val name: String, val type: KSType)
+        fun KSPropertyDeclaration.getNames(): List<String>{
+            val names = mutableListOf(simpleName.asString())
+            annotations.filter { annotation -> annotation.shortName.asString() == "AltName" }
+                .forEach { it.arguments.forEach { (it.value as? List<String> )?.let { names.addAll(it) }}}
+
+            return names
+        }
+
+
+
+        fun KSPropertyDeclaration.isPropertyInConstructor(classDec: KSClassDeclaration): Boolean {
+            if(classDec.classKind == ClassKind.INTERFACE){
+                return true
+            }
+
+            val primaryConstructor = classDec.primaryConstructor ?: return false
+            val names = this.getNames()
+            val constructorParameters = primaryConstructor.parameters.filter { it.name?.asString() in names }
+            return constructorParameters.isNotEmpty()
+        }
+
+        data class MemberInfo(val name: String, val names: List<String>, val type: KSType, val isPrimaryConstructorMember: Boolean = false)
         fun getMembers(definition: KSClassDeclaration) = mutableMapOf<String, MemberInfo>().apply {
             definition.declarations.filter { it is KSPropertyDeclaration }
-                .associateByTo(this, { it.simpleName.asString().lowercase() }, { MemberInfo(it.simpleName.asString(), (it as KSPropertyDeclaration).type.resolve()) })
+                .associateByTo(this, { it.simpleName.asString().lowercase() },
+                    { (it as KSPropertyDeclaration).let { property ->
+                        MemberInfo(property.simpleName.asString(), property.getNames(), property.type.resolve(), property.isPropertyInConstructor(definition))
+                }})
         }
 
 
