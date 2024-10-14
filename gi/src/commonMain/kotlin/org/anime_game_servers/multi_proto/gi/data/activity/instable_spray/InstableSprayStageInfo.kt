@@ -10,5 +10,5 @@ internal interface InstableSprayStageInfo {
     var isFinished: Boolean
     var maxScore: Int
     var stageId: Int
-    var teamInfoList: List<org.anime_game_servers.multi_proto.gi.data.activity.instable_spray.InstableSprayTeamInfo>
+    var teamInfoList: List<InstableSprayTeamInfo>
 }

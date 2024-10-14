@@ -8,5 +8,5 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @AddedIn(GI_0_9_0)
 @ProtoCommand(NOTIFY)
 internal interface ServerAnnounceNotify {
-    var announceDataList: List<org.anime_game_servers.multi_proto.gi.data.activity.general.AnnounceData>
+    var announceDataList: List<AnnounceData>
 }

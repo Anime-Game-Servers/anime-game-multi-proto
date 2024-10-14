@@ -10,5 +10,5 @@ internal interface CrystalLinkLevelInfo {
     var bestScore: Int
     var isOpen: Boolean
     var levelId: Int
-    var teamInfoList: List<org.anime_game_servers.multi_proto.gi.data.activity.crystal_link.CrystalLinkTeamInfo>
+    var teamInfoList: List<CrystalLinkTeamInfo>
 }

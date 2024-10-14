@@ -6,10 +6,12 @@ import org.anime_game_servers.multi_proto.gi.data.general.server.ResVersionConfi
 import org.anime_game_servers.core.base.Version
 import org.anime_game_servers.core.base.annotations.proto.CommandType
 import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
+import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 
 @AddedIn(Version.GI_CB1)
 @ProtoCommand(CommandType.RESPONSE)
-interface PlayerLoginRsp {
+internal interface PlayerLoginRsp {
+    var retCode: Retcode
     var playerData: ByteArray
     var isNewPlayer: Boolean
     var targetUid: Int
@@ -24,7 +26,6 @@ interface PlayerLoginRsp {
     @RemovedIn(Version.GI_1_0_0)
     var resVersion: Int
     var isRelogin: Boolean
-    var retCode: Int
     @AddedIn(Version.GI_CB2) @RemovedIn(Version.GI_0_9_0)
     var resVersionEx: Int
     @AddedIn(Version.GI_0_9_0)

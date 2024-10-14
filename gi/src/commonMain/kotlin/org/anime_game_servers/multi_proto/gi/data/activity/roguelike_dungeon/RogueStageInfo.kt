@@ -7,7 +7,7 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 @AddedIn(GI_2_2_0)
 @ProtoModel
 internal interface RogueStageInfo {
-    var avatarTeam: org.anime_game_servers.multi_proto.gi.data.activity.roguelike_dungeon.RogueShowAvatarTeamInfo
+    var avatarTeam: RogueShowAvatarTeamInfo
     var cachedCoinBNum: Int
     var cachedCoinCNum: Int
     var coinCNum: Int
@@ -20,6 +20,6 @@ internal interface RogueStageInfo {
     var isTakenReward: Boolean
     var maxPassedLevel: Int
     var reviseMonsterLevel: Int
-    var runeRecordList: List<org.anime_game_servers.multi_proto.gi.data.activity.roguelike_dungeon.RoguelikeRuneRecord>
+    var runeRecordList: List<RoguelikeRuneRecord>
     var stageId: Int
 }

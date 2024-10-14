@@ -9,7 +9,7 @@ import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 @AddedIn(GI_2_6_0)
 @ProtoCommand(RESPONSE)
 internal interface EnterIrodoriChessDungeonRsp {
+    var retcode: Retcode
     var isHardMap: Boolean
     var levelId: Int
-    var retcode: Retcode
 }

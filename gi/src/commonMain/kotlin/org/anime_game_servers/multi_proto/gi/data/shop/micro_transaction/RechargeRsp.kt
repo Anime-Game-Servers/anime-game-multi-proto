@@ -10,8 +10,8 @@ import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 @AddedIn(GI_0_9_0)
 @ProtoCommand(RESPONSE)
 internal interface RechargeRsp {
-    var productId: String
     var retcode: Retcode
+    var productId: String
     @AddedIn(GI_2_3_0)
     var isShowMinorsHint: Boolean
 }

@@ -11,6 +11,6 @@ internal interface BartenderActivityDetailInfo {
     var isDevelopModuleOpen: Boolean
     var unlockFormulaList: List<Int>
     var unlockItemList: List<Int>
-    var unlockLevelList: List<org.anime_game_servers.multi_proto.gi.data.activity.bartender.BartenderLevelInfo>
-    var unlockTaskList: List<org.anime_game_servers.multi_proto.gi.data.activity.bartender.BartenderTaskInfo>
+    var unlockLevelList: List<BartenderLevelInfo>
+    var unlockTaskList: List<BartenderTaskInfo>
 }

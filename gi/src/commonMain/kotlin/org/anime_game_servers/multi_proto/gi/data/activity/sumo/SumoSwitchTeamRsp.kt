@@ -9,10 +9,10 @@ import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 @AddedIn(GI_2_1_0)
 @ProtoCommand(RESPONSE)
 internal interface SumoSwitchTeamRsp {
+    var retcode: Retcode
     var activityId: Int
     var curTeamIndex: Int
     var dungeonTeamList: List<SumoDungeonTeam>
     var nextValidSwitchTime: Int
     var stageId: Int
-    var retcode: Retcode
 }

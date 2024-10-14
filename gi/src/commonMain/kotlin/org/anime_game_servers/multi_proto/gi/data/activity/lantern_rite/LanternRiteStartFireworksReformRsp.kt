@@ -12,13 +12,13 @@ import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 @AddedIn(GI_2_4_0)
 @ProtoCommand(RESPONSE)
 internal interface LanternRiteStartFireworksReformRsp {
+    var retcode: Retcode
     var challengeId: Int
-    var factorInfoList: List<org.anime_game_servers.multi_proto.gi.data.activity.lantern_rite.LanternRiteFireworksReformFactorInfo>
+    var factorInfoList: List<LanternRiteFireworksReformFactorInfo>
     var fireElementAdditionRatio: Int
     var fireElementValue: Int
     var reformScore: Int
-    var skillInfoList: List<org.anime_game_servers.multi_proto.gi.data.activity.lantern_rite.LanternRiteFireworksReformSkillInfo>
+    var skillInfoList: List<LanternRiteFireworksReformSkillInfo>
     var stageId: Int
     var staminaValue: Int
-    var retcode: Retcode
 }

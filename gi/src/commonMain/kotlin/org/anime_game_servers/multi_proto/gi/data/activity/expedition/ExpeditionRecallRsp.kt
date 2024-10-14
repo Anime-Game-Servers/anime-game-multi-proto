@@ -9,6 +9,6 @@ import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 @AddedIn(GI_1_3_0)
 @ProtoCommand(RESPONSE)
 internal interface ExpeditionRecallRsp {
-    var pathId: Int
     var retcode: Retcode
+    var pathId: Int
 }

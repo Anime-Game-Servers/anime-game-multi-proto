@@ -9,8 +9,8 @@ import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 @AddedIn(GI_3_0_0)
 @ProtoCommand(RESPONSE)
 internal interface HomeExchangeWoodRsp {
+    var retcode: Retcode
     var exchangedCount: Int
     var woodCount: Int
     var woodId: Int
-    var retcode: Retcode
 }

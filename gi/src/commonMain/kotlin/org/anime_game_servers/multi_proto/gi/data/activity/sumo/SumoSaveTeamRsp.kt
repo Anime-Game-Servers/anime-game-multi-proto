@@ -9,9 +9,9 @@ import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 @AddedIn(GI_2_1_0)
 @ProtoCommand(RESPONSE)
 internal interface SumoSaveTeamRsp {
+    var retcode: Retcode
     var activityId: Int
     var difficultyId: Int
     var stageId: Int
     var teamList: List<SumoTeamData>
-    var retcode: Retcode
 }

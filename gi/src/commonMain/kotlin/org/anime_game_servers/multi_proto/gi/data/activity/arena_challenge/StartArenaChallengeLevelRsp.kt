@@ -12,8 +12,8 @@ import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 @AddedIn(GI_1_4_0)
 @ProtoCommand(RESPONSE)
 internal interface StartArenaChallengeLevelRsp {
+    var retcode: Retcode
     var arenaChallengeId: Int
     var arenaChallengeLevel: Int
     var gadgetEntityId: Int
-    var retcode: Retcode
 }

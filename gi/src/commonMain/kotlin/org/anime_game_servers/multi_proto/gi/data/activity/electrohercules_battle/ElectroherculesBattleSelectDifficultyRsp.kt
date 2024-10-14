@@ -9,8 +9,8 @@ import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 @AddedIn(GI_3_4_0)
 @ProtoCommand(RESPONSE)
 internal interface ElectroherculesBattleSelectDifficultyRsp {
+    var retcode: Retcode
     var diffculty: Int
     var galleryId: Int
     var stageId: Int
-    var retcode: Retcode
 }

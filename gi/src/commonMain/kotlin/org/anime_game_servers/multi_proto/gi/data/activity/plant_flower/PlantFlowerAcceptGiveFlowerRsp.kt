@@ -9,7 +9,7 @@ import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 @AddedIn(GI_2_2_0)
 @ProtoCommand(RESPONSE)
 internal interface PlantFlowerAcceptGiveFlowerRsp {
-    var acceptFlowerResultInfo: org.anime_game_servers.multi_proto.gi.data.activity.plant_flower.PlantFlowerAcceptFlowerResultInfo
-    var scheduleId: Int
     var retcode: Retcode
+    var acceptFlowerResultInfo: PlantFlowerAcceptFlowerResultInfo
+    var scheduleId: Int
 }

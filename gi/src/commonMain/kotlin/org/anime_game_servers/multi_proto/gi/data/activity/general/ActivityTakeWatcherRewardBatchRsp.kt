@@ -10,8 +10,8 @@ import org.anime_game_servers.multi_proto.gi.data.general.item.ItemParam
 @AddedIn(GI_1_4_0)
 @ProtoCommand(RESPONSE)
 internal interface ActivityTakeWatcherRewardBatchRsp {
+    var retcode: Retcode
     var activityId: Int
     var itemList: List<ItemParam>
     var watcherIdList: List<Int>
-    var retcode: Retcode
 }

@@ -9,8 +9,8 @@ import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 @AddedIn(GI_1_5_0)
 @ProtoCommand(RESPONSE, alternateNames = ["ChannellerSlabWearBuffRsp"])
 internal interface ChannelerSlabWearBuffRsp {
+    var retcode: Retcode
     var buffId: Int
     var isMp: Boolean
     var slotId: Int
-    var retcode: Retcode
 }

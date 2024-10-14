@@ -11,5 +11,5 @@ internal interface RogueCellInfo {
     var cellId: Int
     var cellType: Int
     var dungeonId: Int
-    var state: org.anime_game_servers.multi_proto.gi.data.activity.roguelike_dungeon.RogueCellState
+    var state: RogueCellState
 }

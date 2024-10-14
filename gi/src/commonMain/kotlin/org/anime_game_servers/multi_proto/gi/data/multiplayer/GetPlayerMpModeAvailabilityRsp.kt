@@ -9,7 +9,7 @@ import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 @AddedIn(GI_0_9_0)
 @ProtoCommand(RESPONSE)
 internal interface GetPlayerMpModeAvailabilityRsp {
+    var retcode: Retcode
     var mpRet: Int
     var paramList: List<Int>
-    var retcode: Retcode
 }

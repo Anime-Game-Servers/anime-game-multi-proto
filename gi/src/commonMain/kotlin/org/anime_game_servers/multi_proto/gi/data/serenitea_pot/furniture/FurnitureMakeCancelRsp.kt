@@ -9,7 +9,7 @@ import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 @AddedIn(GI_1_5_0)
 @ProtoCommand(RESPONSE)
 internal interface FurnitureMakeCancelRsp {
+    var retcode: Retcode
     var furnitureMakeSlot: FurnitureMakeSlot
     var makeId: Int
-    var retcode: Retcode
 }

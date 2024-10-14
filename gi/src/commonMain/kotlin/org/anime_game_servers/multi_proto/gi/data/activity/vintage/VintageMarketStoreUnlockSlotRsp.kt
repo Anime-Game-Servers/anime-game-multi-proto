@@ -9,7 +9,7 @@ import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 @AddedIn(GI_3_1_0)
 @ProtoCommand(RESPONSE)
 internal interface VintageMarketStoreUnlockSlotRsp {
+    var retcode: Retcode
     var slotCount: Int
     var storeId: Int
-    var retcode: Retcode
 }

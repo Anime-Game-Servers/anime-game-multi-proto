@@ -13,6 +13,6 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 internal interface ArenaChallengeFinishNotify {
     var arenaChallengeId: Int
     var arenaChallengeLevel: Int
-    var childChallengeList: List<org.anime_game_servers.multi_proto.gi.data.activity.arena_challenge.ArenaChallengeChildChallengeInfo>
+    var childChallengeList: List<ArenaChallengeChildChallengeInfo>
     var isSuccess: Boolean
 }

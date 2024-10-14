@@ -11,10 +11,10 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 @ProtoModel
 internal interface FungusFighterDetailInfo {
     var finishCampIdList: List<Int>
-    var fungusDetailList: List<org.anime_game_servers.multi_proto.gi.data.activity.fungus_fighter.FungusDetail>
-    var plotStageDetailList: List<org.anime_game_servers.multi_proto.gi.data.activity.fungus_fighter.FungusPlotStageDetail>
-    var trainingDungeonDetailList: List<org.anime_game_servers.multi_proto.gi.data.activity.fungus_fighter.FungusTrainingDungeonDetail>
-    var trainingDungeonProgressDetailList: List<org.anime_game_servers.multi_proto.gi.data.activity.fungus_fighter.FungusTrainingProgressDetail>
+    var fungusDetailList: List<FungusDetail>
+    var plotStageDetailList: List<FungusPlotStageDetail>
+    var trainingDungeonDetailList: List<FungusTrainingDungeonDetail>
+    var trainingDungeonProgressDetailList: List<FungusTrainingProgressDetail>
     var unlockCampIdList: List<Int>
     var unlockCultivateIdList: List<Int>
 }

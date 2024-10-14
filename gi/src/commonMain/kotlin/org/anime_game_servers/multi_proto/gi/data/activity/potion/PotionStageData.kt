@@ -10,6 +10,6 @@ internal interface PotionStageData {
     var coolDownAvatarIdList: List<Int>
     var coolDownBuffIdList: List<Int>
     var isOpen: Boolean
-    var levelList: List<org.anime_game_servers.multi_proto.gi.data.activity.potion.PotionLevelData>
+    var levelList: List<PotionLevelData>
     var stageId: Int
 }

@@ -7,7 +7,7 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 
 @AddedIn(Version.GI_1_5_0)
 @ProtoCommand(CommandType.NOTIFY)
-interface ChatChannelUpdateNotify {
+internal interface ChatChannelUpdateNotify {
     var channelId: Int
     var isCreate: Boolean
 }

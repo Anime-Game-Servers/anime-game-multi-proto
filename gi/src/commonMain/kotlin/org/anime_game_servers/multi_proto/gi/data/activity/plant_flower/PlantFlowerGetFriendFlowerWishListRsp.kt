@@ -9,7 +9,7 @@ import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 @AddedIn(GI_2_2_0)
 @ProtoCommand(RESPONSE)
 internal interface PlantFlowerGetFriendFlowerWishListRsp {
-    var friendFlowerWishList: List<org.anime_game_servers.multi_proto.gi.data.activity.plant_flower.PlantFlowerFriendFlowerWishData>
-    var scheduleId: Int
     var retcode: Retcode
+    var friendFlowerWishList: List<PlantFlowerFriendFlowerWishData>
+    var scheduleId: Int
 }

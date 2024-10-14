@@ -9,6 +9,6 @@ import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 @AddedIn(GI_0_9_0)
 @ProtoCommand(RESPONSE)
 internal interface PlayerSetOnlyMPWithPSPlayerRsp {
-    var isOnly: Boolean
     var retcode: Retcode
+    var isOnly: Boolean
 }

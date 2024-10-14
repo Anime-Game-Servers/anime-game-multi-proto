@@ -9,6 +9,6 @@ import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 @AddedIn(GI_1_5_0)
 @ProtoCommand(RESPONSE)
 internal interface HomeLimitedShopInfoRsp {
-    var shopInfo: HomeLimitedShopInfo
     var retcode: Retcode
+    var shopInfo: HomeLimitedShopInfo
 }

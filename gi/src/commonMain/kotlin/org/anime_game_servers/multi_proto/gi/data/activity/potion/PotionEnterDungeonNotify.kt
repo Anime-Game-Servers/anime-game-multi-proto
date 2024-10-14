@@ -9,7 +9,7 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @ProtoCommand(NOTIFY)
 internal interface PotionEnterDungeonNotify {
     var difficultyLevel: Int
-    var dungeonAvatarList: List<org.anime_game_servers.multi_proto.gi.data.activity.potion.PotionDungeonAvatar>
+    var dungeonAvatarList: List<PotionDungeonAvatar>
     var levelId: Int
     var modeId: Int
     var stageId: Int

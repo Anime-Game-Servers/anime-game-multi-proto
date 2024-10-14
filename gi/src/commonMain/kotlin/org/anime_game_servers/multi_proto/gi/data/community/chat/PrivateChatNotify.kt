@@ -7,6 +7,6 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 
 @AddedIn(Version.GI_1_2_0)
 @ProtoCommand(CommandType.NOTIFY)
-interface PrivateChatNotify {
+internal interface PrivateChatNotify {
     var chatInfo: ChatInfo
 }

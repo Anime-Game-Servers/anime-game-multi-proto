@@ -12,8 +12,8 @@ import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 @AddedIn(GI_3_1_0)
 @ProtoCommand(RESPONSE)
 internal interface VintageMarketStartStorePlayRsp {
+    var retcode: Retcode
     var prevRoundCoinB: Int
     var prevRoundCoinC: Int
     var storeRound: Int
-    var retcode: Retcode
 }

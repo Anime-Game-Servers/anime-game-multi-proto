@@ -8,7 +8,7 @@ import org.anime_game_servers.core.base.annotations.proto.*
 
 @AddedIn(GI_1_2_0)
 @ProtoCommand(REQUEST)
-interface PrivateChatReq {
+internal interface PrivateChatReq {
     var targetUid: Int
     @OneOf(
         OneOfEntry(String::class, "text"),

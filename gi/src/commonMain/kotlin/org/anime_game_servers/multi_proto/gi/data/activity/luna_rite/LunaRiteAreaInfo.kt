@@ -9,7 +9,7 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 internal interface LunaRiteAreaInfo {
     var areaId: Int
     var challengeIndex: Int
-    var hintStatus: org.anime_game_servers.multi_proto.gi.data.activity.luna_rite.LunaRiteHintStatusType
+    var hintStatus: LunaRiteHintStatusType
     var sacrificeList: List<Int>
     var sacrificeRewardList: List<Int>
 }

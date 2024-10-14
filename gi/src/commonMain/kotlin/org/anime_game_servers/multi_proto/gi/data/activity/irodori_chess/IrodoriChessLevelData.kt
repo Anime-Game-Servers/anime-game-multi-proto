@@ -10,8 +10,8 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 @AddedIn(GI_2_6_0)
 @ProtoModel
 internal interface IrodoriChessLevelData {
-    var hardMapData: org.anime_game_servers.multi_proto.gi.data.activity.irodori_chess.IrodoriChessMapData
+    var hardMapData: IrodoriChessMapData
     var levelId: Int
-    var normalMapData: org.anime_game_servers.multi_proto.gi.data.activity.irodori_chess.IrodoriChessMapData
+    var normalMapData: IrodoriChessMapData
     var openTime: Int
 }

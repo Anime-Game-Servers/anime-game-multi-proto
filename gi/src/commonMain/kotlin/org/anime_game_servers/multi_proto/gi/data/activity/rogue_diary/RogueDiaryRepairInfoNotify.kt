@@ -8,12 +8,12 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @AddedIn(GI_2_7_0)
 @ProtoCommand(CLIENT)
 internal interface RogueDiaryRepairInfoNotify {
-    var avatarList: List<org.anime_game_servers.multi_proto.gi.data.activity.rogue_diary.RogueDiaryAvatar>
+    var avatarList: List<RogueDiaryAvatar>
     var chosenCardList: List<Int>
     var randCardList: List<Int>
-    var roomList: List<org.anime_game_servers.multi_proto.gi.data.activity.rogue_diary.RogueDiaryRoomInfo>
-    var selectAvatarList: List<org.anime_game_servers.multi_proto.gi.data.activity.rogue_diary.RogueDiaryAvatar>
+    var roomList: List<RogueDiaryRoomInfo>
+    var selectAvatarList: List<RogueDiaryAvatar>
     var selectCardList: List<Int>
     var stageId: Int
-    var trialAvatarList: List<org.anime_game_servers.multi_proto.gi.data.activity.rogue_diary.RogueDiaryAvatar>
+    var trialAvatarList: List<RogueDiaryAvatar>
 }

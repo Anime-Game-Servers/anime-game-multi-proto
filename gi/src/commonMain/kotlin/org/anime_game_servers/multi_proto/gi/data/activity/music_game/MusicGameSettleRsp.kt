@@ -9,10 +9,10 @@ import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 @AddedIn(Version.GI_2_2_0)
 @ProtoCommand(CommandType.RESPONSE)
 internal interface MusicGameSettleRsp {
+    var retcode: Retcode
     var isNewRecord: Boolean
     var isUnlockNextLevel: Boolean
     var musicBasicId: Int
-    var retcode: Retcode
     @AddedIn(Version.GI_2_7_0)
     var ugcGuid: Long
 }

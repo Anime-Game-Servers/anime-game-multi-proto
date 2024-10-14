@@ -13,5 +13,5 @@ internal interface MistTrialSelectAvatarAndEnterDungeonReq {
     var selectTrialAvatarIdList: List<Int>
     var trialId: Int
     @AddedIn(GI_3_3_0)
-    var selectAvatarIndexList: List<org.anime_game_servers.multi_proto.gi.data.activity.mist_trial.SelectAvatarIndex>
+    var selectAvatarIndexList: List<SelectAvatarIndex>
 }

@@ -7,5 +7,5 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 @AddedIn(GI_2_2_0)
 @ProtoModel
 internal interface RogueShowAvatarTeamInfo {
-    var avatarList: List<org.anime_game_servers.multi_proto.gi.data.activity.roguelike_dungeon.RogueAvatarInfo>
+    var avatarList: List<RogueAvatarInfo>
 }

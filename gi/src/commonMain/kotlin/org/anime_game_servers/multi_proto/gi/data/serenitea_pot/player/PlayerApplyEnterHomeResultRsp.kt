@@ -9,8 +9,8 @@ import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 @AddedIn(GI_1_5_0)
 @ProtoCommand(RESPONSE)
 internal interface PlayerApplyEnterHomeResultRsp {
+    var retcode: Retcode
     var applyUid: Int
     var isAgreed: Boolean
     var param: Int
-    var retcode: Retcode
 }

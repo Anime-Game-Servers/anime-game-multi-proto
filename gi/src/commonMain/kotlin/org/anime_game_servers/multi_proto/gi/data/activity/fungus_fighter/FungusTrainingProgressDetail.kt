@@ -11,7 +11,7 @@ internal interface FungusTrainingProgressDetail {
     var choosenMonsterList: List<Int>
     var curRound: Int
     var dungeonId: Int
-    var monsterDetailList: List<org.anime_game_servers.multi_proto.gi.data.activity.fungus_fighter.FungusFighterMonsterDetail>
-    var monsterPoolPreviewList: List<org.anime_game_servers.multi_proto.gi.data.activity.fungus_fighter.FungusTrainingPoolPreviewDetail>
+    var monsterDetailList: List<FungusFighterMonsterDetail>
+    var monsterPoolPreviewList: List<FungusTrainingPoolPreviewDetail>
     var totalUsedTime: Int
 }

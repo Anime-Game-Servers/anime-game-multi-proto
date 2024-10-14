@@ -7,7 +7,7 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 
 @AddedIn(Version.GI_CB1)
 @ProtoCommand(CommandType.REQUEST)
-interface EnterSceneReadyReq {
+internal interface EnterSceneReadyReq {
     @AddedIn(Version.GI_0_9_0)
     var enterSceneToken: Int
 }

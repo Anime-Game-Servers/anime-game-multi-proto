@@ -9,8 +9,8 @@ import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 @AddedIn(GI_1_4_0)
 @ProtoCommand(RESPONSE)
 internal interface FleurFairMusicGameSettleRsp {
+    var retcode: Retcode
     var isNewRecord: Boolean
     var isUnlockNextLevel: Boolean
     var musicBasicId: Int
-    var retcode: Retcode
 }

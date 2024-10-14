@@ -8,16 +8,17 @@ import org.anime_game_servers.core.base.annotations.RemovedIn
 import org.anime_game_servers.core.base.annotations.proto.AltName
 import org.anime_game_servers.core.base.annotations.proto.CommandType.*
 import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
+import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 import org.anime_game_servers.multi_proto.gi.data.general.item.ItemParam
 
 @AddedIn(GI_CB1)
 @ProtoCommand(RESPONSE)
 internal interface PlayerCookRsp {
+    var retcode: Retcode
     @RemovedIn(GI_0_9_0)
     var item: ItemParam
     var qteQuality: Int
     var recipeData: CookRecipeData
-    var retcode: Int
     @AddedIn(GI_0_9_0)
     var cookCount: Int
     @AddedIn(GI_0_9_0)

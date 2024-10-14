@@ -7,6 +7,6 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 
 @AddedIn(GI_CB1)
 @ProtoCommand(CLIENT)
-interface EnterSceneWeatherAreaNotify {
+internal interface EnterSceneWeatherAreaNotify {
     var weatherGadgetId: Int
 }

@@ -14,7 +14,7 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 internal interface RogueDiaryTiredAvatarNotify {
     var isNeedShow: Boolean
     @AltName("optianalTiredAvatarList")
-    var optionalTiredAvatarList: List<org.anime_game_servers.multi_proto.gi.data.activity.rogue_diary.RogueDiaryAvatar>
+    var optionalTiredAvatarList: List<RogueDiaryAvatar>
     var reserveAvatarNum: Int
     var tiredType: Int
 }

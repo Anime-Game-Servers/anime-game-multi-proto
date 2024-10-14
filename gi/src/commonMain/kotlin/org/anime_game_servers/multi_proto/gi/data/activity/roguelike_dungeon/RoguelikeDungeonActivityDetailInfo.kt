@@ -11,6 +11,6 @@ internal interface RoguelikeDungeonActivityDetailInfo {
     var equippedRuneList: List<Int>
     var isContentClosed: Boolean
     var runeList: List<Int>
-    var shikigamiList: List<org.anime_game_servers.multi_proto.gi.data.activity.roguelike_dungeon.RoguelikeShikigamiRecord>
-    var stageList: List<org.anime_game_servers.multi_proto.gi.data.activity.roguelike_dungeon.RogueStageInfo>
+    var shikigamiList: List<RoguelikeShikigamiRecord>
+    var stageList: List<RogueStageInfo>
 }

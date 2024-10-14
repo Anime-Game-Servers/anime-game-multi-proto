@@ -1,17 +1,19 @@
 package org.anime_game_servers.multi_proto.gi.data.shop
 
 import org.anime_game_servers.core.base.annotations.AddedIn
-import org.anime_game_servers.core.base.Version
-import org.anime_game_servers.core.base.annotations.proto.CommandType
+import org.anime_game_servers.core.base.Version.GI_CB1
+import org.anime_game_servers.core.base.Version.GI_1_2_0
+import org.anime_game_servers.core.base.annotations.proto.CommandType.RESPONSE
 import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
+import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 
-@AddedIn(Version.GI_CB1)
-@ProtoCommand(CommandType.RESPONSE)
+@AddedIn(GI_CB1)
+@ProtoCommand(RESPONSE)
 internal interface BuyGoodsRsp {
-    var retcode: Int
-    var shopType: Int
-    var goods: ShopGoods
+    var retcode: Retcode
     var buyCount: Int
-    @AddedIn(Version.GI_1_2_0)
+    var goods: ShopGoods
+    var shopType: Int
+    @AddedIn(GI_1_2_0)
     var goodsList: List<ShopGoods>
 }

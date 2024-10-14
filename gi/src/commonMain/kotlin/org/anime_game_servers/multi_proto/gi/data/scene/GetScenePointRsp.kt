@@ -8,13 +8,14 @@ import org.anime_game_servers.core.base.Version.GI_CB1
 import org.anime_game_servers.core.base.annotations.AddedIn
 import org.anime_game_servers.core.base.annotations.proto.CommandType.*
 import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
+import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 
 @AddedIn(GI_CB1)
 @ProtoCommand(RESPONSE)
 internal interface GetScenePointRsp {
+    var retcode: Retcode
     var belongUid: Int
     var lockedPointList: List<Int>
-    var retcode: Int
     var sceneId: Int
     var unlockAreaList: List<Int>
     var unlockedPointList: List<Int>

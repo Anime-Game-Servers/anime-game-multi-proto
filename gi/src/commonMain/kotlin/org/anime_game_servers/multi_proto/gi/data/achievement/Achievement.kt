@@ -6,7 +6,7 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 
 @AddedIn(GI_1_0_0)
 @ProtoModel
-interface Achievement {
+internal interface Achievement {
     var curProgress: Int
     var finishedTimestamp: Int
     var id: Int

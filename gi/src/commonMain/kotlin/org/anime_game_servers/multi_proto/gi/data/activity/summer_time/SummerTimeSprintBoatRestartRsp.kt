@@ -9,7 +9,7 @@ import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 @AddedIn(GI_1_6_0)
 @ProtoCommand(RESPONSE)
 internal interface SummerTimeSprintBoatRestartRsp {
+    var retcode: Retcode
     var groupId: Int
     var scheduleId: Int
-    var retcode: Retcode
 }

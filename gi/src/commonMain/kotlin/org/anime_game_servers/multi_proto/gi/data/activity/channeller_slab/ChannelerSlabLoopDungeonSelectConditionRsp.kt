@@ -9,8 +9,8 @@ import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 @AddedIn(GI_1_5_0)
 @ProtoCommand(RESPONSE, alternateNames = ["ChannellerSlabLoopDungeonSelectConditionRsp"])
 internal interface ChannelerSlabLoopDungeonSelectConditionRsp {
+    var retcode: Retcode
     var conditionIdList: List<Int>
     var difficultyId: Int
     var dungeonIndex: Int
-    var retcode: Retcode
 }

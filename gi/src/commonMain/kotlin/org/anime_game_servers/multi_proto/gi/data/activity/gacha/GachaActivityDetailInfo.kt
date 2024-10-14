@@ -10,7 +10,7 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 @AddedIn(GI_2_7_0)
 @ProtoModel
 internal interface GachaActivityDetailInfo {
-    var gachaStageDataList: List<org.anime_game_servers.multi_proto.gi.data.activity.gacha.GachaStageData>
+    var gachaStageDataList: List<GachaStageData>
     var haveGetRobotList: List<Int>
     var haveRewardRobotNumMap: Map<Int, Int>
     var robotFinishNum: Int

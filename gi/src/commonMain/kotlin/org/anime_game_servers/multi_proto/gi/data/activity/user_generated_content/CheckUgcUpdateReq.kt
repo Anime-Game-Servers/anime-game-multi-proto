@@ -8,6 +8,6 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 
 @AddedIn(Version.GI_2_7_0)
 @ProtoCommand(CommandType.REQUEST)
-interface CheckUgcUpdateReq {
+internal interface CheckUgcUpdateReq {
     var ugcType: UgcType
 }

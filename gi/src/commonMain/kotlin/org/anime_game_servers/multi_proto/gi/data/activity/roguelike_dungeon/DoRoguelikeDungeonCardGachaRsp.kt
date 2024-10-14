@@ -9,7 +9,7 @@ import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 @AddedIn(GI_2_2_0)
 @ProtoCommand(RESPONSE)
 internal interface DoRoguelikeDungeonCardGachaRsp {
+    var retcode: Retcode
     var cardList: List<Int>
     var isCanRefresh: Boolean
-    var retcode: Retcode
 }

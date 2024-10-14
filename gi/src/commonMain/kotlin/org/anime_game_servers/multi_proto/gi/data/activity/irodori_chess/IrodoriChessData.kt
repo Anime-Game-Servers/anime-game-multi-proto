@@ -8,5 +8,5 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 @ProtoModel
 internal interface IrodoriChessData {
     var isOpen: Boolean
-    var levelDataList: List<org.anime_game_servers.multi_proto.gi.data.activity.irodori_chess.IrodoriChessLevelData>
+    var levelDataList: List<IrodoriChessLevelData>
 }

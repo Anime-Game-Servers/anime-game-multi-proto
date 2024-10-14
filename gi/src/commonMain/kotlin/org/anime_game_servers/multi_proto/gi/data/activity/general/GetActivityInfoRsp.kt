@@ -12,8 +12,8 @@ import org.anime_game_servers.multi_proto.gi.data.general.Uint32Pair
 @AddedIn(GI_0_9_0)
 @ProtoCommand(RESPONSE)
 internal interface GetActivityInfoRsp {
-    var activityInfoList: List<ActivityInfo>
     var retcode: Retcode
+    var activityInfoList: List<ActivityInfo>
     @AddedIn(GI_1_2_0)
     var activatedSaleIdList: List<Int>
     @AddedIn(GI_2_1_0)

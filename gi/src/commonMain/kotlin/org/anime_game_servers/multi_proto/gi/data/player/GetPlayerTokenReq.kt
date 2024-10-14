@@ -8,7 +8,7 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 
 @AddedIn(Version.GI_CB1)
 @ProtoCommand(CommandType.REQUEST)
-interface GetPlayerTokenReq {
+internal interface GetPlayerTokenReq {
     var accountType: Int
     var accountUid: String
     var accountToken: String

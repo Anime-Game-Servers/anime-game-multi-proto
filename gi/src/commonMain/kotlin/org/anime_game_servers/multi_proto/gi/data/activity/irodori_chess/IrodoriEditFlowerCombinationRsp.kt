@@ -12,7 +12,7 @@ import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 @AddedIn(GI_2_6_0)
 @ProtoCommand(RESPONSE)
 internal interface IrodoriEditFlowerCombinationRsp {
+    var retcode: Retcode
     var isAlreadyFinished: Boolean
     var isCanTakeReward: Boolean
-    var retcode: Retcode
 }

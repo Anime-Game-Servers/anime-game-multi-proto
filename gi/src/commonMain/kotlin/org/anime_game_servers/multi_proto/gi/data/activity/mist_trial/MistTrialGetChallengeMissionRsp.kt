@@ -9,7 +9,7 @@ import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 @AddedIn(GI_1_5_0)
 @ProtoCommand(RESPONSE)
 internal interface MistTrialGetChallengeMissionRsp {
-    var missionInfoList: List<org.anime_game_servers.multi_proto.gi.data.activity.mist_trial.MistTrialMissionInfo>
-    var trialId: Int
     var retcode: Retcode
+    var missionInfoList: List<MistTrialMissionInfo>
+    var trialId: Int
 }

@@ -9,8 +9,8 @@ import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 @AddedIn(Version.GI_2_2_0)
 @ProtoCommand(CommandType.RESPONSE)
 internal interface MusicGameStartRsp {
-    var musicBasicId: Int
     var retcode: Retcode
+    var musicBasicId: Int
     @AddedIn(Version.GI_2_7_0)
     var ugcGuid: Long
 }

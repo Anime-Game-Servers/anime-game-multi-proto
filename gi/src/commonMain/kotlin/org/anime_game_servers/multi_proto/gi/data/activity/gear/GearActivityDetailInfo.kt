@@ -7,6 +7,6 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 @AddedIn(GI_2_8_0)
 @ProtoModel
 internal interface GearActivityDetailInfo {
-    var gearLevelDataList: List<org.anime_game_servers.multi_proto.gi.data.activity.gear.GearLevelData>
-    var jigsawPictureData: org.anime_game_servers.multi_proto.gi.data.activity.gear.JigsawPictureData
+    var gearLevelDataList: List<GearLevelData>
+    var jigsawPictureData: JigsawPictureData
 }

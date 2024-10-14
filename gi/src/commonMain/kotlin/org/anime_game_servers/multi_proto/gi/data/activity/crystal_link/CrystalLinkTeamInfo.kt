@@ -7,6 +7,6 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 @AddedIn(GI_2_6_0)
 @ProtoModel
 internal interface CrystalLinkTeamInfo {
-    var avatarInfoList: List<org.anime_game_servers.multi_proto.gi.data.activity.crystal_link.CrystalLinkAvatarInfo>
-    var buffInfoList: List<org.anime_game_servers.multi_proto.gi.data.activity.crystal_link.CrystalLinkBuffInfo>
+    var avatarInfoList: List<CrystalLinkAvatarInfo>
+    var buffInfoList: List<CrystalLinkBuffInfo>
 }

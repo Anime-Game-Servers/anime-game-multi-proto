@@ -12,7 +12,7 @@ import org.anime_game_servers.core.base.Version.GI_1_0_0
 
 @AddedIn(GI_CB1)
 @ProtoCommand(CommandType.NOTIFY)
-interface SceneAreaWeatherNotify {
+internal interface SceneAreaWeatherNotify {
     var weatherGadgetId : Int
     var weatherValueMap : Map<Int, String>
     @AddedIn(GI_CB2)

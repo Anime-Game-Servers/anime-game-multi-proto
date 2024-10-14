@@ -10,7 +10,7 @@ import org.anime_game_servers.multi_proto.gi.data.serenitea_pot.arangement.HomeS
 @AddedIn(GI_3_2_0)
 @ProtoCommand(RESPONSE)
 internal interface HomePreviewBlueprintRsp {
+    var retcode: Retcode
     var sceneArrangementInfo: HomeSceneArrangementInfo
     var shareCode: String
-    var retcode: Retcode
 }

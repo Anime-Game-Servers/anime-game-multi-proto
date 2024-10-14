@@ -10,7 +10,7 @@ import org.anime_game_servers.multi_proto.gi.data.general.item.ItemParam
 @AddedIn(GI_2_6_0)
 @ProtoCommand(RESPONSE)
 internal interface SpiceActivityProcessFoodRsp {
+    var retcode: Retcode
     var normalFoodList: List<ItemParam>
     var specialFoodList: List<ItemParam>
-    var retcode: Retcode
 }

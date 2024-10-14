@@ -9,7 +9,7 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 
 @AddedIn(Version.GI_CB2)
 @ProtoModel
-interface ChatInfo {
+internal interface ChatInfo {
     var time: Int
     var uid: Int
     @AddedIn(Version.GI_1_2_0)

@@ -9,6 +9,6 @@ import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 @AddedIn(GI_3_2_0)
 @ProtoCommand(RESPONSE)
 internal interface HomeSetBlueprintFriendOptionRsp {
-    var isAllowFriendCopy: Boolean
     var retcode: Retcode
+    var isAllowFriendCopy: Boolean
 }

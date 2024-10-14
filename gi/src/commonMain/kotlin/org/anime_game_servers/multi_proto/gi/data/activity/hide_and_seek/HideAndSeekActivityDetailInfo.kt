@@ -13,7 +13,7 @@ internal interface HideAndSeekActivityDetailInfo {
     var chosenHunterSkillList: List<Int>
     var unlockMapList: List<Int>
     @AddedIn(GI_2_4_0)
-    var openMapInfoList: List<org.anime_game_servers.multi_proto.gi.data.activity.hide_and_seek.HideAndSeekMapInfo>
+    var openMapInfoList: List<HideAndSeekMapInfo>
     @AddedIn(GI_3_3_0)
     var chosenMapList: List<Int>
 }

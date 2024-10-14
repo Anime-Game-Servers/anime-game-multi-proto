@@ -7,5 +7,5 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 @AddedIn(GI_3_4_0)
 @ProtoModel
 internal interface SeaLampV3RaceInfo {
-    var levelInfoList: List<org.anime_game_servers.multi_proto.gi.data.activity.sealamp_v3.SeaLampV3RaceLevelInfo>
+    var levelInfoList: List<SeaLampV3RaceLevelInfo>
 }

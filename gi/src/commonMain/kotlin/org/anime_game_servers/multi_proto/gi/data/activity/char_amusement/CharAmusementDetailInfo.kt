@@ -7,5 +7,5 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 @AddedIn(GI_3_2_0)
 @ProtoModel
 internal interface CharAmusementDetailInfo {
-    var stageDataList: List<org.anime_game_servers.multi_proto.gi.data.activity.char_amusement.CharAmusementStageData>
+    var stageDataList: List<CharAmusementStageData>
 }

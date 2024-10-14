@@ -7,6 +7,6 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 
 @AddedIn(Version.GI_1_5_0)
 @ProtoCommand(CommandType.NOTIFY)
-interface ChatChannelDataNotify {
+internal interface ChatChannelDataNotify {
     var channelList: List<Int>
 }

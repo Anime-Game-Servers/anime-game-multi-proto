@@ -7,6 +7,6 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 @AddedIn(GI_2_1_0)
 @ProtoModel
 internal interface LunaRiteDetailInfo {
-    var areaInfoList: List<org.anime_game_servers.multi_proto.gi.data.activity.luna_rite.LunaRiteAreaInfo>
-    var hintPoint: List<org.anime_game_servers.multi_proto.gi.data.activity.luna_rite.LunaRiteHintPoint>
+    var areaInfoList: List<LunaRiteAreaInfo>
+    var hintPoint: List<LunaRiteHintPoint>
 }

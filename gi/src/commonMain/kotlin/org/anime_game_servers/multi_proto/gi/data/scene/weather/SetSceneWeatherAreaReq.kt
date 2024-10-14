@@ -7,7 +7,7 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 
 @AddedIn(GI_CB1)
 @ProtoCommand(REQUEST)
-interface SetSceneWeatherAreaReq {
+internal interface SetSceneWeatherAreaReq {
     var weatherGadgetId: Int
     var weatherValueMap: Map<Int, String>
 }

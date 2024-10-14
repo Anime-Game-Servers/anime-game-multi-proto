@@ -8,7 +8,7 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 @ProtoModel
 internal interface EffigyActivityDetailInfo {
     var curScore: Int
-    var dailyInfoList: List<org.anime_game_servers.multi_proto.gi.data.activity.effigy_challenge.EffigyDailyInfo>
+    var dailyInfoList: List<EffigyDailyInfo>
     var lastDifficultyId: Int
     var takenRewardIndexList: List<Int>
 }

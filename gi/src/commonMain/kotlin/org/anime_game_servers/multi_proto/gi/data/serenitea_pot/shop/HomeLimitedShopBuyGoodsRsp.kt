@@ -9,8 +9,8 @@ import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 @AddedIn(GI_1_5_0)
 @ProtoCommand(RESPONSE)
 internal interface HomeLimitedShopBuyGoodsRsp {
+    var retcode: Retcode
     var buyCount: Int
     var goods: HomeLimitedShopGoods
     var goodsList: List<HomeLimitedShopGoods>
-    var retcode: Retcode
 }

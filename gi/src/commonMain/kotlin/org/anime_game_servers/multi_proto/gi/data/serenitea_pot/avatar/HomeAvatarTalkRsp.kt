@@ -9,6 +9,6 @@ import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 @AddedIn(GI_1_6_0)
 @ProtoCommand(RESPONSE)
 internal interface HomeAvatarTalkRsp {
-    var avatarTalkInfo: HomeAvatarTalkFinishInfo
     var retcode: Retcode
+    var avatarTalkInfo: HomeAvatarTalkFinishInfo
 }

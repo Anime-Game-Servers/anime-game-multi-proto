@@ -10,7 +10,7 @@ import org.anime_game_servers.multi_proto.gi.data.general.item.ItemParam
 @AddedIn(GI_1_2_0)
 @ProtoCommand(RESPONSE)
 internal interface TakeResinCardDailyRewardRsp {
+    var retcode: Retcode
     var itemVec: List<ItemParam>
     var productConfigId: Int
-    var retcode: Retcode
 }

@@ -9,7 +9,7 @@ import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 @AddedIn(GI_2_7_0)
 @ProtoCommand(RESPONSE)
 internal interface ActivityGetRecvGiftListRsp {
-    var recvGiftList: List<org.anime_game_servers.multi_proto.gi.data.activity.general.ActivityRecvGiftData>
-    var scheduleId: Int
     var retcode: Retcode
+    var recvGiftList: List<ActivityRecvGiftData>
+    var scheduleId: Int
 }

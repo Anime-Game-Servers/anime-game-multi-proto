@@ -10,9 +10,9 @@ import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 @AddedIn(GI_0_9_0)
 @ProtoCommand(RESPONSE)
 internal interface MpPlayOwnerCheckRsp {
+    var retcode: Retcode
     var mpPlayId: Int
     var wrongUid: Int
-    var retcode: Retcode
     @AddedIn(GI_1_1_0)
     var isSkipMatch: Boolean
 }

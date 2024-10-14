@@ -9,8 +9,8 @@ import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 @AddedIn(GI_1_0_0)
 @ProtoCommand(RESPONSE)
 internal interface SalesmanTakeRewardRsp {
+    var retcode: Retcode
     var position: Int
     var rewardId: Int
     var scheduleId: Int
-    var retcode: Retcode
 }

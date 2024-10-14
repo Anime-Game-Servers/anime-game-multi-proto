@@ -10,7 +10,7 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 internal interface EnterRoguelikeDungeonNotify {
     var backstageAvatarGuidList: List<Long>
     var bonusResourceProp: Float
-    var cellInfoMap: Map<Int, org.anime_game_servers.multi_proto.gi.data.activity.roguelike_dungeon.RogueCellInfo>
+    var cellInfoMap: Map<Int, RogueCellInfo>
     var curCellId: Int
     var curLevel: Int
     var dungeonId: Int
@@ -22,6 +22,6 @@ internal interface EnterRoguelikeDungeonNotify {
     var refreshCostItemCount: Int
     var refreshCostItemId: Int
     var reviseMonsterLevel: Int
-    var runeRecordList: List<org.anime_game_servers.multi_proto.gi.data.activity.roguelike_dungeon.RoguelikeRuneRecord>
+    var runeRecordList: List<RoguelikeRuneRecord>
     var stageId: Int
 }

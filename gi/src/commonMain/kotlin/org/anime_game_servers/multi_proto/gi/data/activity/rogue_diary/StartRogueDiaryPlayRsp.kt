@@ -9,8 +9,8 @@ import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 @AddedIn(GI_2_7_0)
 @ProtoCommand(RESPONSE)
 internal interface StartRogueDiaryPlayRsp {
-    var avatarList: List<org.anime_game_servers.multi_proto.gi.data.activity.rogue_diary.RogueDiaryAvatar>
-    var randCardList: List<Int>
-    var trialAvatarList: List<org.anime_game_servers.multi_proto.gi.data.activity.rogue_diary.RogueDiaryAvatar>
     var retcode: Retcode
+    var avatarList: List<RogueDiaryAvatar>
+    var randCardList: List<Int>
+    var trialAvatarList: List<RogueDiaryAvatar>
 }

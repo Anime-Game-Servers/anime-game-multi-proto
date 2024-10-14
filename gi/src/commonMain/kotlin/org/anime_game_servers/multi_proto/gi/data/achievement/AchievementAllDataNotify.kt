@@ -7,7 +7,7 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 
 @AddedIn(GI_1_0_0)
 @ProtoCommand(NOTIFY)
-interface AchievementAllDataNotify {
+internal interface AchievementAllDataNotify {
     var achievementList: List<Achievement>
     var rewardTakenGoalIdList: List<Int>
 }

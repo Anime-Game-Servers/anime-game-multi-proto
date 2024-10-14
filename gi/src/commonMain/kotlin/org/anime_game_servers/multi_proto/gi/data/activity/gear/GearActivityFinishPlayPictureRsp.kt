@@ -9,6 +9,6 @@ import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 @AddedIn(GI_2_8_0)
 @ProtoCommand(RESPONSE)
 internal interface GearActivityFinishPlayPictureRsp {
-    var isSuccess: Boolean
     var retcode: Retcode
+    var isSuccess: Boolean
 }

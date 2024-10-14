@@ -9,6 +9,6 @@ import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 @AddedIn(GI_2_7_0)
 @ProtoCommand(RESPONSE)
 internal interface RefreshRogueDiaryCardRsp {
-    var randCardList: List<Int>
     var retcode: Retcode
+    var randCardList: List<Int>
 }

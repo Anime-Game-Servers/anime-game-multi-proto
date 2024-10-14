@@ -9,7 +9,7 @@ import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 @AddedIn(GI_3_1_0)
 @ProtoCommand(RESPONSE)
 internal interface VintageMarketStoreChooseStrategyRsp {
+    var retcode: Retcode
     var storeId: Int
     var strategyList: List<Int>
-    var retcode: Retcode
 }

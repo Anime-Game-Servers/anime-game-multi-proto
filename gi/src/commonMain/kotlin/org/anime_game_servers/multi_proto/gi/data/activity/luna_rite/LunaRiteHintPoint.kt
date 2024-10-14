@@ -11,5 +11,5 @@ internal interface LunaRiteHintPoint {
     var areaId: Int
     var index: Int
     var pos: Vector
-    var type: org.anime_game_servers.multi_proto.gi.data.activity.luna_rite.LunaRiteHintPointType
+    var type: LunaRiteHintPointType
 }

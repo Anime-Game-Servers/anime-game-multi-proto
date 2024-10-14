@@ -9,9 +9,9 @@ import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 @AddedIn(GI_2_1_0)
 @ProtoCommand(RESPONSE)
 internal interface LunaRiteTakeSacrificeRewardRsp {
+    var retcode: Retcode
     var areaId: Int
     var index: Int
     var sacrificeRewardIndex: Int
     var sacrificeRewardList: List<Int>
-    var retcode: Retcode
 }

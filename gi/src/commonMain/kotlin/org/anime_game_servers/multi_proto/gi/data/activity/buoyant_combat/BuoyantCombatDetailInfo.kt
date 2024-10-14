@@ -7,5 +7,5 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 @AddedIn(GI_1_6_0)
 @ProtoModel
 internal interface BuoyantCombatDetailInfo {
-    var dailyInfoList: List<org.anime_game_servers.multi_proto.gi.data.activity.buoyant_combat.BuoyantCombatDailyInfo>
+    var dailyInfoList: List<BuoyantCombatDailyInfo>
 }

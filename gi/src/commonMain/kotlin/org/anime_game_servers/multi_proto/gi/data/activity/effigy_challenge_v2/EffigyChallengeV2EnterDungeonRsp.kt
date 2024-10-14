@@ -9,8 +9,8 @@ import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 @AddedIn(GI_3_2_0)
 @ProtoCommand(RESPONSE)
 internal interface EffigyChallengeV2EnterDungeonRsp {
+    var retcode: Retcode
     var challengeModeDifficulty: Int
     var challengeModeSkillNo: Int
     var levelId: Int
-    var retcode: Retcode
 }

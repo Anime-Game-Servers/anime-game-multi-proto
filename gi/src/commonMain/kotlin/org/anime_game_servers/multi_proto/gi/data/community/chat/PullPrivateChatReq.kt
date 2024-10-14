@@ -8,7 +8,7 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 
 @AddedIn(Version.GI_1_2_0)
 @ProtoCommand(CommandType.REQUEST)
-interface PullPrivateChatReq {
+internal interface PullPrivateChatReq {
     var targetUid: Int
     var pullNum: Int
     var fromSequence: Int

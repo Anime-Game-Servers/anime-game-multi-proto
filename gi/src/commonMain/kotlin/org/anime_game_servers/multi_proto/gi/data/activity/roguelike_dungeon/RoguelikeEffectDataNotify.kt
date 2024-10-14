@@ -8,6 +8,6 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @AddedIn(GI_2_2_0)
 @ProtoCommand(NOTIFY)
 internal interface RoguelikeEffectDataNotify {
-    var cardList: List<org.anime_game_servers.multi_proto.gi.data.activity.roguelike_dungeon.RogueEffectRecord>
-    var curseList: List<org.anime_game_servers.multi_proto.gi.data.activity.roguelike_dungeon.RogueEffectRecord>
+    var cardList: List<RogueEffectRecord>
+    var curseList: List<RogueEffectRecord>
 }

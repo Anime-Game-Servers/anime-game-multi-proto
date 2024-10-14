@@ -9,6 +9,6 @@ import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 @AddedIn(GI_CB1)
 @ProtoCommand(RESPONSE)
 internal interface SetPlayerNameRsp {
-    var nickName: String
     var retcode: Retcode
+    var nickName: String
 }

@@ -9,6 +9,6 @@ import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 @AddedIn(GI_1_3_0)
 @ProtoCommand(RESPONSE)
 internal interface BlessingRedeemRewardRsp {
-    var picNumMap: Map<Int, Int>
     var retcode: Retcode
+    var picNumMap: Map<Int, Int>
 }

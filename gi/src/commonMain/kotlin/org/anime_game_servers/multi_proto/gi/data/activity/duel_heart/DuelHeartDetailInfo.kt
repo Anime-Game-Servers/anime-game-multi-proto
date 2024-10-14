@@ -7,5 +7,5 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 @AddedIn(GI_3_4_0)
 @ProtoModel
 internal interface DuelHeartDetailInfo {
-    var levelInfoList: List<org.anime_game_servers.multi_proto.gi.data.activity.duel_heart.DuelHeartLevelInfo>
+    var levelInfoList: List<DuelHeartLevelInfo>
 }

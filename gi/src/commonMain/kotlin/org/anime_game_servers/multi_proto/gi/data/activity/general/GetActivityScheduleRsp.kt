@@ -9,7 +9,7 @@ import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 @AddedIn(GI_CB2)
 @ProtoCommand(RESPONSE)
 internal interface GetActivityScheduleRsp {
+    var retcode: Retcode
     var activityScheduleList: List<ActivityScheduleInfo>
     var remainingFlySeaLampNum: Int
-    var retcode: Retcode
 }

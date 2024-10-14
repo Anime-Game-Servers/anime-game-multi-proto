@@ -7,7 +7,7 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 
 @AddedIn(GI_CB1)
 @ProtoCommand(REQUEST)
-interface GetSceneAreaReq {
+internal interface GetSceneAreaReq {
     var belongUid: Int
     var sceneId: Int
 }

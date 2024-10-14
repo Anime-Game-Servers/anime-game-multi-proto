@@ -8,5 +8,5 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @AddedIn(GI_2_7_0)
 @ProtoCommand(REQUEST)
 internal interface ReserveRogueDiaryAvatarReq {
-    var reserveAvatarList: List<org.anime_game_servers.multi_proto.gi.data.activity.rogue_diary.RogueDiaryAvatar>
+    var reserveAvatarList: List<RogueDiaryAvatar>
 }

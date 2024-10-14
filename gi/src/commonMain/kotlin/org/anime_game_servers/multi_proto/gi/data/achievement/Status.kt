@@ -7,7 +7,7 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoEnum
 
 @AddedIn(GI_1_0_0)
 @ProtoEnum("Achievement")
-enum class Status {
+internal enum class Status {
     @AltName("STATUS_INVALID")
     INVALID,
     @AltName("STATUS_UNFINISHED")

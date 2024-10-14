@@ -10,9 +10,9 @@ import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 @AddedIn(GI_1_3_0)
 @ProtoCommand(RESPONSE)
 internal interface ExpeditionTakeRewardRsp {
+    var retcode: Retcode
     var isBonus: Boolean
     var pathId: Int
-    var retcode: Retcode
     @AddedIn(GI_2_1_0)
     var rewardLevel: Int
 }

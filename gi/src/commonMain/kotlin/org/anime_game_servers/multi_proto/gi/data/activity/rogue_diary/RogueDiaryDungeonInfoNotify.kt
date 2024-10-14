@@ -16,7 +16,7 @@ internal interface RogueDiaryDungeonInfoNotify {
     var curRound: Int
     var difficulty: Int
     var dungeonId: Int
-    var roomList: List<org.anime_game_servers.multi_proto.gi.data.activity.rogue_diary.RogueDiaryRoomInfo>
+    var roomList: List<RogueDiaryRoomInfo>
     var roundCardList: List<Int>
     var roundMonsterList: List<Int>
     var stageId: Int

@@ -9,6 +9,6 @@ import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 @AddedIn(GI_1_5_0)
 @ProtoCommand(RESPONSE)
 internal interface FurnitureMakeHelpRsp {
-    var helpDataList: List<FurnitureMakeHelpData>
     var retcode: Retcode
+    var helpDataList: List<FurnitureMakeHelpData>
 }

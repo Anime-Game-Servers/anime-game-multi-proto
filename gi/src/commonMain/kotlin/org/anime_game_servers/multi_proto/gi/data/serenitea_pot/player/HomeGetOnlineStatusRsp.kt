@@ -10,6 +10,6 @@ import org.anime_game_servers.multi_proto.gi.data.scene.entity.OnlinePlayerInfo
 @AddedIn(GI_1_5_0)
 @ProtoCommand(RESPONSE)
 internal interface HomeGetOnlineStatusRsp {
-    var playerInfoList: List<OnlinePlayerInfo>
     var retcode: Retcode
+    var playerInfoList: List<OnlinePlayerInfo>
 }

@@ -16,7 +16,7 @@ import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 @RemovedIn(GI_0_9_0)
 @ProtoCommand(RESPONSE)
 internal interface SeaLampGetActivityInfoRsp {
+    var retcode: Retcode
     var activityInfo: SeaLampActivityInfo
     var activityPlayerInfo: SeaLampActivityPlayerInfo
-    var retcode: Retcode
 }

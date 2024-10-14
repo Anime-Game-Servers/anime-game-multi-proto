@@ -8,6 +8,6 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 @ProtoModel
 internal interface SeaLampV3ShadowStageInfo {
     var isOpen: Boolean
-    var levelInfoList: List<org.anime_game_servers.multi_proto.gi.data.activity.sealamp_v3.SeaLampV3ShadowLevelInfo>
+    var levelInfoList: List<SeaLampV3ShadowLevelInfo>
     var stageId: Int
 }

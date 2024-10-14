@@ -9,7 +9,7 @@ import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 @AddedIn(GI_1_3_0)
 @ProtoCommand(RESPONSE)
 internal interface BlessingAcceptAllGivePicRsp {
+    var retcode: Retcode
     var acceptIndexList: List<Int>
     var acceptPicNumMap: Map<Int, Int>
-    var retcode: Retcode
 }

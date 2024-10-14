@@ -8,6 +8,6 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 
 @AddedIn(GI_1_0_0)
 @ProtoCommand(REQUEST)
-interface TakeAchievementGoalRewardReq {
+internal interface TakeAchievementGoalRewardReq {
     var idList: List<Int>
 }

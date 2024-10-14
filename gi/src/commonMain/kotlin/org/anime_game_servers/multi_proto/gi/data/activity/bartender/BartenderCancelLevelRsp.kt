@@ -9,6 +9,6 @@ import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 @AddedIn(GI_2_5_0)
 @ProtoCommand(RESPONSE)
 internal interface BartenderCancelLevelRsp {
-    var levelId: Int
     var retcode: Retcode
+    var levelId: Int
 }

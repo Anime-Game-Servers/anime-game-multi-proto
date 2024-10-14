@@ -15,7 +15,7 @@ internal interface ExpeditionPathInfo {
     var markId: Int
     var pathId: Int
     var startTime: Int
-    var state: org.anime_game_servers.multi_proto.gi.data.activity.expedition.ExpeditionState
+    var state: ExpeditionState
     @AddedIn(GI_2_1_0)
     var assistCostumeId: Int
     @AddedIn(GI_2_1_0)

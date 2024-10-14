@@ -9,6 +9,6 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @ProtoCommand(REQUEST)
 internal interface StartRogueEliteCellChallengeReq {
     var cellId: Int
-    var difficulty: org.anime_game_servers.multi_proto.gi.data.activity.roguelike_dungeon.RogueEliteCellDifficultyType
+    var difficulty: RogueEliteCellDifficultyType
     var dungeonId: Int
 }

@@ -4,17 +4,18 @@ import org.anime_game_servers.core.base.annotations.AddedIn
 import org.anime_game_servers.core.base.Version
 import org.anime_game_servers.core.base.annotations.proto.CommandType
 import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
+import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 
 @AddedIn(Version.GI_CB1)
 @ProtoCommand(CommandType.RESPONSE)
-interface GetPlayerTokenRsp {
+internal interface GetPlayerTokenRsp {
+    var retCode: Retcode
     var msg: String
     var uid: Int
     var token: String
     var blackUidEndTime: Int
     var accountType: Int
     var accountUid: String
-    var retCode: Int
     @AddedIn(Version.GI_0_9_0)
     var isProficientPlayer: Boolean
     @AddedIn(Version.GI_0_9_0)

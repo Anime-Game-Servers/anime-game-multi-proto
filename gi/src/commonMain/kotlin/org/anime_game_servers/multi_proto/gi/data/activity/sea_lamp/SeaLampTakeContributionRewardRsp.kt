@@ -12,7 +12,7 @@ import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 @AddedIn(GI_CB2)
 @ProtoCommand(RESPONSE)
 internal interface SeaLampTakeContributionRewardRsp {
+    var retcode: Retcode
     @AddedIn(GI_0_9_0)
     var configId: Int
-    var retcode: Retcode
 }

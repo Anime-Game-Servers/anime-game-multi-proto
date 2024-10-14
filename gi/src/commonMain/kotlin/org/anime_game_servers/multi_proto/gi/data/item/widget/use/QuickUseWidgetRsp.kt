@@ -9,6 +9,7 @@ import org.anime_game_servers.core.base.annotations.proto.OneOf
 import org.anime_game_servers.core.base.annotations.proto.OneOfEntry
 import org.anime_game_servers.core.base.annotations.proto.OneOfType
 import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
+import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 import org.anime_game_servers.multi_proto.gi.data.item.widget.ClientCollectorData
 import org.anime_game_servers.multi_proto.gi.data.item.widget.one_of_gather_point_detector.OneOfGatherPointDetectorData
 import org.anime_game_servers.multi_proto.gi.data.item.widget.sky_cristal_detector.SkyCrystalDetectorQuickUseResult
@@ -16,12 +17,12 @@ import org.anime_game_servers.multi_proto.gi.data.item.widget.sky_cristal_detect
 @AddedIn(GI_1_1_0)
 @ProtoCommand(RESPONSE)
 internal interface QuickUseWidgetRsp {
+    var retcode: Retcode
     @RemovedIn(GI_2_6_0)
     var clientCollectorData: ClientCollectorData
     @RemovedIn(GI_2_6_0)
     var detectorData: OneOfGatherPointDetectorData
     var materialId: Int
-    var retcode: Int
     
     @AddedIn(GI_2_6_0)
     @OneOf(

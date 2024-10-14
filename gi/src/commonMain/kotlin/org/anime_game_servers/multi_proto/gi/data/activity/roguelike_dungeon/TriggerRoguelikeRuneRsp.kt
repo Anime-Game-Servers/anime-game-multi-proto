@@ -9,7 +9,7 @@ import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 @AddedIn(GI_2_2_0)
 @ProtoCommand(RESPONSE)
 internal interface TriggerRoguelikeRuneRsp {
+    var retcode: Retcode
     var availableCount: Int
     var runeId: Int
-    var retcode: Retcode
 }

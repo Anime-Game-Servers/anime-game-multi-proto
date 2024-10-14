@@ -8,7 +8,7 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 
 @AddedIn(Version.GI_CB1)
 @ProtoCommand(CommandType.REQUEST)
-interface PlayerLoginReq {
+internal interface PlayerLoginReq {
     var token: String
     var clientVersion: String
     var systemVersion: String

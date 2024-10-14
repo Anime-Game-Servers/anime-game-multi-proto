@@ -9,7 +9,7 @@ import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 @AddedIn(GI_2_4_0)
 @ProtoCommand(RESPONSE)
 internal interface UpdateSalvageBundleMarkRsp {
+    var retcode: Retcode
     var challengeType: Int
     var stageId: Int
-    var retcode: Retcode
 }

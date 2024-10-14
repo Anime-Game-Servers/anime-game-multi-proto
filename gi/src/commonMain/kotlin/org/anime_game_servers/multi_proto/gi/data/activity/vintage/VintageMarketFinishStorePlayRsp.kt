@@ -12,6 +12,7 @@ import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 @AddedIn(GI_3_1_0)
 @ProtoCommand(RESPONSE)
 internal interface VintageMarketFinishStorePlayRsp {
+    var retcode: Retcode
     var displayReturnCoinB: Int
     var lowAttrStoreList: List<Int>
     var roundCoinBIncome: Int
@@ -21,5 +22,4 @@ internal interface VintageMarketFinishStorePlayRsp {
     var storeRound: Int
     var triggerEnvEventList: List<Int>
     var triggerNpcEventList: List<Int>
-    var retcode: Retcode
 }

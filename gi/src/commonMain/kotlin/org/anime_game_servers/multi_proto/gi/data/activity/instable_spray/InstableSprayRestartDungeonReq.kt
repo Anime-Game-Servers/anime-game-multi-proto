@@ -8,5 +8,5 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @AddedIn(GI_3_0_0)
 @ProtoCommand(REQUEST)
 internal interface InstableSprayRestartDungeonReq {
-    var avatarInfoList: List<org.anime_game_servers.multi_proto.gi.data.activity.instable_spray.InstableSprayAvatarInfo>
+    var avatarInfoList: List<InstableSprayAvatarInfo>
 }

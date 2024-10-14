@@ -9,6 +9,6 @@ import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 @AddedIn(GI_3_1_0)
 @ProtoCommand(RESPONSE)
 internal interface VintageMarketDeliverItemRsp {
-    var traderId: Int
     var retcode: Retcode
+    var traderId: Int
 }

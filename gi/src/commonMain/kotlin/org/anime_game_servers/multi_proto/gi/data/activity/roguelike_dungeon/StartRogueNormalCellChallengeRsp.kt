@@ -9,7 +9,7 @@ import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 @AddedIn(GI_2_2_0)
 @ProtoCommand(RESPONSE)
 internal interface StartRogueNormalCellChallengeRsp {
+    var retcode: Retcode
     var cellId: Int
     var dungeonId: Int
-    var retcode: Retcode
 }

@@ -9,7 +9,7 @@ import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 @AddedIn(GI_1_5_0)
 @ProtoCommand(RESPONSE)
 internal interface ActivityTakeAllScoreRewardRsp {
+    var retcode: Retcode
     var activityId: Int
     var rewardConfigList: List<Int>
-    var retcode: Retcode
 }

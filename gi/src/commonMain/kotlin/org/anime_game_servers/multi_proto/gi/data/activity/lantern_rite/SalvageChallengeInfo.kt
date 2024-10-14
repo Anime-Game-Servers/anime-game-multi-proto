@@ -16,8 +16,8 @@ internal interface SalvageChallengeInfo {
     @OneOf(
         types = [
             OneOfEntry(Int::class, "boss_challenge_id"),
-            OneOfEntry(org.anime_game_servers.multi_proto.gi.data.activity.lantern_rite.SalvageBundleChallengeInfo::class, "bundle_info"),
-            OneOfEntry(org.anime_game_servers.multi_proto.gi.data.activity.lantern_rite.SalvageScoreChallengeInfo::class, "score_challenge_info"),
+            OneOfEntry(SalvageBundleChallengeInfo::class, "bundle_info"),
+            OneOfEntry(SalvageScoreChallengeInfo::class, "score_challenge_info"),
         ]
     )
     var challenge_detail: OneOfType

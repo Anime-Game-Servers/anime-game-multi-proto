@@ -9,5 +9,5 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 @ProtoCommand(NOTIFY)
 internal interface BuoyantCombatSettleNotify {
     var galleryId: Int
-    var settleInfo: org.anime_game_servers.multi_proto.gi.data.activity.buoyant_combat.BuoyantCombatSettleInfo
+    var settleInfo: BuoyantCombatSettleInfo
 }

@@ -9,7 +9,7 @@ import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 @AddedIn(GI_2_7_0)
 @ProtoCommand(RESPONSE)
 internal interface ActivityAcceptAllGiveGiftRsp {
-    var acceptGiftResultInfoList: List<org.anime_game_servers.multi_proto.gi.data.activity.general.ActivityAcceptGiftResultInfo>
-    var scheduleId: Int
     var retcode: Retcode
+    var acceptGiftResultInfoList: List<ActivityAcceptGiftResultInfo>
+    var scheduleId: Int
 }

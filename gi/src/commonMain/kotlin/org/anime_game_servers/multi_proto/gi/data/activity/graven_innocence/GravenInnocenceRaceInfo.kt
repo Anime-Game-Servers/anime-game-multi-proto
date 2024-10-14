@@ -7,5 +7,5 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 @AddedIn(GI_3_0_0)
 @ProtoModel
 internal interface GravenInnocenceRaceInfo {
-    var levelInfoList: List<org.anime_game_servers.multi_proto.gi.data.activity.graven_innocence.GravenInnocenceRaceLevelInfo>
+    var levelInfoList: List<GravenInnocenceRaceLevelInfo>
 }

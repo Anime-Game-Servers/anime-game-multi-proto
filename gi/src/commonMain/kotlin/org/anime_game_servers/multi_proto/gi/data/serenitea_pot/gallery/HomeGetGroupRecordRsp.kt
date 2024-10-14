@@ -10,8 +10,8 @@ import org.anime_game_servers.multi_proto.gi.data.general.Retcode
 @AddedIn(GI_2_3_0)
 @ProtoCommand(RESPONSE)
 internal interface HomeGetGroupRecordRsp {
-    var groupRecord: HomeGroupRecord
     var retcode: Retcode
+    var groupRecord: HomeGroupRecord
     @AddedIn(GI_2_5_0)
     var recordType: Int
 }

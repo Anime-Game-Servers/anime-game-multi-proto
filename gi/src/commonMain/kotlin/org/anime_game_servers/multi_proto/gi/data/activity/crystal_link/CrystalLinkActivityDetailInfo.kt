@@ -8,5 +8,5 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 @ProtoModel
 internal interface CrystalLinkActivityDetailInfo {
     var difficultyId: Int
-    var levelInfoList: List<org.anime_game_servers.multi_proto.gi.data.activity.crystal_link.CrystalLinkLevelInfo>
+    var levelInfoList: List<CrystalLinkLevelInfo>
 }

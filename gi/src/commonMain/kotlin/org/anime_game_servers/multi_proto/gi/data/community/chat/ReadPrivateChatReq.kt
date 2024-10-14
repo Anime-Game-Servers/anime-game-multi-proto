@@ -8,6 +8,6 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoCommand
 
 @AddedIn(Version.GI_1_2_0)
 @ProtoCommand(CommandType.REQUEST)
-interface ReadPrivateChatReq {
+internal interface ReadPrivateChatReq {
     var targetUid: Int
 }

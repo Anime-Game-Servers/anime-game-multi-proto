@@ -7,7 +7,7 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 @AddedIn(GI_2_7_0)
 @ProtoModel
 internal interface RogueDiaryStageInfo {
-    var bestRecord: org.anime_game_servers.multi_proto.gi.data.activity.rogue_diary.RogueDiaryDungeonRecord
+    var bestRecord: RogueDiaryDungeonRecord
     var isHaveTry: Boolean
     var stageId: Int
 }
