@@ -230,32 +230,32 @@ internal interface ActivityInfo {
             OneOfEntry(SeaLampV3DetailInfo::class, "sea_lamp_v3_info", addedIn = GI_3_4_0),
             OneOfEntry(TeamChainDetailInfo::class, "team_chain_info", addedIn = GI_3_4_0),
             // 3.5.0
-            // GcgFestivalInfo::class,
-            // FleurFairV2DetailInfo::class,
-            // FungusFighterV2DetailInfo::class,
+            // OneOfEntry(GcgFestivalDetailInfo::class,"gcg_festival_info", addedIn = GI_3_5_0),
+            // OneOfEntry(FleurFairV2DetailInfo::class,"fleur_fair_v2_info", addedIn = GI_3_5_0),
+            // OneOfEntry(FungusFighterV2DetailInfo::class,"fungus_fighter_v2_info", addedIn = GI_3_5_0),
             // 3.6.0
-            // AkaFesDetailInfo::class,
-            // SandwormCannonDetailInfo::class,
-            // SorushTrialDetailInfo::class,
+            // OneOfEntry(AkaFesDetailInfo::class, "aka_fes_info", addedIn = GI_3_6_0),
+            // OneOfEntry(SandwormCannonDetailInfo::class, "sandworm_cannon_detail_info", addedIn = GI_3_6_0),
+            // OneOfEntry(SorushTrialDetailInfo::class, "sorush_trial_info", addedIn = GI_3_6_0),
             // 3.7.0
-            // EffigyChallengeV4Info::class,
-            // GcgPveInfo::class,
-            // UgcV2Info::class,
-            // PenumbraAdventureInfo::class,
+            // OneOfEntry(EffigyChallengeV4DetailInfo::class, "effigy_challenge_v4_info", addedIn = GI_3_7_0),
+            // OneOfEntry(GcgPveDetailInfo::class, "gcg_pve_info", addedIn = GI_3_7_0),
+            // OneOfEntry(UgcV2DetailInfo::class, "ugc_v2_info", addedIn = GI_3_7_0),
+            // OneOfEntry(PenumbraAdventureDetailInfo::class, "penumbra_adventure_info", addedIn = GI_3_7_0),
             // 3.8.0
-            // AnimalViewInfo::class,
-            // ActivityMultiCharacterInfo::class,
-            // GcgPveInfiniteInfo::class,
+            // OneOfEntry(AnimalViewDetailInfo::class, "animal_view_info", addedIn = GI_3_8_0),
+            // OneOfEntry(ActivityMultiCharacterDetailInfo::class, "activity_multi_character_info", addedIn = GI_3_8_0),
+            // OneOfEntry(GcgPveInfiniteDetailInfo::class, "gcg_pve_infinite_info", addedIn = GI_3_8_0),
             // 4.0.0
-            // ToyBattleInfo::class,
-            // PhotoUnderseaInfo::class,
-            // FontaineGatherInfo::class,
-            // GcgPvePuzzleInfo::class,
+            // OneOfEntry(ToyBattleDetailInfo::class, "toy_battle_info", addedIn = GI_4_0_0),
+            // OneOfEntry(PhotoUnderseaDetailInfo::class, "photo_undersea_info", addedIn = GI_4_0_0),
+            // OneOfEntry(FontaineGatherDetailInfo::class, "fontaine_gather_info", addedIn = GI_4_0_0),
+            // OneOfEntry(GcgPvePuzzleDetailInfo::class, "gcg_pve_puzzle_info", addedIn = GI_4_0_0),
             // 4.1.0 TODO
-            // NEW_ACTIVITY_COLLECT_UNDERWATER
-            // NEW_ACTIVITY_QUICK_TIME_COMBAT
-            // NEW_ACTIVITY_POETRY_FESTIVAL
-            // NEW_ACTIVITY_FISHBLASTER
+            // OneOfEntry(PoetryFestivalDetailInfo::class, "poetry_festival_detail_info", addedIn = GI_4_1_0),
+            // OneOfEntry(FishBlasterInfo::class, "fish_blaster_info", addedIn = GI_4_1_0),
+            // OneOfEntry(QuickTimeCombatDetailInfo::class, "quick_time_combat_info", addedIn = GI_4_1_0),
+            // OneOfEntry(CollectUnderwaterDetailInfo::class, "collect_underwater_info", addedIn = GI_4_1_0),
             // 4.2.0 TODO
             // 4.3.0 TODO
             // 4.4.0 TODO
@@ -264,6 +264,51 @@ internal interface ActivityInfo {
             // 4.7.0 TODO
             // 4.8.0 TODO
             // 5.0.0 TODO
+            // 5.1.0 TODO
+            // 5.2.0 TODO
+            // 5.3.0 TODO
+            /* unsorted:
+                OneOfEntry(MonsterChessDetailInfo::class, "monster_chess_detail_info", addedIn = DEFAULT),
+                OneOfEntry(TreasureHuntV4DetailInfo::class, "treasure_hunt_v4_info", addedIn = DEFAULT),
+                OneOfEntry(ElectroherculesBattleV3DetailInfo::class, "electrohercules_battle_v3_detail_info", addedIn = DEFAULT),
+                OneOfEntry(FilmfestDetailInfo::class, "filmfest_detail_info", addedIn = DEFAULT),
+                OneOfEntry(RechargeDiskDetailInfo::class, "recharge_disk_detail_info", addedIn = DEFAULT),
+                OneOfEntry(NatlanTourDetailInfo::class, "natlan_tour_detail_info", addedIn = DEFAULT),
+                OneOfEntry(WatergunDetailInfo::class, "watergun_info", addedIn = DEFAULT),
+                OneOfEntry(FairyTalesDetailInfo::class, "fairy_tales_detail_info", addedIn = DEFAULT),
+                OneOfEntry(EffigyChallengeV5DetailInfo::class, "effigy_challenge_v5_detail_info", addedIn = DEFAULT),
+                OneOfEntry(CeremonyDetailInfo::class, "ceremony_info", addedIn = DEFAULT),
+                OneOfEntry(CooperateChallengeDetailInfo::class, "cooperate_challenge_detail_info", addedIn = DEFAULT),
+                OneOfEntry(AlchemySimDetailInfo::class, "alchemy_sim_detail_info", addedIn = DEFAULT),
+                OneOfEntry(NahidaBirthDetailInfo::class, "nahida_birth_detail_info", addedIn = DEFAULT),
+                OneOfEntry(AutoTimeStopDetailInfo::class, "auto_time_stop_detail_info", addedIn = DEFAULT),
+                OneOfEntry(GreatFestivalV2DetailInfo::class, "great_festival_v2_detail_info", addedIn = DEFAULT),
+                OneOfEntry(CookGameDetailInfo::class, "cook_game_detail_info", addedIn = DEFAULT),
+                OneOfEntry(GoalChallengeInfo::class, "goal_challenge_info", addedIn = DEFAULT),
+                OneOfEntry(BomberDodocoDetailInfo::class, "bomber_dodoco_detail_info", addedIn = DEFAULT),
+                OneOfEntry(BulletHellDetailInfo::class, "bullet_hell_detail_info", addedIn = DEFAULT),
+                OneOfEntry(CatCafeDetailInfo::class, "catcafe_detail_info", addedIn = DEFAULT),
+                OneOfEntry(ArenaChallengeV5DetailInfo::class, "arena_challenge_v5_detail_info", addedIn = DEFAULT),
+                OneOfEntry(GcgAutoBattleCardDetailInfo::class, "gcg_auto_battle_card_detail_info", addedIn = DEFAULT),
+                OneOfEntry(MonsterVsMonsterDetailInfo::class, "monster_vs_monster_detail_info", addedIn = DEFAULT),
+                OneOfEntry(RainbowPrinceDetailInfo::class, "rainbow_prince_detail_info", addedIn = DEFAULT),
+                OneOfEntry(FungusFighterV3DetailInfo::class, "fungus_fighter_v3_info", addedIn = DEFAULT),
+                OneOfEntry(NatlanRaceDetailInfo::class, "natlan_race_info", addedIn = DEFAULT),
+                OneOfEntry(BoltbugAbyssDetailInfo::class, "boltbug_abyss_detail_info", addedIn = DEFAULT),
+                OneOfEntry(LanternRiteV5DetailInfo::class, "lantern_rite_v5_detail_info", addedIn = DEFAULT),
+                OneOfEntry(SlimeCannonDetailInfo::class, "slime_cannon_detail_info", addedIn = DEFAULT),
+                OneOfEntry(LimitedTimeRewardAreaBannerDetailInfo::class, "limited_time_reward_area_banner_info", addedIn = DEFAULT),
+                OneOfEntry(BlessingV2Info::class, "blessing_v2_info", addedIn = DEFAULT),
+                OneOfEntry(HideAndSeekV4DetailInfo::class, "hide_and_seek_v4_detail_info", addedIn = DEFAULT),
+                OneOfEntry(AcrobaticsBattleDetailInfo::class, "acrobatics_battle_detail_info", addedIn = DEFAULT),
+                OneOfEntry(BirdBallDetailInfo::class, "bird_ball_detail_info", addedIn = DEFAULT),
+                OneOfEntry(StaminaFightDetailInfo::class, "stamina_fight_info", addedIn = DEFAULT),
+                OneOfEntry(LanternRiteV4DetailInfo::class, "lantern_rite_v4_info", addedIn = DEFAULT),
+                OneOfEntry(JourneyDetailInfo::class, "journey_info", addedIn = DEFAULT),
+                OneOfEntry(LostSamachurlDetailInfo::class, "lost_samachurl_info", addedIn = DEFAULT),
+                OneOfEntry(GainBuffDetailInfo::class, "gain_buff_detail_info", addedIn = DEFAULT),
+                OneOfEntry(::class, "", addedIn = DEFAULT),
+            */
         ]
     )
     var detail: OneOfType
