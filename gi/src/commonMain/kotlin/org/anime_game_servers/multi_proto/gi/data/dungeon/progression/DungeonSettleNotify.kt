@@ -1,6 +1,6 @@
 package org.anime_game_servers.multi_proto.gi.data.dungeon.progression
 
-import org.anime_game_servers.multi_proto.gi.data.activity.channeller_slab.ChannellerSlabLoopDungeonResultInfo
+import org.anime_game_servers.multi_proto.gi.data.activity.channeller_slab.ChannelerSlabLoopDungeonResultInfo
 import org.anime_game_servers.multi_proto.gi.data.activity.effigy_challenge.EffigyChallengeDungeonResultInfo
 import org.anime_game_servers.multi_proto.gi.data.activity.roguelike_dungeon.RoguelikeDungeonSettleInfo
 import org.anime_game_servers.multi_proto.gi.data.spiral_abyss.run.TowerLevelEndNotify
@@ -52,7 +52,7 @@ internal interface DungeonSettleNotify {
     @AddedIn(GI_1_5_0)
     @OneOf(
         types = [
-            OneOfEntry(ChannellerSlabLoopDungeonResultInfo::class, "channeller_slab_loop_dungeon_result_info"),
+            OneOfEntry(ChannelerSlabLoopDungeonResultInfo::class, "channeller_slab_loop_dungeon_result_info"),
             OneOfEntry(EffigyChallengeDungeonResultInfo::class, "effigy_challenge_dungeon_result_info"),
             OneOfEntry(TowerLevelEndNotify::class, "tower_level_end_notify"),
             OneOfEntry(TrialAvatarFirstPassDungeonNotify::class, "trial_avatar_first_pass_dungeon_notify"),

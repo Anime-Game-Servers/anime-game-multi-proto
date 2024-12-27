@@ -1,6 +1,6 @@
 package org.anime_game_servers.multi_proto.gi.data.dungeon.challenge
 
-import org.anime_game_servers.multi_proto.gi.data.activity.channeller_slab.ChannellerSlabLoopDungeonResultInfo
+import org.anime_game_servers.multi_proto.gi.data.activity.channeller_slab.ChannelerSlabLoopDungeonResultInfo
 import org.anime_game_servers.multi_proto.gi.data.activity.effigy_challenge.EffigyChallengeDungeonResultInfo
 import org.anime_game_servers.multi_proto.gi.data.activity.potion.PotionDungeonResultInfo
 import org.anime_game_servers.core.base.Version.GI_1_1_0
@@ -40,7 +40,7 @@ internal interface DungeonChallengeFinishNotify {
     @AddedIn(GI_1_5_0)
     @OneOf(
         types = [
-            OneOfEntry(ChannellerSlabLoopDungeonResultInfo::class, "channeller_slab_loop_dungeon_result_info"),
+            OneOfEntry(ChannelerSlabLoopDungeonResultInfo::class, "channeller_slab_loop_dungeon_result_info"),
             OneOfEntry(EffigyChallengeDungeonResultInfo::class, "effigy_challenge_dungeon_result_info", addedIn = GI_1_6_0),
             OneOfEntry(PotionDungeonResultInfo::class, "potion_dungeon_result_info", addedIn = GI_2_4_0),
             OneOfEntry(CustomDungeonResultInfo::class, "custom_dungeon_result_info", addedIn = GI_2_5_0),
