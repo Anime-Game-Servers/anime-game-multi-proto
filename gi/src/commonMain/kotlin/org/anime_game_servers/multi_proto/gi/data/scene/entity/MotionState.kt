@@ -1,11 +1,21 @@
 package org.anime_game_servers.multi_proto.gi.data.scene.entity
 
 import org.anime_game_servers.core.base.annotations.AddedIn
-import org.anime_game_servers.core.base.Version
+import org.anime_game_servers.core.base.Version.GI_CB1
+import org.anime_game_servers.core.base.Version.GI_CB2
+import org.anime_game_servers.core.base.Version.GI_1_0_0
+import org.anime_game_servers.core.base.Version.GI_1_5_0
+import org.anime_game_servers.core.base.Version.GI_1_6_0
+import org.anime_game_servers.core.base.Version.GI_2_1_0
+import org.anime_game_servers.core.base.Version.GI_2_7_0
+import org.anime_game_servers.core.base.Version.GI_3_6_0
+import org.anime_game_servers.core.base.Version.GI_3_8_0
+import org.anime_game_servers.core.base.Version.GI_4_0_0
+import org.anime_game_servers.core.base.Version.GI_5_0_0
 import org.anime_game_servers.core.base.annotations.proto.AltName
 import org.anime_game_servers.core.base.annotations.proto.ProtoEnum
 
-@AddedIn(Version.GI_CB1)
+@AddedIn(GI_CB1)
 @ProtoEnum
 internal enum class MotionState {
     @AltName("MOTION_STATE_NONE")
@@ -92,49 +102,205 @@ internal enum class MotionState {
     MOTION_WATERFALL,
     @AltName("MOTION_STATE_DASH_BEFORE_SHAKE")
     MOTION_DASH_BEFORE_SHAKE,
-    @AddedIn(Version.GI_CB2)
+    @AddedIn(GI_CB2)
     @AltName("MOTION_STATE_SIT_IDLE")
     MOTION_SIT_IDLE,
-    @AddedIn(Version.GI_1_0_0)
+    @AddedIn(GI_1_0_0)
     @AltName("MOTION_STATE_FORCE_SET_POS")
     MOTION_FORCE_SET_POS,
-    @AddedIn(Version.GI_1_0_0)
+    @AddedIn(GI_1_0_0)
     @AltName("MOTION_STATE_QUEST_FORCE_DRAG")
     MOTION_QUEST_FORCE_DRAG,
-    @AddedIn(Version.GI_1_5_0)
+    @AddedIn(GI_1_5_0)
     @AltName("MOTION_STATE_FOLLOW_ROUTE")
     MOTION_FOLLOW_ROUTE,
-    @AddedIn(Version.GI_1_6_0)
+    @AddedIn(GI_1_6_0)
     @AltName("MOTION_STATE_SKIFF_BOARDING")
     MOTION_SKIFF_BOARDING,
-    @AddedIn(Version.GI_1_6_0)
+    @AddedIn(GI_1_6_0)
     @AltName("MOTION_STATE_SKIFF_NORMAL")
     MOTION_SKIFF_NORMAL,
-    @AddedIn(Version.GI_1_6_0)
+    @AddedIn(GI_1_6_0)
     @AltName("MOTION_STATE_SKIFF_DASH")
     MOTION_SKIFF_DASH,
-    @AddedIn(Version.GI_1_6_0)
+    @AddedIn(GI_1_6_0)
     @AltName("MOTION_STATE_SKIFF_POWERED_DASH")
     MOTION_SKIFF_POWERED_DASH,
-    @AddedIn(Version.GI_1_6_0)
+    @AddedIn(GI_1_6_0)
     @AltName("MOTION_STATE_DESTROY_VEHICLE")
     MOTION_DESTROY_VEHICLE,
-    @AddedIn(Version.GI_2_1_0)
+    @AddedIn(GI_2_1_0)
     @AltName("MOTION_STATE_FLY_IDLE")
     MOTION_FLY_IDLE,
-    @AddedIn(Version.GI_2_1_0)
+    @AddedIn(GI_2_1_0)
     @AltName("MOTION_STATE_FLY_SLOW")
     MOTION_FLY_SLOW,
-    @AddedIn(Version.GI_2_1_0)
+    @AddedIn(GI_2_1_0)
     @AltName("MOTION_STATE_FLY_FAST")
     MOTION_FLY_FAST,
-    @AddedIn(Version.GI_2_7_0)
+    @AddedIn(GI_2_7_0)
     @AltName("MOTION_STATE_AIM_MOVE")
     MOTION_AIM_MOVE,
-    @AddedIn(Version.GI_2_7_0)
+    @AddedIn(GI_2_7_0)
     @AltName("MOTION_STATE_AIR_COMPENSATION")
     MOTION_AIR_COMPENSATION,
-    @AddedIn(Version.GI_2_7_0)
+    @AddedIn(GI_3_6_0)
+    @AltName("MOTION_STATE_SORUSH_NORMAL")
+    MOTION_SORUSH_NORMAL,
+    @AddedIn(GI_3_8_0)
+    @AltName("MOTION_STATE_ROLLER_COASTER")
+    MOTION_ROLLER_COASTER,
+    @AddedIn(GI_4_0_0)
+    @AltName("MOTION_STATE_DIVE_IDLE")
+    MOTION_DIVE_IDLE,
+    @AddedIn(GI_4_0_0)
+    @AltName("MOTION_STATE_DIVE_MOVE")
+    MOTION_DIVE_MOVE,
+    @AddedIn(GI_4_0_0)
+    @AltName("MOTION_STATE_DIVE_DASH")
+    MOTION_DIVE_DASH,
+    @AddedIn(GI_4_0_0)
+    @AltName("MOTION_DIVE_DOLPHINE", "MOTION_STATE_DIVE_DOLPHINE", "MOTION_STATE_DIVE_DOLPHIN")
+    MOTION_DIVE_DOLPHIN,
+    @AddedIn(GI_4_0_0)
+    @AltName("MOTION_STATE_DEBUG")
+    MOTION_DEBUG,
+    @AddedIn(GI_4_0_0)
+    @AltName("MOTION_STATE_OCEAN_CURRENT")
+    MOTION_OCEAN_CURRENT,
+    @AddedIn(GI_4_0_0)
+    @AltName("MOTION_STATE_DIVE_SWIM_MOVE")
+    MOTION_DIVE_SWIM_MOVE,
+    @AddedIn(GI_4_0_0)
+    @AltName("MOTION_STATE_DIVE_SWIM_IDLE")
+    MOTION_DIVE_SWIM_IDLE,
+    @AddedIn(GI_4_0_0)
+    @AltName("MOTION_STATE_DIVE_SWIM_DASH")
+    MOTION_DIVE_SWIM_DASH,
+    @AddedIn(GI_5_0_0)
+    @AltName("MOTION_STATE_ARC_LIGHT")
+    MOTION_ARC_LIGHT,
+    @AddedIn(GI_5_0_0)
+    @AltName("MOTION_STATE_ARC_LIGHT_SAFE")
+    MOTION_ARC_LIGHT_SAFE,
+    @AddedIn(GI_5_0_0)
+    @AltName("MOTION_STATE_VEHICLE_STANDBY")
+    MOTION_VEHICLE_STANDBY,
+    @AddedIn(GI_5_0_0)
+    @AltName("MOTION_STATE_VEHICLE_RUN")
+    MOTION_VEHICLE_RUN,
+    @AddedIn(GI_5_0_0)
+    @AltName("MOTION_STATE_VEHICLE_DASH")
+    MOTION_VEHICLE_DASH,
+    @AddedIn(GI_5_0_0)
+    @AltName("MOTION_STATE_VEHICLE_CLIMB")
+    MOTION_VEHICLE_CLIMB,
+    @AddedIn(GI_5_0_0)
+    @AltName("MOTION_STATE_VEHICLE_CLIMB_JUMP")
+    MOTION_VEHICLE_CLIMB_JUMP,
+    @AddedIn(GI_5_0_0)
+    @AltName("MOTION_STATE_VEHICLE_STANDBY_TO_CLIMB")
+    MOTION_VEHICLE_STANDBY_TO_CLIMB,
+    @AddedIn(GI_5_0_0)
+    @AltName("MOTION_STATE_VEHICLE_FIGHT")
+    MOTION_VEHICLE_FIGHT,
+    @AddedIn(GI_5_0_0)
+    @AltName("MOTION_STATE_VEHICLE_JUMP")
+    MOTION_VEHICLE_JUMP,
+    @AddedIn(GI_5_0_0)
+    @AltName("MOTION_STATE_VEHICLE_DROP")
+    MOTION_VEHICLE_DROP,
+    @AddedIn(GI_5_0_0)
+    @AltName("MOTION_STATE_VEHICLE_FLY")
+    MOTION_VEHICLE_FLY,
+    @AddedIn(GI_5_0_0)
+    @AltName("MOTION_STATE_VEHICLE_SWIM_MOVE")
+    MOTION_VEHICLE_SWIM_MOVE,
+    @AddedIn(GI_5_0_0)
+    @AltName("MOTION_STATE_VEHICLE_SWIM_IDLE")
+    MOTION_VEHICLE_SWIM_IDLE,
+    @AddedIn(GI_5_0_0)
+    @AltName("MOTION_STATE_VEHICLE_SWIM_DASH")
+    MOTION_VEHICLE_SWIM_DASH,
+    @AddedIn(GI_5_0_0)
+    @AltName("MOTION_STATE_VEHICLE_SLIP")
+    MOTION_VEHICLE_SLIP,
+    @AddedIn(GI_5_0_0)
+    @AltName("MOTION_STATE_VEHICLE_GO_UPSTAIRS")
+    MOTION_VEHICLE_GO_UPSTAIRS,
+    @AddedIn(GI_5_0_0)
+    @AltName("MOTION_STATE_VEHICLE_FALL_ON_GROUND")
+    MOTION_VEHICLE_FALL_ON_GROUND,
+    @AddedIn(GI_5_0_0)
+    @AltName("MOTION_STATE_VEHICLE_JUMP_OFF_WALL")
+    MOTION_VEHICLE_JUMP_OFF_WALL,
+    @AddedIn(GI_5_0_0)
+    @AltName("MOTION_STATE_VEHICLE_POWERED_FLY")
+    MOTION_VEHICLE_POWERED_FLY,
+    @AddedIn(GI_5_0_0)
+    @AltName("MOTION_STATE_VEHICLE_DANGER_STANDBY")
+    MOTION_VEHICLE_DANGER_STANDBY,
+    @AddedIn(GI_5_0_0)
+    @AltName("MOTION_STATE_VEHICLE_DANGER_RUN")
+    MOTION_VEHICLE_DANGER_RUN,
+    @AddedIn(GI_5_0_0)
+    @AltName("MOTION_STATE_VEHICLE_DANGER_DASH")
+    MOTION_VEHICLE_DANGER_DASH,
+    @AddedIn(GI_5_0_0)
+    @AltName("MOTION_STATE_VEHICLE_NOTIFY")
+    MOTION_VEHICLE_NOTIFY,
+    @AddedIn(GI_5_0_0)
+    @AltName("MOTION_STATE_VEHICLE_LAND_SPEED")
+    MOTION_VEHICLE_LAND_SPEED,
+    @AddedIn(GI_5_0_0)
+    @AltName("MOTION_STATE_VEHICLE_DASH_BEFORE_SHAKE")
+    MOTION_VEHICLE_DASH_BEFORE_SHAKE,
+    @AddedIn(GI_5_0_0)
+    @AltName("MOTION_STATE_VEHICLE_QUEST_FORCE_DRAG")
+    MOTION_VEHICLE_QUEST_FORCE_DRAG,
+    @AddedIn(GI_5_0_0)
+    @AltName("MOTION_STATE_VEHICLE_FOLLOW_ROUTE")
+    MOTION_VEHICLE_FOLLOW_ROUTE,
+    @AddedIn(GI_5_0_0)
+    @AltName("MOTION_STATE_VEHICLE_FLY_IDLE")
+    MOTION_VEHICLE_FLY_IDLE,
+    @AddedIn(GI_5_0_0)
+    @AltName("MOTION_STATE_VEHICLE_FLY_SLOW")
+    MOTION_VEHICLE_FLY_SLOW,
+    @AddedIn(GI_5_0_0)
+    @AltName("MOTION_STATE_VEHICLE_FLY_FAST")
+    MOTION_VEHICLE_FLY_FAST,
+    @AddedIn(GI_5_0_0)
+    @AltName("MOTION_STATE_VEHICLE_AIR_COMPENSATION")
+    MOTION_VEHICLE_AIR_COMPENSATION,
+    @AddedIn(GI_5_0_0)
+    @AltName("MOTION_STATE_VEHICLE_ARC_LIGHT")
+    MOTION_VEHICLE_ARC_LIGHT,
+    @AddedIn(GI_5_0_0)
+    @AltName("MOTION_STATE_VEHICLE_ARC_LIGHT_SAFE")
+    MOTION_VEHICLE_ARC_LIGHT_SAFE,
+    @AddedIn(GI_5_0_0)
+    @AltName("MOTION_STATE_VEHICLE_DANGER_SWIM_MOVE")
+    MOTION_VEHICLE_DANGER_SWIM_MOVE,
+    @AddedIn(GI_5_0_0)
+    @AltName("MOTION_STATE_VEHICLE_DANGER_SWIM_IDLE")
+    MOTION_VEHICLE_DANGER_SWIM_IDLE,
+    @AddedIn(GI_5_0_0)
+    @AltName("MOTION_STATE_VEHICLE_DANGER_SWIM_DASH")
+    MOTION_VEHICLE_DANGER_SWIM_DASH,
+    @AddedIn(GI_5_0_0)
+    @AltName("MOTION_STATE_FOLLOW_CURVE_ROUTE")
+    MOTION_FOLLOW_CURVE_ROUTE,
+    @AddedIn(GI_5_0_0)
+    @AltName("MOTION_STATE_VEHICLE_FOLLOW_CURVE_ROUTE")
+    MOTION_VEHICLE_FOLLOW_CURVE_ROUTE,
+    @AddedIn(GI_5_0_0)
+    @AltName("MOTION_STATE_NATSAURUS_NORMAL")
+    MOTION_NATSAURUS_NORMAL,
+    @AddedIn(GI_5_0_0)
+    @AltName("MOTION_STATE_NATSAURUS_ENTERING")
+    MOTION_NATSAURUS_ENTERING,
+    @AddedIn(GI_2_7_0)
     @AltName("MOTION_STATE_NUM")
     MOTION_NUM,
 }

@@ -35,4 +35,7 @@ internal enum class EnterType {
     @AddedIn(Version.GI_2_1_0)
     @AltName("ENTER_TYPE_GOTO_RECREATE")
     ENTER_GOTO_RECREATE,
+    @AddedIn(Version.GI_4_0_0) // TODO verify it didn't get added in 3.8.0
+    @AltName("ENTER_TYPE_BY_TPL")
+    ENTER_GOTO_BY_TPL,
 }

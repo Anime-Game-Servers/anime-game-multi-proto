@@ -5,3 +5,5 @@ GetPlayerTokenRsp,894
 PlayerLoginReq,29395
 PingReq,26500
 PingRsp,5514
+GetActivityInfoRsp,408
+ActivityInfoNotify,26013

@@ -10,6 +10,8 @@ import org.anime_game_servers.core.base.Version.GI_2_2_0
 import org.anime_game_servers.core.base.Version.GI_2_3_0
 import org.anime_game_servers.core.base.Version.GI_2_6_0
 import org.anime_game_servers.core.base.Version.GI_3_2_0
+import org.anime_game_servers.core.base.Version.GI_3_6_0
+import org.anime_game_servers.core.base.Version.GI_3_7_0
 
 
 @AddedIn(GI_1_6_0)
@@ -48,4 +50,19 @@ enum class GalleryStopReason {
     @AddedIn(GI_3_2_0)
     @AltName("GALLERY_STOP_REASON_FUNGUS_ALL_DIE")
     GALLERY_STOP_FUNGUS_ALL_DIE,
+    @AddedIn(GI_3_2_0)
+    @AltName("GALLERY_STOP_REASON_LIFE_COUNT_ZERO")
+    GALLERY_STOP_LIFE_COUNT_ZERO,
+    @AddedIn(GI_3_6_0)
+    @AltName("GALLERY_STOP_REASON_ACTIVITY_CLOSED")
+    GALLERY_STOP_ACTIVITY_CLOSED,
+    @AddedIn(GI_3_6_0)
+    @AltName("GALLERY_STOP_REASON_LEAVE_REGION_FAIL")
+    GALLERY_STOP_LEAVE_REGION_FAIL,
+    @AddedIn(GI_3_7_0)
+    @AltName("GALLERY_STOP_REASON_HEART_BLOOD_USED_OUT")
+    GALLERY_STOP_HEART_BLOOD_USED_OUT,
+    @AddedIn(GI_3_7_0)
+    @AltName("GALLERY_STOP_REASON_GUARDIAN_STONE_DIE")
+    GALLERY_STOP_GUARDIAN_STONE_DIE,
 }

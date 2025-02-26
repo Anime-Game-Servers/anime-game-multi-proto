@@ -9,6 +9,8 @@ import org.anime_game_servers.core.base.Version.GI_2_0_0
 import org.anime_game_servers.core.base.Version.GI_2_3_0
 import org.anime_game_servers.core.base.Version.GI_2_7_0
 import org.anime_game_servers.core.base.Version.GI_3_0_0
+import org.anime_game_servers.core.base.Version.GI_4_0_0
+import org.anime_game_servers.core.base.Version.GI_4_5_0
 import org.anime_game_servers.core.base.annotations.AddedIn
 import org.anime_game_servers.core.base.annotations.RemovedIn
 import org.anime_game_servers.core.base.annotations.proto.AltName
@@ -68,4 +70,16 @@ internal enum class CombatTypeArgument {
     @AddedIn(GI_3_0_0)
     @AltName("COMBAT_TYPE_ARGUMENT_GRAPPLING_HOOK_MOVE")
     COMBAT_GRAPPLING_HOOK_MOVE,
+    @AddedIn(GI_4_0_0) // TODO verify 3.8.0
+    @AltName("COMBAT_TYPE_ARGUMENT_SPECIAL_MOTION_INFO")
+    COMBAT_SPECIAL_MOTION_INFO,
+    @AddedIn(GI_4_5_0) // TODO verify 4.1-4.4
+    @AltName("COMBAT_TYPE_ARGUMENT_FIXED_AVATAR_FLASH_MOVE")
+    COMBAT_FIXED_AVATAR_FLASH_MOVE,
+    @AddedIn(GI_4_5_0) // TODO verify 4.1-4.4
+    @AltName("COMBAT_TYPE_ARGUMENT_MULTI_OVERRIDE_ANIM")
+    COMBAT_MULTI_OVERRIDE_ANIM,
+    @AddedIn(GI_4_5_0) // TODO verify 4.1-4.4
+    @AltName("COMBAT_TYPE_ARGUMENT_DEBUG_SYNC_MOTION")
+    COMBAT_DEBUG_SYNC_MOTION,
 }

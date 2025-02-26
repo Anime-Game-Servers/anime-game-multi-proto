@@ -16,6 +16,18 @@ import org.anime_game_servers.core.base.Version.GI_2_6_0
 import org.anime_game_servers.core.base.Version.GI_3_0_0
 import org.anime_game_servers.core.base.Version.GI_3_1_0
 import org.anime_game_servers.core.base.Version.GI_3_2_0
+import org.anime_game_servers.core.base.Version.GI_3_3_0
+import org.anime_game_servers.core.base.Version.GI_3_4_0
+import org.anime_game_servers.core.base.Version.GI_3_5_0
+import org.anime_game_servers.core.base.Version.GI_3_6_0
+import org.anime_game_servers.core.base.Version.GI_4_0_0
+import org.anime_game_servers.core.base.Version.GI_4_3_0
+import org.anime_game_servers.core.base.Version.GI_4_5_0
+import org.anime_game_servers.core.base.Version.GI_4_6_0
+import org.anime_game_servers.core.base.Version.GI_5_0_0
+import org.anime_game_servers.core.base.Version.GI_5_2_0
+import org.anime_game_servers.core.base.Version.GI_5_3_0
+import org.anime_game_servers.core.base.Version.GI_5_4_0
 import org.anime_game_servers.core.base.Version.GI_CB1
 import org.anime_game_servers.core.base.Version.GI_CB2
 import org.anime_game_servers.core.base.annotations.AddedIn
@@ -184,4 +196,58 @@ internal enum class AbilityInvokeArgument {
     @AddedIn(GI_3_2_0)
     @AltName("ABILITY_INVOKE_ARGUMENT_MIXIN_ERASE_BRICK_ACTIVITY")
     ABILITY_MIXIN_ERASE_BRICK_ACTIVITY,
+    @AddedIn(GI_3_3_0)
+    ABILITY_MIXIN_BREAKOUT,
+    @AddedIn(GI_3_4_0)
+    ABILITY_ACTION_FIREWORK_EFFECT,
+    @AddedIn(GI_3_4_0)
+    ABILITY_MIXIN_DAMAGE_LOAN,
+    @AddedIn(GI_3_4_0)
+    ABILITY_MIXIN_BROADCAST_GV,
+    @AddedIn(GI_3_5_0)
+    ABILITY_MIXIN_RECEIVE_GV,
+    @AddedIn(GI_3_6_0)
+    ABILITY_MIXIN_ENERGY_CRYSTAL_TARGET,
+    @AddedIn(GI_4_0_0) // todo check 3.8
+    ABILITY_MIXIN_RAYCAST_SELECT_TARGET,
+    @AddedIn(GI_4_0_0) // todo check 3.8
+    ABILITY_ACTION_LEVEL_BANK_ADD_STUFF,
+    @AddedIn(GI_4_0_0) // todo check 3.8
+    ABILITY_MIXIN_ROTATION_FOLLOW_CAMERA,
+    @AddedIn(GI_4_0_0) // todo check 3.8
+    ABILITY_MIXIN_BUOYANT_FORCE,
+    @AddedIn(GI_4_3_0) // todo verify
+    ABILITY_MIXIN_FILMFEST_BALL_GAME,
+    @AddedIn(GI_4_5_0) // todo check 4.1 to 4.4
+    ABILITY_ACTION_GET_MATERIAL_PARAM_FLOAT,
+    @AddedIn(GI_4_5_0) // todo check 4.1 to 4.4
+    ABILITY_ACTION_GET_MATERIAL_PARAM_VECTOR,
+    @AddedIn(GI_4_5_0) // todo check 4.1 to 4.4
+    ABILITY_ACTION_SPECTACLE_BUILD_RECREATE_GADGET,
+    @AddedIn(GI_4_5_0) // todo check 4.1 to 4.4
+    ABILITY_MIXIN_CHECK_SCAN_ENTITY,
+    @AddedIn(GI_4_6_0)
+    ABILITY_MIXIN_TIME_TRACK_PLAYER,
+    @AddedIn(GI_5_0_0)
+    ABILITY_MIXIN_PART_FOLLOW,
+    @AddedIn(GI_5_0_0)
+    ABILITY_MIXIN_CHANGE_PHLOGISTON,
+    @AddedIn(GI_5_0_0)
+    ABILITY_MIXIN_HUMAN_DRAGON_COLLAB_PICK_PHLOGISTON_BALL,
+    @AddedIn(GI_5_0_0)
+    ABILITY_MIXIN_FREQUENCY_SHIELD_BAR,
+    @AddedIn(GI_5_0_0)
+    ABILITY_MIXIN_VEHICLE_STEER_BY_CAMERA,
+    @AddedIn(GI_5_2_0) // todo check 5.1
+    ABILITY_MIXIN_SHAMAN_VIEW_TARGET,
+    @AddedIn(GI_5_2_0) // todo check 5.1
+    ABILITY_MIXIN_ATTACH_MODIFIER_TO_GLOBAL_VALUE,
+    @AddedIn(GI_5_2_0) // todo check 5.1
+    ABILITY_MIXIN_BRICK_MATRIX,
+    @AddedIn(GI_5_2_0) // todo check 5.1
+    ABILITY_MIXIN_AVATAR_SPECIAL_MOVE,
+    @AddedIn(GI_5_3_0)
+    ABILITY_MIXIN_MODIFY_DAMAGE,
+    @AddedIn(GI_5_4_0)
+    ABILITY_MIXIN_MODIFY_BE_HIT_DAMAGE_COUNT,
 }

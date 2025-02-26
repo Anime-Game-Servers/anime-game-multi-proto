@@ -1,13 +1,18 @@
 package org.anime_game_servers.multi_proto.gi.data.scene.entity
 
+import org.anime_game_servers.core.base.Version.GI_CB1
+import org.anime_game_servers.core.base.Version.GI_CB2
 import org.anime_game_servers.core.base.Version.GI_1_0_0
 import org.anime_game_servers.core.base.Version.GI_1_2_0
 import org.anime_game_servers.core.base.Version.GI_1_3_0
 import org.anime_game_servers.core.base.Version.GI_1_6_0
 import org.anime_game_servers.core.base.Version.GI_2_2_0
 import org.anime_game_servers.core.base.Version.GI_2_4_0
-import org.anime_game_servers.core.base.Version.GI_CB1
-import org.anime_game_servers.core.base.Version.GI_CB2
+import org.anime_game_servers.core.base.Version.GI_3_6_0
+import org.anime_game_servers.core.base.Version.GI_3_7_0
+import org.anime_game_servers.core.base.Version.GI_4_5_0
+import org.anime_game_servers.core.base.Version.GI_5_0_0
+import org.anime_game_servers.core.base.Version.GI_5_2_0
 import org.anime_game_servers.core.base.annotations.AddedIn
 import org.anime_game_servers.core.base.annotations.proto.AltName
 import org.anime_game_servers.core.base.annotations.proto.ProtoEnum
@@ -86,4 +91,18 @@ internal enum class ChangeHpReason {
     @AddedIn(GI_2_4_0)
     @AltName("CHANGE_HP_REASON_ATTACK_BY_RECYCLE")
     CHANGE_HP_ATTACK_BY_RECYCLE,
+    @AddedIn(GI_3_6_0)
+    @AltName("CHANGE_HP_REASON_SUB_PLAYER_BACK")
+    CHANGE_HP_SUB_PLAYER_BACK,
+    @AddedIn(GI_3_7_0)
+    @AltName("CHANGE_HP_REASON_SUB_UGC")
+    CHANGE_HP_SUB_UGC,
+    @AddedIn(GI_4_5_0) // todo verfiy 4.1-4.4
+    CHANGE_HP_SUB_DIRTY_WATER_EROSION,
+    @AddedIn(GI_4_5_0) // todo verfiy 4.1-4.4
+    CHANGE_HP_SUB_DESTROY_SELF,
+    @AddedIn(GI_5_0_0)
+    CHANGE_HP_SUB_LIQUID_PHLOGISTON,
+    @AddedIn(GI_5_2_0) // todo verfiy 5.1
+    CHANGE_HP_ADD_EFFIGY_CHALLENGE_V_5,
 }
