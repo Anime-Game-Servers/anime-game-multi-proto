@@ -55,6 +55,7 @@ class FunctionProcessor(
             val parentClassName = annotation?.getParentClass()
             val altNames = annotation?.getAltNames() ?: emptyList()
             val name = it.simpleName.asString()
+            val names = (altNames+name).toSet()
 
             val protoNames = mutableListOf(name.getProtoName(parentClassName))
             protoNames.addAll(altNames.map { it.getProtoName(parentClassName) })
@@ -74,7 +75,7 @@ class FunctionProcessor(
                 versionProtoSet.mapTo(this) { it.classDeclaration.containingFile!! }
             }
 
-            val info = BaseGenerator.ClassInfo(name, targetPackage, it, dependencies, versionProtoSet, true)
+            val info = BaseGenerator.ClassInfo(name, targetPackage, it, dependencies, versionProtoSet, true, names = names)
             logger.info("ClassInfo $info")
 
             typeMap[it.asStarProjectedType()] = info

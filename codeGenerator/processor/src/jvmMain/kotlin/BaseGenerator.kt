@@ -10,6 +10,7 @@ import org.anime_game_servers.core.base.annotations.AddedIn
 import org.anime_game_servers.core.base.annotations.RemovedIn
 import java.io.OutputStream
 import java.util.*
+import kotlin.collections.ArrayList
 
 //TODO keep AddedIn/RemovedIn annotations
 @OptIn(KspExperimental::class)
@@ -131,7 +132,8 @@ abstract class BaseGenerator(
             .entries.associate {
                 it.key to OneOfData.createOneOfData(definition, it.value.type, it.value.name)
             },
-        val declarations: List<KSClassDeclaration> = definition.declarations.mapNotNull { it as? KSClassDeclaration }.toList()
+        val declarations: List<KSClassDeclaration> = definition.declarations.mapNotNull { it as? KSClassDeclaration }.toList(),
+        val names: Set<String> = setOf(name)
     )
 
     protected fun getFullNameForTarget(targetType:MemberInfo, fallback:String, sourceType:MemberInfo?):String{
@@ -152,16 +154,7 @@ abstract class BaseGenerator(
             if (!it.value.isPrimaryConstructorMember){
                 return@forEach
             }
-            val matching = sourceMembers.values.filter { value ->
-                value.names.forEach { sourceName ->
-                    it.value.names.forEach { targetName ->
-                        if(sourceName.equals(targetName, true)){
-                            return@filter true
-                        }
-                    }
-                }
-                return@filter false
-            }
+            val matching = sourceMembers.values.filter { value -> value.hasSameName(it.value) }
             if (matching.isEmpty()) {
                 return@forEach
             }
@@ -172,7 +165,7 @@ abstract class BaseGenerator(
             val baseVarName = "`${it.value.name.getVariableName()}`"
             val baseSourceVarName = "`${sourceMember.name.getVariableName()}`"
             val sourceVarName = sourcePrefix?.let {pf -> "$pf.${baseSourceVarName}" } ?: baseSourceVarName
-            
+
             val type = Type.byType(it.value.type, this)
             file.id(indentation)+= when (type) {
                 Type.SIMPLE -> {
@@ -260,11 +253,21 @@ abstract class BaseGenerator(
             return varName
         }
         val outParameterName = outParameter.declaration.simpleName.asString()
+        val inParameterName = inParameter?.declaration?.simpleName?.asString() ?: ""
         //logger.warn("list equals ${inType == outType} ${outParameter==inParameter}\n\t$outParameterName\t${inParameter?.declaration?.simpleName?.asString()}")
         //logger.warn("field type: $varName $outParameterName ${Type.byType(outParameter, this)} ${Type.byType(inType, this)} o$outParameter i$inParameter\n")
         return when (Type.byType(outParameter, this)) {
             Type.SIMPLE -> {
-                if(inParameter == outParameter){
+                checkAndGetConverter(inType, outType, inParameter?: inType.type, outParameter, inParameterName, outParameterName)?.let { (isIn, converter) ->
+                    val className = (if(isIn)converter.outType else converter.inType).getFullClassName()
+                    val converterFunction = if(className.endsWith(converter.inTypeString)){
+                        "inToOut"
+                    } else {
+                        "outToIn"
+                    }
+                    val dataTarget = dataMethod.getDataCall("it", outParameterName, true, converter = converter)
+                    "$varName.map { ${converter.getFullConverterClassName()}.$converterFunction($dataTarget) }"
+                } ?: if(inParameter == outParameter){
                     varName
                 } else {// TODO convert
                     logger.warn("simple collections with different types $varName $outParameterName $inParameter")
@@ -294,10 +297,44 @@ abstract class BaseGenerator(
                 ""
             }
             Type.DATA , Type.ENUM -> {
-                val dataTarget = dataMethod.getDataCall("it", outParameter.getFullClassName(), true)
+                val (isIn, converter) = checkAndGetConverter(inType, outType, inParameter?: inType.type, outParameter, inParameterName, outParameterName) ?: Pair(false, null)
+
+                val className = ((if(isIn)converter?.outType else converter?.inType) ?: outParameter).getFullClassName()
+                val dataTarget = dataMethod.getDataCall("it", className, true, converter = converter)
                 "$varName.map { $dataTarget }"
             }
         }
+    }
+    private fun checkAndGetConverter(inType: MemberInfo, outType: MemberInfo,
+                                     inKsType: KSType = inType.type, outKsType: KSType = outType.type,
+                                     inTypeName: String = inKsType.declaration.simpleName.asString(),
+                                     outTypeName: String = outKsType.declaration.simpleName.asString()) : Pair<Boolean, TypeConverter>?{
+
+        val isSame = classInfoCache[inKsType]?.let { inClassInfo ->
+            inClassInfo.names.any { it.equals(outTypeName, ignoreCase = true) }
+        } ?: classInfoCache[outKsType]?.let { outClassInfo ->
+            outClassInfo.names.any { it.equals(inTypeName, ignoreCase = true) }
+        } ?: false
+
+        if(!isSame){
+            val outConverters = outType.converters.filter {
+                val inConvTypeName = it.inTypeString
+                val outConvTypeName = it.outTypeString
+                inConvTypeName == inTypeName && outConvTypeName == outTypeName || inConvTypeName == outTypeName && outConvTypeName == inTypeName
+            }
+            if(outConverters.isNotEmpty()) {
+                return false to outConverters.first()
+            }
+            val inConverters = inType.converters.filter {
+                val inConvTypeName = it.inTypeString
+                val outConvTypeName = it.outTypeString
+                inConvTypeName == inTypeName && outConvTypeName == outTypeName || inConvTypeName == outTypeName && outConvTypeName == inTypeName
+            }
+            if(inConverters.isNotEmpty()){
+                return true to inConverters.first()
+            }
+        }
+        return null
     }
 
     private fun convertByteArray(
@@ -319,9 +356,19 @@ abstract class BaseGenerator(
     data class DataMethodInfo(val methodName:String,
                               val isMemberCall:Boolean,
                               val overwritePackagePath:String? = null){
-        fun getDataCall(variable: String, methodClassPath: String, isNullSafe:Boolean = false, forceNonNull: Boolean = false, fallback: String? = null ):String{
+        fun getDataCall(variable: String, methodClassPath: String, isNullSafe:Boolean = false, forceNonNull: Boolean = false, fallback: String? = null, converter :TypeConverter? = null ):String{
+            val converterFunction = converter?.let {
+                if(methodClassPath.endsWith(converter.inTypeString)){
+                    "inToOut"
+                } else {
+                    "outToIn"
+                }
+            }
             return if (isMemberCall) {
                 val accessor = if(isNullSafe) "." else "?."
+                converterFunction?.let{
+                    "${converter.getFullConverterClassName()}.$converterFunction($variable)$accessor$methodName()"
+                } ?:
                 "$variable$accessor$methodName()"
             }
             else {
@@ -333,7 +380,9 @@ abstract class BaseGenerator(
                         //"$it.${methodClassPath.split('.').last()}"
                     //} ?: methodClassPath
                 if(isNullSafe){
-                    "$classPath.$methodName($variable)"
+                    converterFunction?.let{
+                        "${converter.getFullConverterClassName()}.$converterFunction($classPath.$methodName($variable))"
+                    } ?: "$classPath.$methodName($variable)"
                 } else {
                     if(forceNonNull){
                         "$variable!!.let{ member -> $classPath.$methodName(member)}"
@@ -346,16 +395,7 @@ abstract class BaseGenerator(
         }
     }
 
-    fun KSType.getFullClassName() : String{
-        return declaration.getFullClassName()
-    }
 
-    fun KSDeclaration.getFullClassName() : String{
-        parentDeclaration?.let {
-            return it.getFullClassName()+"."+simpleName.asString()
-        }
-        return packageName.asString()+"."+simpleName.asString()
-    }
 
     fun collectionToCollection(inArgs: Pair<KSType, KSType>, outArg:Pair<KSType, KSType>, varName: String, dataMethod: DataMethodInfo, outType:KSType, resolver: Resolver) : String {
         val outTypeName = outType.getFullClassName()
@@ -523,6 +563,15 @@ abstract class BaseGenerator(
         val inTypeCategory = Type.byType(inType.type, this)
         if(outType.type.getFullClassName() == "kotlin.Int" && inTypeCategory == Type.ENUM){
             return "$varName.${dataMethod.methodName}().value"
+        }
+        checkAndGetConverter(inType, outType)?.let { (isIn, converter) ->
+            val className = (if(isIn)converter.outType else converter.inType).getFullClassName()
+            val converterFunction = if(className.endsWith(converter.inTypeString)){
+                "inToOut"
+            } else {
+                "outToIn"
+            }
+            return "${converter.getFullConverterClassName()}.$converterFunction($varName)"
         }
         return "$varName"
     }
@@ -712,6 +761,16 @@ abstract class BaseGenerator(
             return names
         }
 
+        fun KSType.getFullClassName() : String{
+            return declaration.getFullClassName()
+        }
+
+        fun KSDeclaration.getFullClassName() : String{
+            parentDeclaration?.let {
+                return it.getFullClassName()+"."+simpleName.asString()
+            }
+            return packageName.asString()+"."+simpleName.asString()
+        }
 
 
         fun KSPropertyDeclaration.isPropertyInConstructor(classDec: KSClassDeclaration): Boolean {
@@ -725,13 +784,39 @@ abstract class BaseGenerator(
             return constructorParameters.isNotEmpty()
         }
 
-        data class MemberInfo(val name: String, val names: List<String>, val type: KSType, val isPrimaryConstructorMember: Boolean = false)
+        data class MemberInfo(val name: String, val names: List<String>, val type: KSType, val isPrimaryConstructorMember: Boolean = false, val converters: List<TypeConverter>){
+            fun hasSameName(other: MemberInfo): Boolean {
+                return names.any { name -> other.names.any { it.equals(name, ignoreCase = true) } }
+            }
+        }
         fun getMembers(definition: KSClassDeclaration) = mutableMapOf<String, MemberInfo>().apply {
             definition.declarations.filter { it is KSPropertyDeclaration }
                 .associateByTo(this, { it.simpleName.asString().lowercase() },
                     { (it as KSPropertyDeclaration).let { property ->
-                        MemberInfo(property.simpleName.asString(), property.getNames(), property.type.resolve(), property.isPropertyInConstructor(definition))
+                        MemberInfo(property.simpleName.asString(), property.getNames(), property.type.resolve(), property.isPropertyInConstructor(definition), it.getConverters())
                 }})
+        }
+
+
+        class TypeConverter(val type: KSType){
+            val inType: KSType
+            val outType: KSType
+            val inTypeString: String
+            val outTypeString: String
+            init {
+                val typeArgs = type.declaration.annotations.first().arguments
+                inType = typeArgs.first().value as KSType
+                outType = typeArgs.getOrNull(1)?.value as KSType
+                inTypeString = inType.declaration.simpleName.asString()
+                outTypeString = outType.declaration.simpleName.asString()
+            }
+            fun getFullConverterClassName():String{
+                return type.getFullClassName()
+            }
+        }
+
+        fun KSPropertyDeclaration.getConverters(): List<TypeConverter>{
+            return annotations.filter { it.shortName.asString() == "Converters" }.flatMap { it.arguments.flatMap { args -> args.value as ArrayList<KSType> } }.map { TypeConverter(it) }.toList()
         }
 
 
