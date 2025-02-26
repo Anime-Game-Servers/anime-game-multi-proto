@@ -34,3 +34,4 @@ internal interface QuickUseWidgetRsp {
     )
     var param: OneOfType
 }
+
