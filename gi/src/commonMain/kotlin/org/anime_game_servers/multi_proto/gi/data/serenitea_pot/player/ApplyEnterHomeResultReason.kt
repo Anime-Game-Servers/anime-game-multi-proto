@@ -26,4 +26,5 @@ internal enum class ApplyEnterHomeResultReason {
     HOST_IN_EDIT_MODE,
     @AltName("REASON_PRIOR_CHECK")
     PRIOR_CHECK,
+    // TODO some got added between 4.8 and 5.3
 }

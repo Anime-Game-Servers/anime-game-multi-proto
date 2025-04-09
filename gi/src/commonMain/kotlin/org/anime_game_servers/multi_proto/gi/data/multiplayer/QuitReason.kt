@@ -4,6 +4,7 @@ import org.anime_game_servers.core.base.Version.GI_1_1_0
 import org.anime_game_servers.core.base.Version.GI_1_5_0
 import org.anime_game_servers.core.base.Version.GI_1_6_0
 import org.anime_game_servers.core.base.Version.GI_2_8_0
+import org.anime_game_servers.core.base.Version.GI_5_3_0
 import org.anime_game_servers.core.base.Version.GI_CB2
 import org.anime_game_servers.core.base.annotations.AddedIn
 import org.anime_game_servers.core.base.annotations.proto.AltName
@@ -40,4 +41,11 @@ internal enum class QuitReason {
     @AddedIn(GI_2_8_0)
     @AltName("QUIT_REASON_KICK_BY_ISLAND_PARTY_GALLERY_START_FAILED")
     KICK_BY_ISLAND_PARTY_GALLERY_START_FAILED,
+    // todo verify they didn't get added in 5.1.0 or 5.2.0
+    @AddedIn(GI_5_3_0)
+    @AltName("QUIT_REASON_KICK_BY_HOST_ADS_BLOCK")
+    KICK_BY_HOST_ADS_BLOCK,
+    @AddedIn(GI_5_3_0)
+    @AltName("QUIT_REASON_BE_ADS_BLOCKED")
+    BE_ADS_BLOCKED,
 }

@@ -3,6 +3,7 @@ package org.anime_game_servers.multi_proto.gi.data.general
 import org.anime_game_servers.core.base.Version.GI_1_2_0
 import org.anime_game_servers.core.base.Version.GI_4_5_0
 import org.anime_game_servers.core.base.Version.GI_5_0_0
+import org.anime_game_servers.core.base.Version.GI_5_5_0
 import org.anime_game_servers.core.base.Version.GI_CB1
 import org.anime_game_servers.core.base.Version.GI_CB2
 import org.anime_game_servers.core.base.annotations.AddedIn
@@ -37,4 +38,6 @@ internal enum class PlayerDieType {
     PLAYER_DIE_DIRTY_WATER_EROSION,
     @AddedIn(GI_5_0_0)
     PLAYER_DIE_LIQUID_PHLOGISTON,
+    @AddedIn(GI_5_5_0)
+    PLAYER_DIE_LEVEL_FORCE_DIE,
 }

@@ -8,6 +8,9 @@ import org.anime_game_servers.core.base.Version.GI_1_5_0
 import org.anime_game_servers.core.base.Version.GI_2_0_0
 import org.anime_game_servers.core.base.Version.GI_2_4_0
 import org.anime_game_servers.core.base.Version.GI_2_8_0
+import org.anime_game_servers.core.base.Version.GI_4_0_0
+import org.anime_game_servers.core.base.Version.GI_5_2_0
+import org.anime_game_servers.core.base.Version.GI_5_4_0
 import org.anime_game_servers.core.base.annotations.proto.AltName
 
 @AddedIn(GI_CB2)
@@ -50,4 +53,29 @@ internal enum class PlatformType {
     @AddedIn(GI_2_8_0)
     @AltName("PLATFORM_TYPE_CLOUD_THIRD_PARTY_PC")
     CLOUD_THIRD_PARTY_PC,
+    // TODO verify they didn't get added in 3.8.0
+    @AddedIn(GI_4_0_0)
+    @AltName("PLATFORM_TYPE_CLOUD_WEB_ANDROID")
+    CLOUD_WEB_ANDROID,
+    @AddedIn(GI_4_0_0)
+    @AltName("PLATFORM_TYPE_CLOUD_WEB_IOS")
+    CLOUD_WEB_IOS,
+    @AddedIn(GI_4_0_0)
+    @AltName("PLATFORM_TYPE_CLOUD_WEB_PC")
+    CLOUD_WEB_PC,
+    @AddedIn(GI_4_0_0)
+    @AltName("PLATFORM_TYPE_CLOUD_WEB_MAC")
+    CLOUD_WEB_MAC,
+    @AddedIn(GI_4_0_0)
+    @AltName("PLATFORM_TYPE_CLOUD_WEB_TOUCH")
+    CLOUD_WEB_TOUCH,
+    @AddedIn(GI_4_0_0)
+    @AltName("PLATFORM_TYPE_CLOUD_WEB_KEYBOARD")
+    CLOUD_WEB_KEYBOARD,
+    @AddedIn(GI_5_2_0)
+    @AltName("PLATFORM_TYPE_XBOX_SCARLETT")
+    XBOX_SCARLETT,
+    @AddedIn(GI_5_4_0)
+    @AltName("PLATFORM_TYPE_OPEN_HARMONY")
+    OPEN_HARMONY,
 }

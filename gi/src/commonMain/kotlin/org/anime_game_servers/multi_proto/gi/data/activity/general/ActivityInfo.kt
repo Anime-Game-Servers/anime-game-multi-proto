@@ -267,6 +267,15 @@ internal interface ActivityInfo {
             // 5.1.0 TODO
             // 5.2.0 TODO
             // 5.3.0 TODO
+            // 5.4.0
+            // OneOfEntry(::class, "ad_shooting_detail_info", addedIn = GI_5_4_0),
+            // OneOfEntry(::class, "tower_challenge_detail_info", addedIn = GI_5_4_0),
+            // OneOfEntry(::class, "fishing_joy_detail_info", addedIn = GI_5_4_0),
+            // OneOfEntry(::class, "mikawa_flower_detail_info", addedIn = GI_5_4_0),
+            // 5.5.0
+            // OneOfEntry(::class, "party_detail_info", addedIn = GI_5_5_0),
+            // OneOfEntry(::class, "natlan_arena_detail_info", addedIn = GI_5_5_0),
+            // OneOfEntry(::class, "natlan_drill_info", addedIn = GI_5_5_0),
             /* unsorted:
                 OneOfEntry(MonsterChessDetailInfo::class, "monster_chess_detail_info", addedIn = DEFAULT),
                 OneOfEntry(TreasureHuntV4DetailInfo::class, "treasure_hunt_v4_info", addedIn = DEFAULT),
