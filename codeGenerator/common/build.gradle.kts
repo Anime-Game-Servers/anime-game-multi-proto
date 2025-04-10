@@ -16,7 +16,7 @@ kotlin {
     sourceSets {
         val jvmMain by getting {
             dependencies {
-                implementation("com.google.devtools.ksp:symbol-processing-api:2.1.0-1.0.29")
+                implementation("com.google.devtools.ksp:symbol-processing-api:2.1.20-2.0.0")
             }
         }
         val jvmTest by getting
