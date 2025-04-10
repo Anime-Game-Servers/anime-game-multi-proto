@@ -51,6 +51,9 @@ kotlin {
             }
         }
         val jvmMain by getting {
+            dependencies {
+                compileOnly("org.slf4j:slf4j-api:1.7.36")
+            }
             getTasksByName("jvmJar", true).forEach{
                 it.setProperty("zip64", true)
             }
