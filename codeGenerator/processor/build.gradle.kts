@@ -15,7 +15,7 @@ kotlin {
     sourceSets {
         val jvmMain by getting {
             dependencies {
-                implementation("com.google.devtools.ksp:symbol-processing-api:2.1.0-1.0.29")
+                implementation("com.google.devtools.ksp:symbol-processing-api:2.1.20-2.0.0")
                 implementation(project(":base"))
                 implementation(project(":processor-common"))
                 implementation("org.anime_game_servers.core:base:0.1")
