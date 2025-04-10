@@ -38,12 +38,11 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 api(project(":base"))
-                implementation("pro.streem.pbandk:pbandk-runtime:0.14.2")
                 implementation("org.anime_game_servers.core:gi:0.1")
             }
             kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin/")
-            sourceSets.configureEach {
-            }
+            kotlin.exclude("org/anime_game_servers/multi_proto/gi/data/**/*")
+            kotlin.exclude("org/anime_game_servers/multi_proto/gi/converters/**/*")
         }
         val commonTest by getting {
             dependencies {
