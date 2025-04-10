@@ -1,3 +1,5 @@
+import processor.common.Generator.*
+import processor.common.BaseProcessor
 import com.google.devtools.ksp.*
 import com.google.devtools.ksp.processing.*
 import com.google.devtools.ksp.symbol.*
@@ -14,11 +16,9 @@ const val PROTO_COMMAND_ANNOTATION = "$BASE_PROTO_ANNOTATION_PATH.ProtoCommand"
 const val PROTO_VERSION_ENUM_ANNOTATION = "$BASE_PROTO_ANNOTATION_PATH.ProtoVersionEnum"
 const val PROTO_ONE_OF_ANNOTATION = "$BASE_PROTO_ANNOTATION_PATH.OneOf"
 
-const val COMPILED_PROTO_ANNOTATION = "pbandk.Export"
 //const val VERSION_ENUM_CLASS = "messages.VERSION"
 val VERSION_ENUM_CLASS_NAME : String = Version::class.java.simpleName
 val VERSION_ENUM_CLASS : String = Version::class.java.canonicalName
-
 
 /**
  * TODOs
@@ -29,95 +29,8 @@ class FunctionProcessor(
     private val codeGenerator: CodeGenerator,
     private val logger: KSPLogger,
     private val options: Map<String, String>
-) : SymbolProcessor {
+) : BaseProcessor(codeGenerator, logger) {
 
-
-    fun Resolver.getClassSymbolsByAnnotation(annotationName: String): Sequence<KSClassDeclaration>{
-        return getSymbolsWithAnnotation(annotationName)
-            .filterIsInstance<KSClassDeclaration>()
-    }
-
-    fun KSClassDeclaration.getProtoAnnotation() = annotations.firstOrNull { it.shortName.asString().startsWith("Proto") }
-
-    fun KSAnnotation.getParentClass() = arguments.firstOrNull { it.name?.asString() == "parentClass" }?.value?.toString()
-    fun KSAnnotation.getAltNames() = (arguments.firstOrNull { it.name?.asString() == "alternativeNames" }?.value) as? List<String>
-    fun String.getProtoName(parameterName: String?) = parameterName?.let { if(it.isBlank()) this else "$it.$this" } ?: this
-    fun KSAnnotation.getVersionName() = (arguments.firstOrNull()?.value as? KSType)?.declaration?.simpleName?.asString() ?:""
-
-    fun getClassInfo(symbols: Sequence<KSClassDeclaration>,
-                     fullClassInfoCache: MutableMap<KSType, BaseGenerator.ClassInfo>,
-                     compileProtoMap: Map<String, MutableSet<BaseGenerator.ProtoData>>
-    )
-        :Map<KSType, BaseGenerator.ClassInfo>{
-        val typeMap = mutableMapOf<KSType, BaseGenerator.ClassInfo>()
-        symbols.forEach {
-            val annotation = it.getProtoAnnotation()
-            val parentClassName = annotation?.getParentClass()
-            val altNames = annotation?.getAltNames() ?: emptyList()
-            val name = it.simpleName.asString()
-            val names = (altNames+name).toSet()
-
-            val protoNames = mutableListOf(name.getProtoName(parentClassName))
-            protoNames.addAll(altNames.map { it.getProtoName(parentClassName) })
-            val protoName = parentClassName?.let { if(it.isBlank()) name else "$it.$name" } ?: name
-            logger.info("Found $name with protoName $protoName")
-            val versionProtoSet = protoNames.firstNotNullOfOrNull { protoName ->
-                return@firstNotNullOfOrNull compileProtoMap[protoName]
-            } ?: run {
-                val addedIn = it.annotations.firstOrNull { it.shortName.asString() == "AddedIn" }?.getVersionName()
-                val removedIn = it.annotations.firstOrNull { it.shortName.asString() == "RemovedIn" }?.getVersionName()
-                logger.warn("No proto found for $name addedIn $addedIn removedIn $removedIn")
-                mutableSetOf()
-            }
-            val targetPackage = it.packageName.asString().replaceFirst("data.","messages.")
-            val dependencies = mutableSetOf<KSFile>().apply{
-                add(it.containingFile!!)
-                versionProtoSet.mapTo(this) { it.classDeclaration.containingFile!! }
-            }
-
-            val info = BaseGenerator.ClassInfo(name, targetPackage, it, dependencies, versionProtoSet, true, names = names)
-            logger.info("ClassInfo $info")
-
-            typeMap[it.asStarProjectedType()] = info
-            fullClassInfoCache[it.asStarProjectedType()] = info
-        }
-        return typeMap
-    }
-
-    fun addBaseTypesToCache(resolver: Resolver, fullClassInfoCache: MutableMap<KSType, BaseGenerator.ClassInfo>){
-        addBaseTypeToCache("Float", resolver, fullClassInfoCache)
-        addBaseTypeToCache("Int", resolver, fullClassInfoCache)
-        addBaseTypeToCache("UInt", resolver, fullClassInfoCache)
-        addBaseTypeToCache("String", resolver, fullClassInfoCache)
-        addBaseTypeToCache("Char", resolver, fullClassInfoCache)
-        addBaseTypeToCache("Double", resolver, fullClassInfoCache)
-        addBaseTypeToCache("Long", resolver, fullClassInfoCache)
-    }
-    fun addBaseTypeToCache(classname: String, resolver: Resolver, fullClassInfoCache: MutableMap<KSType, BaseGenerator.ClassInfo>){
-        val kClass = resolver.getKotlinClassByName("kotlin.$classname") ?: run {
-            logger.error("Unable to find class $classname")
-            return
-        }
-
-        val info = BaseGenerator.ClassInfo(classname, "kotlin", kClass, emptySet(), emptySet(), false)
-        fullClassInfoCache[kClass.asStarProjectedType()] = info
-    }
-
-    fun generateFiles(generator: BaseGenerator, classInfoMap: Map<KSType, BaseGenerator.ClassInfo>){
-        logger.info("generating files: ${classInfoMap.size}")
-        classInfoMap.values.forEach { classInfo ->
-            val file: OutputStream = codeGenerator.createNewFile(
-                // Make sure to associate the generated file with sources to keep/maintain it across incremental builds.
-                // Learn more about incremental processing in KSP from the official docs:
-                // https://kotlinlang.org/docs/ksp-incremental.html
-                dependencies = Dependencies(true, classInfo.definition.containingFile!!),
-                packageName = classInfo.packageName,
-                fileName = classInfo.name
-            )
-            //logger.warn("generating ${classInfo.name} ${classInfo.packageName} ${classInfo.definition.containingFile} ${classInfo.dependencies?.joinToString { it.filePath }}")
-            generator.createClassForProto(file, classInfo)
-        }
-    }
     fun generatePackageIdFile(logger: KSPLogger,
                               versionPackageIdMap: Map<String, PacketIdGenerator.PacketIdResult>){
         val basePacket = options["basePacket"] ?: ""
@@ -150,7 +63,6 @@ class FunctionProcessor(
 
         versionGenerator.createClassForVersionMapper(file, versions)
     }
-
 
     fun readPackageIds(resourcesBaseDir: File, versionClass: KSClassDeclaration) : Map<String, PacketIdGenerator.PacketIdResult>{
         val packageIdDir = File(resourcesBaseDir, "package_ids")
@@ -206,8 +118,6 @@ class FunctionProcessor(
         val wrapperModelSymbols = resolver.getClassSymbolsByAnnotation(PROTO_MODEL_ANNOTATION)
         val wrapperCommandSymbols = resolver.getClassSymbolsByAnnotation(PROTO_COMMAND_ANNOTATION)
 
-        val compiledProtos = resolver.getClassSymbolsByAnnotation(COMPILED_PROTO_ANNOTATION)
-
         val versionClassWorkaround = resolver.getClassSymbolsByAnnotation(ModuleMetaData::class.java.canonicalName).firstOrNull()
         val versionClass = resolver.getClassDeclarationByName(VERSION_ENUM_CLASS) ?: run {
             logger.error("[resources] Unable to find version class $VERSION_ENUM_CLASS")
@@ -239,49 +149,15 @@ class FunctionProcessor(
         }
 
         logger.info("[time] handling compiled protos classes")
-        val compiledProtosMap = mutableMapOf<String, MutableSet<BaseGenerator.ProtoData>>()
-        compiledProtos.forEach {
-            val children = it.declarations.filterIsInstance<KSClassDeclaration>().filter { child ->
-                child.superTypes.filter { 
-                    it.element.toString() == "Message" ||
-                    it.element.toString() == "Enum"
-                }.count()>0
-            }.map { child ->
-                //logger.warn("Found child: ${child.simpleName.asString()}")
-                val protoPackage = child.packageName.asString()
-                BaseGenerator.ProtoData(child, protoPackage+"."+it.simpleName.asString(), protoPackage)
-            }
-            compiledProtosMap.compute(it.simpleName.asString()) { _, v ->
-                if (v == null) {
-                    mutableSetOf(BaseGenerator.ProtoData(it))
-                } else {
-                    v+=BaseGenerator.ProtoData(it)
-                    v
-                }
-            }
-            children.forEach {child ->
-                // TODO handle sub names for Mapping child classes
-                /*if(child.className == "Status") {
-                    logger.error("Found Status: ${child.className} ${child}")
-                }*/
-                compiledProtosMap.compute(it.simpleName.asString()+"."+child.className) { _, v ->
-                    if (v == null) {
-                        mutableSetOf(child)
-                    } else {
-                        v += child
-                        v
-                    }
-                }
-            }
-        }
+        val compiledProtosMap = mutableMapOf<String, MutableSet<ProtoData>>()
 
         logger.info("[time] sorting stuff")
         // targetClassInfo based from our interfaces
-        val classInfoCache= mutableMapOf<KSType, BaseGenerator.ClassInfo>()
+        val classInfoCache = mutableMapOf<KSType, ClassInfo>()
         addBaseTypesToCache(resolver, classInfoCache)
-        val protoEnums= getClassInfo(wrapperEnumSymbols, classInfoCache, compiledProtosMap)
-        val protoModels=  getClassInfo(wrapperModelSymbols, classInfoCache, compiledProtosMap)
-        val protoCommands= getClassInfo(wrapperCommandSymbols, classInfoCache, compiledProtosMap)
+        val protoEnums = getClassInfo(wrapperEnumSymbols, classInfoCache, compiledProtosMap)
+        val protoModels = getClassInfo(wrapperModelSymbols, classInfoCache, compiledProtosMap)
+        val protoCommands = getClassInfo(wrapperCommandSymbols, classInfoCache, compiledProtosMap)
 
 
         logger.info("[time] create generators")
@@ -352,6 +228,9 @@ class FunctionProcessor(
         return unableToProcess
     }
 
+    override fun getTargetPackageName(symbol: KSClassDeclaration): String {
+        return symbol.packageName.asString().replaceFirst("data.","messages.")
+    }
 
     /*private fun createClassForProto(resolver: Resolver, classInfo: BaseGenerator.ClassInfo, generator: BaseGenerator) {
         val file: OutputStream = codeGenerator.createNewFile(
