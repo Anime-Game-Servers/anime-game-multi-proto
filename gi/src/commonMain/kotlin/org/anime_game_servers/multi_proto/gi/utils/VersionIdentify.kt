@@ -2,9 +2,8 @@ package org.anime_game_servers.multi_proto.gi.utils
 
 import org.anime_game_servers.core.base.Game
 import org.anime_game_servers.core.base.Version
-import org.anime_game_servers.multi_proto.gi.data.other.PingReq
-import org.anime_game_servers.multi_proto.gi.data.player.GetPlayerTokenReq
-import org.anime_game_servers.multi_proto.gi.messages.player.GetPlayerTokenReq as GetPlayerTokenReqPacket
+import org.anime_game_servers.multi_proto.gi.messages.other.PingReq
+import org.anime_game_servers.multi_proto.gi.messages.player.GetPlayerTokenReq
 import org.anime_game_servers.multi_proto.gi.messages.player.PlayerLoginReq
 import kotlin.jvm.JvmName
 import kotlin.jvm.JvmStatic
@@ -38,7 +37,7 @@ object VersionIdentify {
             160 -> listOf(Version.GI_2_3_0, Version.GI_2_4_0, Version.GI_2_5_0, Version.GI_2_6_0) //rsp 133
             109 -> listOf(Version.GI_2_7_0) //rsp 131
             172 -> {// 2.8-3.2
-                val proto = GetPlayerTokenReqPacket.parseBy(data, Version.GI_3_2_0)
+                val proto = GetPlayerTokenReq.decodeFromByteArray(data, Version.GI_3_2_0)
                 if(proto.keyId == 4 || proto.keyId == 5) { // 3.2 added key id 4 and 5
                     listOf(Version.GI_3_2_0)
                 } else if (proto.keyId != 0) {

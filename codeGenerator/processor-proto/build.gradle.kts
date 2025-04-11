@@ -3,6 +3,7 @@ plugins {
 }
 group = "org.anime_game_servers.multi_proto"
 version = "0.1"
+
 kotlin {
     jvmToolchain(17)
     jvm {
@@ -15,9 +16,9 @@ kotlin {
     sourceSets {
         val jvmMain by getting {
             dependencies {
-                implementation("com.google.devtools.ksp:symbol-processing-api:2.1.20-2.0.0")
                 implementation(project(":base"))
                 implementation(project(":processor-common"))
+                implementation("com.google.devtools.ksp:symbol-processing-api:2.1.20-2.0.0")
                 implementation("org.anime_game_servers.core:base:0.1")
             }
         }
