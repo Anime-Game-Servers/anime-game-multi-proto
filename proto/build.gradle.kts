@@ -3,8 +3,10 @@ plugins {
     id("com.google.devtools.ksp")
 }
 
+// until the rework for proto handling is done, we use this to compile packages for specific game versions
+val protoVersion = 32
 group = "org.anime_game_servers.multi_proto"
-version = "0.5.0-SNAPSHOT"
+version = "0.3.$protoVersion"
 
 ksp {
     arg("basePacket", "org.anime_game_servers.multi_proto.proto")
@@ -18,10 +20,12 @@ kotlin {
             useJUnitPlatform()
         }
     }
-    js(IR) {}
-    // mingwX64() not supported by pbandk-runtime 0.14.2
+    js(IR) {
+        nodejs()
+    }
+    mingwX64()
     linuxX64()
-//    linuxArm64()
+    linuxArm64()
 
     repositories {
         mavenLocal()
@@ -31,17 +35,15 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api(project(":gi"))
-                implementation(project(":base"))
-                compileOnly("org.anime_game_servers.core:gi:0.1")
-                implementation("pro.streem.pbandk:pbandk-runtime:0.16.0")
+                compileOnly(project(":gi"))
+                compileOnly("org.anime_game_servers.core:gi:0.2")
+                compileOnly("pro.streem.pbandk:pbandk-runtime:0.16.0")
             }
 
             kotlin.setSrcDirs(listOf(
                 "../gi/src/commonMain/kotlin", // .data classes
                 "build/generated/ksp/metadata/commonMain/kotlin/",
-                "build/generated/v53/",
-//                "build/generated/v32"
+                "compiled_proto/V$protoVersion/"
             ))
             kotlin.exclude("org/anime_game_servers/multi_proto/gi/data/**/*")
             kotlin.exclude("org/anime_game_servers/multi_proto/gi/utils/**/*")
@@ -52,9 +54,6 @@ kotlin {
             }
         }
         val jvmMain by getting {
-            dependencies {
-                compileOnly(project(":gi"))
-            }
             getTasksByName("jvmJar", true).forEach{
                 it.setProperty("zip64", true)
             }
@@ -109,7 +108,7 @@ publishing {
     publications {
         create<MavenPublication>("maven") {
             from(components["kotlin"])
-            artifactId = "gi-multi-proto"
+            artifactId = "gi-proto"
         }
     }
 }

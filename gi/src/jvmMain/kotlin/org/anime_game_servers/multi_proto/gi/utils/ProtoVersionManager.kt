@@ -1,7 +1,8 @@
 package org.anime_game_servers.multi_proto.gi.utils
 
+import io.github.oshai.kotlinlogging.KLogger
+import io.github.oshai.kotlinlogging.KotlinLogging
 import org.anime_game_servers.multi_proto.gi.interfaces.*
-import org.slf4j.Logger
 import java.lang.invoke.*
 import java.util.*
 import java.util.concurrent.ConcurrentHashMap
@@ -12,7 +13,7 @@ actual object ProtoVersionManager {
     private const val MESSAGE_CLASS_PREFIX = "org.anime_game_servers.multi_proto.gi.messages."
     private const val PROTO_CLASS_PREFIX = "org.anime_game_servers.multi_proto.proto."
 
-    private var logger: Logger? = null
+    private var logger: KLogger? = KotlinLogging.logger {}
     private val classLoaders = ConcurrentHashMap<String, VersionedClassLoader>()
     private val methodLookup = MethodHandles.lookup();
 
@@ -21,7 +22,7 @@ actual object ProtoVersionManager {
     private val encodeEnumMethodStores = ConcurrentHashMap<String, ObjectStore<MethodHandle>>()
     private val decodeEnumMethodStores = ConcurrentHashMap<String, ObjectStore<MethodHandle>>()
 
-    fun setLogger(logger: Logger) {
+    fun setLogger(logger: KLogger) {
         this.logger = logger
     }
 
@@ -30,7 +31,7 @@ actual object ProtoVersionManager {
     ) {
         private val classCache = object : ObjectStore<Class<*>>() {
             override fun lookup(name: String): Class<*> {
-                logger?.debug("Loading class $name from $version")
+                logger?.debug{"Loading class $name from $version"}
                 return findClass(name)
             }
         }
@@ -58,7 +59,7 @@ actual object ProtoVersionManager {
                             Optional.of(lookup(name))
                         } catch (e: Exception) {
                             // Caches failure to avoid retrying
-                            logger?.debug("Exception lookup for $name", e)
+                            logger?.debug(e) { "Exception lookup for $name" }
                             Optional.empty()
                         }
                     }.orElse(null)
@@ -97,7 +98,7 @@ actual object ProtoVersionManager {
             // `invokeExact` does not work
             return store.get(className)?.invoke(param) as R?
         } catch (ex: Exception) {
-            logger?.error("Proto encode/decode failed", ex)
+            logger?.error(ex) {"Proto encode/decode failed" }
             return null
         }
     }

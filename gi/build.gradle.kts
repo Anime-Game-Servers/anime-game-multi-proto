@@ -3,10 +3,8 @@ plugins {
     id("com.google.devtools.ksp")
 }
 
-// until the rework for proto handling is done, we use this to compile packages for specific game versions
-val protoVersion = 32
 group = "org.anime_game_servers.multi_proto"
-version = "0.2.$protoVersion"
+version = "0.3.0"
 
 ksp {
     arg("basePacket", "org.anime_game_servers.multi_proto.gi")
@@ -21,15 +19,9 @@ kotlin {
         }
     }
     js(IR) {
-        browser {
-            commonWebpackConfig {
-                cssSupport {
-                    enabled.set(true)
-                }
-            }
-        }
+        nodejs()
     }
-    // mingwX64() not supported by pbandk-runtime 0.14.2
+    mingwX64()
     linuxX64()
     linuxArm64()
 
@@ -38,7 +30,10 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 api(project(":base"))
-                implementation("org.anime_game_servers.core:gi:0.1")
+                implementation("org.anime_game_servers.core:gi:0.2")
+                implementation("io.github.oshai:kotlin-logging:7.0.6")
+                // for proto modules loaded dynamically
+                implementation("pro.streem.pbandk:pbandk-runtime:0.16.0")
             }
             kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin/")
             kotlin.exclude("org/anime_game_servers/multi_proto/gi/data/**/*")
@@ -50,11 +45,8 @@ kotlin {
             }
         }
         val jvmMain by getting {
-            dependencies {
-                compileOnly("org.slf4j:slf4j-api:1.7.36")
-            }
-            getTasksByName("jvmJar", true).forEach{
-                it.setProperty("zip64", true)
+            dependencies{
+                implementation("io.github.oshai:kotlin-logging-jvm:7.0.6")
             }
         }
         val jvmTest by getting
@@ -90,7 +82,7 @@ publishing {
     publications {
         create<MavenPublication>("maven") {
             from(components["kotlin"])
-            artifactId = "gi-multi-proto"
+            artifactId = "gi"
         }
     }
 }
