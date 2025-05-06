@@ -10,6 +10,7 @@
 ## protos
 /protos
 /gi/src/commonMain/kotlin/protos
+/proto/compiled_proto
 
 ## build stuff
 build
