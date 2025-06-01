@@ -13,8 +13,8 @@ import org.anime_game_servers.multi_proto.gi.data.general.item.ItemParam
 @ProtoCommand(RESPONSE)
 internal interface PlayerCompoundMaterialBoostRsp {
     var retcode: Retcode
-    @AltName("compoundQueueDataList")
-    var compoundQueDataList: List<CompoundQueueData>
+    @AltName("compoundQueDataList")
+    var compoundQueueDataList: List<CompoundQueueData>
     var takeStatus: CompoundBoostTakeStatusType
     @AddedIn(GI_3_1_0)
     var takeItemList: List<ItemParam>
