@@ -14,6 +14,7 @@ kotlin {
         }
     }
     js(IR) {
+        nodejs()
         browser {
             commonWebpackConfig {
                 cssSupport {
@@ -22,7 +23,7 @@ kotlin {
             }
         }
     }
-    // mingwX64() not supported by pbandk-runtime 0.14.2
+    mingwX64()
     linuxX64()
     linuxArm64()
 
@@ -30,7 +31,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies{
-                implementation("org.anime_game_servers.core:gi:0.1")
+                implementation("org.anime_game_servers.core:gi:0.2")
             }
         }
         val commonTest by getting {
