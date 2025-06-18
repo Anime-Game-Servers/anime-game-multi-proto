@@ -30,7 +30,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies{
-                implementation("org.anime_game_servers.core:gi:0.1")
+                implementation("org.anime_game_servers.core:gi:0.2")
             }
         }
         val commonTest by getting {

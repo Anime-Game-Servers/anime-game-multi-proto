@@ -20,6 +20,10 @@ allprojects {
             name = "ags-mvn-Releases"
             url = uri("https://mvn.animegameservers.org/releases")
         }
+        maven {
+            name = "ags-mvn-snapshots"
+            url = uri("https://mvn.animegameservers.org/snapshots")
+        }
     }
 
     dependencies {
@@ -32,6 +36,14 @@ allprojects {
             maven {
                 name = "agsmvnrelease"
                 url = uri("https://mvn.animegameservers.org/releases")
+                credentials(PasswordCredentials::class)
+                authentication {
+                    create<BasicAuthentication>("basic")
+                }
+            }
+            maven {
+                name = "agsmvnsnapshots"
+                url = uri("https://mvn.animegameservers.org/snapshots")
                 credentials(PasswordCredentials::class)
                 authentication {
                     create<BasicAuthentication>("basic")

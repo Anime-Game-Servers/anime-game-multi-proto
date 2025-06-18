@@ -39,7 +39,7 @@ kotlin {
             dependencies {
                 api(project(":base"))
                 implementation("pro.streem.pbandk:pbandk-runtime:0.14.2")
-                implementation("org.anime_game_servers.core:gi:0.1")
+                implementation("org.anime_game_servers.core:gi:0.2")
             }
             kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin/")
             sourceSets.configureEach {

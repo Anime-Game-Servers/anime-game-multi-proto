@@ -67,6 +67,9 @@ object VersionIdentify {
             8726 -> listOf(Version.GI_5_2_0) //rsp 87
             29463 -> listOf(Version.GI_5_3_0) //rsp 24838
             29676 -> listOf(Version.GI_5_4_0) //rsp 894
+            29482 -> listOf(Version.GI_5_5_0) //rsp 28793
+            22680 -> listOf(Version.GI_5_6_0) //rsp 367
+            23191 -> listOf(Version.GI_5_7_0) //rsp 7156
             else -> return null
         }
     }
@@ -109,6 +112,9 @@ object VersionIdentify {
             8341 -> listOf(Version.GI_5_2_0) //rsp 25458
             22759 -> listOf(Version.GI_5_3_0) //rsp 8719
             26500 -> listOf(Version.GI_5_4_0) //rsp 5514
+            9587 -> listOf(Version.GI_5_5_0) //rsp 21573
+            5801 -> listOf(Version.GI_5_6_0) //rsp 29110
+            //9156 -> listOf(Version.GI_5_7_0) //rsp 8127
             else -> return null
         }
     }
