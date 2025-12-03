@@ -19,4 +19,6 @@ internal interface SceneWeaponInfo {
     var affixMap: Map<Int, Int>
     @AddedIn(Version.GI_2_6_0)
     var rendererChangedInfo: EntityRendererChangedInfo
+    @AddedIn(Version.GI_5_7_0)
+    var weaponSkinId: Int
 }

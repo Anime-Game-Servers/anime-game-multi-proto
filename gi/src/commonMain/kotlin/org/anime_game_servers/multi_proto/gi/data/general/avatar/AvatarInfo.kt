@@ -53,4 +53,6 @@ internal interface AvatarInfo {
     var excelInfo: AvatarExcelInfo
     @AddedIn(Version.GI_2_1_0)
     var animHash: Int
+    @AddedIn(Version.GI_5_7_0)
+    var weaponSkinId: Int
 }
