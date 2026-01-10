@@ -13,5 +13,5 @@ internal interface ObstacleInfo {
     var extents: Vector3Int
     var obstacleId: Int
     var rotation: MathQuaternion
-    var shape: ShapeType
+    var shape: ObstacleShapeType
 }

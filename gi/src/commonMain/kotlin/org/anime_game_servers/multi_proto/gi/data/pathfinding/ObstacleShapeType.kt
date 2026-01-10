@@ -6,8 +6,8 @@ import org.anime_game_servers.core.base.annotations.proto.AltName
 import org.anime_game_servers.core.base.annotations.proto.ProtoEnum
 
 @AddedIn(GI_CB2)
-@ProtoEnum("ObstacleInfo")
-internal enum class ShapeType {
+@ProtoEnum("ObstacleInfo", alternativeNames = ["ShapeType"])
+internal enum class ObstacleShapeType {
     @AltName("SHAPE_TYPE_OBSTACLE_SHAPE_CAPSULE")
     OBSTACLE_SHAPE_CAPSULE,
     @AltName("SHAPE_TYPE_OBSTACLE_SHAPE_BOX")
