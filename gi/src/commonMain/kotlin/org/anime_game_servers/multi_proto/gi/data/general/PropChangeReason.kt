@@ -1,6 +1,7 @@
 package org.anime_game_servers.multi_proto.gi.data.general
 
 import org.anime_game_servers.core.base.Version.GI_1_4_0
+import org.anime_game_servers.core.base.Version.GI_6_1_0
 import org.anime_game_servers.core.base.Version.GI_CB1
 import org.anime_game_servers.core.base.Version.GI_CB2
 import org.anime_game_servers.core.base.annotations.AddedIn
@@ -41,4 +42,13 @@ internal enum class PropChangeReason {
     @AddedIn(GI_1_4_0)
     @AltName("PROP_CHANGE_REASON_MANUAL_ADJUST_WORLD_LEVEL")
     PROP_CHANGE_MANUAL_ADJUST_WORLD_LEVEL,
+    @AddedIn(GI_6_1_0)
+    @AltName("PROP_CHANGE_REASON_BEYOND_DUTY")
+    PROP_CHANGE_BEYOND_DUTY,
+    @AddedIn(GI_6_1_0)
+    @AltName("PROP_CHANGE_REASON_BEYOND_BLUEPRINT")
+    PROP_CHANGE_BEYOND_BLUEPRINT,
+    @AddedIn(GI_6_1_0)
+    @AltName("PROP_CHANGE_REASON_BEYOND_EXP")
+    PROP_CHANGE_BEYOND_EXP,
 }
