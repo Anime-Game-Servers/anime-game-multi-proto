@@ -4,6 +4,7 @@ import org.anime_game_servers.multi_proto.gi.data.battle.ForwardType
 import org.anime_game_servers.core.base.Version.GI_0_9_0
 import org.anime_game_servers.core.base.Version.GI_1_0_0
 import org.anime_game_servers.core.base.Version.GI_2_2_0
+import org.anime_game_servers.core.base.Version.GI_3_3_0
 import org.anime_game_servers.core.base.Version.GI_CB1
 import org.anime_game_servers.core.base.Version.GI_CB2
 import org.anime_game_servers.core.base.annotations.AddedIn
@@ -25,4 +26,6 @@ internal interface AbilityInvokeEntry {
     var eventId: Int
     @AddedIn(GI_2_2_0)
     var totalTickTime: Double
+    @AddedIn(GI_3_3_0)
+    var isIgnoreAuth: Boolean
 }

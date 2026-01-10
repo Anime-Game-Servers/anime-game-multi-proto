@@ -1,14 +1,11 @@
-package org.anime_game_servers.multi_proto.gi.data.ability
+package org.anime_game_servers.multi_proto.gi.data.ability.wind_seed
 
-import org.anime_game_servers.multi_proto.gi.data.general.Vector
 import org.anime_game_servers.core.base.Version.GI_0_9_0
 import org.anime_game_servers.core.base.annotations.AddedIn
 import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 
 @AddedIn(GI_0_9_0)
 @ProtoModel(parentClass = "WindSeedClientNotify")
-internal interface AddWindBulletNotify {
-    var catchPlayerUid: Int
-    var seedEntityId: Int
-    var seedPos: Vector
+internal interface RefreshNotify {
+    var refreshNum: Int
 }
