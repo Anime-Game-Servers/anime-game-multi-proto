@@ -1,10 +1,11 @@
-group = "org.anime_game_servers.multi_proto"
-version = "0.2"
 plugins {
+    `version-catalog`
     id("maven-publish")
-    kotlin("multiplatform") version "2.1.0" apply false
-
+    alias(libs.plugins.kotlin.multiplatform) apply false
+    alias(libs.plugins.ksp) apply false
 }
+group = "org.anime_game_servers.multi_proto"
+version = libs.versions.anime.game.multi.proto
 
 repositories {
     mavenCentral()

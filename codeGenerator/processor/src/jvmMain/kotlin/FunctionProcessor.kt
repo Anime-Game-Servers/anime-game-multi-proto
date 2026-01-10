@@ -2,6 +2,8 @@ import com.google.devtools.ksp.*
 import com.google.devtools.ksp.processing.*
 import com.google.devtools.ksp.symbol.*
 import org.anime_game_servers.core.base.Version
+import org.anime_game_servers.core.base.annotations.AddedIn
+import org.anime_game_servers.core.base.annotations.RemovedIn
 import org.anime_game_servers.multi_proto.core.annotations.ModuleMetaData
 import java.io.File
 import java.io.OutputStream
@@ -42,7 +44,7 @@ class FunctionProcessor(
     fun KSAnnotation.getParentClass() = arguments.firstOrNull { it.name?.asString() == "parentClass" }?.value?.toString()
     fun KSAnnotation.getAltNames() = (arguments.firstOrNull { it.name?.asString() == "alternativeNames" }?.value) as? List<String>
     fun String.getProtoName(parameterName: String?) = parameterName?.let { if(it.isBlank()) this else "$it.$this" } ?: this
-    fun KSAnnotation.getVersionName() = (arguments.firstOrNull()?.value as? KSType)?.declaration?.simpleName?.asString() ?:""
+    fun KSAnnotation.getVersionName() = (arguments.firstOrNull()?.value as? KSClassDeclaration)?.simpleName?.asString() ?:""
 
     fun getClassInfo(symbols: Sequence<KSClassDeclaration>,
                      fullClassInfoCache: MutableMap<KSType, BaseGenerator.ClassInfo>,
@@ -64,8 +66,8 @@ class FunctionProcessor(
             val versionProtoSet = protoNames.firstNotNullOfOrNull { protoName ->
                 return@firstNotNullOfOrNull compileProtoMap[protoName]
             } ?: run {
-                val addedIn = it.annotations.firstOrNull { it.shortName.asString() == "AddedIn" }?.getVersionName()
-                val removedIn = it.annotations.firstOrNull { it.shortName.asString() == "RemovedIn" }?.getVersionName()
+                val addedIn = it.annotations.firstOrNull { it.shortName.asString() == AddedIn::class.simpleName }?.getVersionName()
+                val removedIn = it.annotations.firstOrNull { it.shortName.asString() == RemovedIn::class.simpleName }?.getVersionName()
                 logger.warn("No proto found for $name addedIn $addedIn removedIn $removedIn")
                 mutableSetOf()
             }
@@ -106,11 +108,12 @@ class FunctionProcessor(
     fun generateFiles(generator: BaseGenerator, classInfoMap: Map<KSType, BaseGenerator.ClassInfo>){
         logger.info("generating files: ${classInfoMap.size}")
         classInfoMap.values.forEach { classInfo ->
+            val  dependingfiles = classInfo.protoSet.map { it.classDeclaration.containingFile!! } + classInfo.definition.containingFile!!
             val file: OutputStream = codeGenerator.createNewFile(
                 // Make sure to associate the generated file with sources to keep/maintain it across incremental builds.
                 // Learn more about incremental processing in KSP from the official docs:
                 // https://kotlinlang.org/docs/ksp-incremental.html
-                dependencies = Dependencies(true, classInfo.definition.containingFile!!),
+                dependencies = Dependencies(true, sources = dependingfiles.toTypedArray()),
                 packageName = classInfo.packageName,
                 fileName = classInfo.name
             )
@@ -242,9 +245,9 @@ class FunctionProcessor(
         val compiledProtosMap = mutableMapOf<String, MutableSet<BaseGenerator.ProtoData>>()
         compiledProtos.forEach {
             val children = it.declarations.filterIsInstance<KSClassDeclaration>().filter { child ->
-                child.superTypes.filter { 
-                    it.element.toString() == "Message" ||
-                    it.element.toString() == "Enum"
+                child.superTypes.filter { superType ->
+                    superType.element.toString() == "Message" ||
+                    superType.element.toString() == "Enum"
                 }.count()>0
             }.map { child ->
                 //logger.warn("Found child: ${child.simpleName.asString()}")

@@ -3,12 +3,11 @@ plugins {
 }
 
 group = "org.anime_game_servers.multi_proto"
-version = "0.2"
+version = libs.versions.anime.game.multi.proto.get()
 
 kotlin {
     jvmToolchain(17)
     jvm {
-        withJava()
         testRuns["test"].executionTask.configure {
             useJUnitPlatform()
         }
@@ -22,7 +21,7 @@ kotlin {
             }
         }
     }
-    // mingwX64() not supported by pbandk-runtime 0.14.2
+    mingwX64()
     linuxX64()
     linuxArm64()
 
@@ -30,7 +29,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies{
-                implementation("org.anime_game_servers.core:gi:0.2")
+                api(libs.bundles.common.ags.base)
             }
         }
         val commonTest by getting {

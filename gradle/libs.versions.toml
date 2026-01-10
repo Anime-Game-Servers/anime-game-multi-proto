@@ -1,0 +1,50 @@
+[versions]
+# https://kotlinlang.org/docs/releases.html#release-details
+kotlin = "2.3.0"
+# https://github.com/google/ksp/releases
+ksp = "2.3.4"
+# https://github.com/Kotlin/dokka/releases
+dokka = "2.1.0"
+# https://github.com/Kotlin/kotlinx-io/releases
+kx_io = "0.8.2"
+# https://github.com/oshai/kotlin-logging/releases
+logger = "7.0.14"
+# https://github.com/streem/pbandk/releases
+pbandk="0.16.0"
+
+## testing libs
+# https://github.com/junit-team/junit5/releases
+junit = "5.10.1"
+
+## ags libs
+# https://github.com/Hartie95/Core
+ags_core = "0.2"
+anime_game_multi_proto = "0.2"
+
+[libraries]
+kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
+jvm-kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
+kotlinx-io-core = { module = "org.jetbrains.kotlinx:kotlinx-io-core", version.ref = "kx_io" }
+jvm-kotlinx-io-core = { module = "org.jetbrains.kotlinx:kotlinx-io-core-jvm", version.ref = "kx_io" }
+logging = { module = "io.github.oshai:kotlin-logging", version.ref = "logger" }
+pbandk_runtime = { module = "pro.streem.pbandk:pbandk-runtime", version.ref = "pbandk" }
+
+kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
+junit = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit" }
+ksp-sympbol-processing = { module = "com.google.devtools.ksp:symbol-processing-api", version.ref = "ksp" }
+
+ags-core-base = { module = "org.anime_game_servers.core:base", version.ref = "ags_core" }
+ags-core-gi = { module = "org.anime_game_servers.core:gi", version.ref = "ags_core" }
+
+
+[bundles]
+common_ags_base = ["ags-core-base"]
+common_ags_gi = ["ags-core-gi"]
+ksp_processor = ["ksp-sympbol-processing"]
+proto_parsing = ["pbandk_runtime"]
+
+[plugins]
+kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }

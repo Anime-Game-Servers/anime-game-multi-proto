@@ -1,10 +1,15 @@
+import com.google.devtools.ksp.KspExperimental
+import com.google.devtools.ksp.getAnnotationsByType
 import com.google.devtools.ksp.getDeclaredProperties
 import com.google.devtools.ksp.processing.KSPLogger
 import com.google.devtools.ksp.processing.Resolver
 import com.google.devtools.ksp.symbol.KSClassDeclaration
 import com.google.devtools.ksp.symbol.KSPropertyDeclaration
 import com.google.devtools.ksp.symbol.KSType
+import org.anime_game_servers.core.base.annotations.proto.AltName
 import java.io.OutputStream
+import kotlin.collections.addAll
+import kotlin.sequences.forEach
 
 const val UNRECOGNISED_ENUM_NAME = "UNRECOGNISED"
 
@@ -53,10 +58,13 @@ class EnumGenerator(
         }
     }
 
+    @OptIn(KspExperimental::class)
     private fun KSClassDeclaration.getEnumNames(): List<String> {
         val names = mutableListOf(simpleName.asString())
-        annotations.filter { annotation -> annotation.shortName.asString() == "AltName" }
-            .forEach { it.arguments.forEach { (it.value as? List<String> )?.let { names.addAll(it) }}}
+
+        getAnnotationsByType(AltName::class).forEach { altname ->
+            names.addAll(altname.altNames)
+        }
 
         return names
     }

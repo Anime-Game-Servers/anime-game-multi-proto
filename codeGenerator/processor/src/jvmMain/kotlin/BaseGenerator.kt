@@ -1,5 +1,6 @@
 
 import com.google.devtools.ksp.KspExperimental
+import com.google.devtools.ksp.getAnnotationsByType
 import com.google.devtools.ksp.getDeclaredProperties
 import com.google.devtools.ksp.getKotlinClassByName
 import com.google.devtools.ksp.processing.KSPLogger
@@ -8,6 +9,12 @@ import com.google.devtools.ksp.symbol.*
 import org.anime_game_servers.core.base.Version
 import org.anime_game_servers.core.base.annotations.AddedIn
 import org.anime_game_servers.core.base.annotations.RemovedIn
+import org.anime_game_servers.core.base.annotations.proto.AltName
+import org.anime_game_servers.core.base.annotations.proto.OneOf
+import org.anime_game_servers.core.base.annotations.proto.OneOfEntry
+import org.anime_game_servers.core.base.annotations.proto.ProtoEnum
+import org.anime_game_servers.core.base.annotations.proto.ProtoModel
+import org.anime_game_servers.multi_proto.core.annotations.Converters
 import java.io.OutputStream
 import java.util.*
 import kotlin.collections.ArrayList
@@ -83,31 +90,31 @@ abstract class BaseGenerator(
                 definition.declarations.forEach declarations@{ declaration ->
                     if (declaration.simpleName.asString() != variableName) return@declarations
                     declaration.annotations.forEach { ksAnnotation ->
-                        if (ksAnnotation.shortName.asString() == "OneOf") {
+                        if (ksAnnotation.shortName.asString() == OneOf::class.simpleName) {
                             ksAnnotation.arguments.forEach { ksArgument ->
-                                if (ksArgument.name?.asString() == "types") {
+                                if (ksArgument.name?.asString() == OneOf::types.name) {
                                     val values = (ksArgument.value as? ArrayList<KSAnnotation>) ?: return@forEach
                                     values.forEach { oneOfEntry ->
-                                        var names = mutableListOf<String>()
+                                        val names = mutableListOf<String>()
                                         var type: KSType? = null
                                         oneOfEntry.arguments.forEach { oneOfEntryArgument ->
-                                            if (oneOfEntryArgument.name?.asString() == "type") {
-                                                type = oneOfEntryArgument.value as? KSType ?: return@forEach
-                                            }
-                                            if (oneOfEntryArgument.name?.asString() == "name") {
-                                                names.addAll(
-                                                    oneOfEntryArgument.value as? ArrayList<String> ?: return@forEach
-                                                )
+                                            when(oneOfEntryArgument.name?.asString()){
+                                                OneOfEntry::type.name ->
+                                                    type = oneOfEntryArgument.value as? KSType
+                                                OneOfEntry::name.name ->
+                                                    (oneOfEntryArgument.value as? ArrayList<String>)?.let { altnames ->
+                                                        names.addAll(altnames)
+                                                    }
                                             }
                                         }
                                         type ?: return@forEach
-                                        oneOfClasses.add(type!!)
+                                        oneOfClasses.add(type)
                                         names.forEach { name ->
-                                            oneOfClassMap[name] = type!!
+                                            oneOfClassMap[name] = type
                                         }
                                     }
                                 }
-                                if (ksArgument.name?.asString() == "allowTypeBasedMapping") {
+                                if (ksArgument.name?.asString() == OneOf::allowTypedBasedMapping.name) {
                                     allowTypeBasedMapping = ksArgument.value as Boolean
                                 }
                             }
@@ -216,7 +223,10 @@ abstract class BaseGenerator(
                     )
                 },\n"
                 Type.ENUM -> {
-                    "$baseVarName = ${dataMethod.getDataCall(sourceVarName, it.value.type.getFullClassName(), true)},\n"
+                    val (isIn, converter) = checkAndGetConverter(sourceMember, it.value) ?: Pair(false, null)
+
+                    val className = ((if(isIn)converter?.outType else converter?.inType) ?: it.value.type).getFullClassName()
+                    "$baseVarName = ${dataMethod.getDataCall(sourceVarName, className, true, converter = converter)},\n"
                 }
                 Type.DATA -> {
                     "$baseVarName = ${dataMethod.getDataCall(sourceVarName, it.value.type.getFullClassName(), fallback = "null")},\n"
@@ -310,17 +320,26 @@ abstract class BaseGenerator(
                                      inTypeName: String = inKsType.declaration.simpleName.asString(),
                                      outTypeName: String = outKsType.declaration.simpleName.asString()) : Pair<Boolean, TypeConverter>?{
 
-        val isSame = classInfoCache[inKsType]?.let { inClassInfo ->
+        val isSame = (classInfoCache[inKsType]?.let { inClassInfo ->
             inClassInfo.names.any { it.equals(outTypeName, ignoreCase = true) }
         } ?: classInfoCache[outKsType]?.let { outClassInfo ->
             outClassInfo.names.any { it.equals(inTypeName, ignoreCase = true) }
-        } ?: false
+        } ?: false) && inType.parentType == outType.parentType
 
         if(!isSame){
             val outConverters = outType.converters.filter {
                 val inConvTypeName = it.inTypeString
                 val outConvTypeName = it.outTypeString
-                inConvTypeName == inTypeName && outConvTypeName == outTypeName || inConvTypeName == outTypeName && outConvTypeName == inTypeName
+
+                val inClassInfo = classInfoCache[it.inType]
+                val inMatchesIn = inClassInfo?.let { inClassInfo ->
+                    inClassInfo.names.contains(inTypeName) && inClassInfo.definition.getParentType() == inType.parentType
+                } ?: (inConvTypeName == inTypeName)
+                val outClassInfo = classInfoCache[it.outType]
+                val outMatchesIn = outClassInfo?.let { outClassInfo ->
+                    outClassInfo.names.contains(inTypeName) && outClassInfo.definition.getParentType() == inType.parentType
+                } ?: (inConvTypeName == outTypeName)
+                inMatchesIn && outConvTypeName == outTypeName || outMatchesIn && outConvTypeName == inTypeName
             }
             if(outConverters.isNotEmpty()) {
                 return false to outConverters.first()
@@ -328,7 +347,12 @@ abstract class BaseGenerator(
             val inConverters = inType.converters.filter {
                 val inConvTypeName = it.inTypeString
                 val outConvTypeName = it.outTypeString
-                inConvTypeName == inTypeName && outConvTypeName == outTypeName || inConvTypeName == outTypeName && outConvTypeName == inTypeName
+                val inClassInfo = classInfoCache[it.inType]
+                val inMatchesOut = inClassInfo?.let { inClassInfo ->
+                    inClassInfo.names.contains(outTypeName) && inClassInfo.definition.getParentType() == outType.parentType
+                } ?: (inConvTypeName == outTypeName)
+
+                inConvTypeName == inTypeName && outConvTypeName == outTypeName || inMatchesOut && outConvTypeName == inTypeName
             }
             if(inConverters.isNotEmpty()){
                 return true to inConverters.first()
@@ -755,8 +779,9 @@ abstract class BaseGenerator(
     companion object {
         fun KSPropertyDeclaration.getNames(): List<String>{
             val names = mutableListOf(simpleName.asString())
-            annotations.filter { annotation -> annotation.shortName.asString() == "AltName" }
-                .forEach { it.arguments.forEach { (it.value as? List<String> )?.let { names.addAll(it) }}}
+            getAnnotationsByType(AltName::class).forEach { altname ->
+                names.addAll(altname.altNames)
+            }
 
             return names
         }
@@ -784,17 +809,38 @@ abstract class BaseGenerator(
             return constructorParameters.isNotEmpty()
         }
 
-        data class MemberInfo(val name: String, val names: List<String>, val type: KSType, val isPrimaryConstructorMember: Boolean = false, val converters: List<TypeConverter>){
+        data class MemberInfo(val name: String, val names: List<String>, val type: KSType, val isPrimaryConstructorMember: Boolean = false, val converters: List<TypeConverter>,
+            val parentType: String? = type.getParentType()){
             fun hasSameName(other: MemberInfo): Boolean {
                 return names.any { name -> other.names.any { it.equals(name, ignoreCase = true) } }
             }
         }
+        fun KSType.getParentType() : String?{
+            return declaration.getParentType();
+        }
+        fun KSDeclaration.getParentType() : String?{
+            return parentDeclaration?.simpleName?.asString() ?: run {
+                try {
+                    getAnnotationsByType(ProtoModel::class).firstOrNull()?.let { protoModel ->
+                        return protoModel.parentClass
+                    }
+                    getAnnotationsByType(ProtoEnum::class).firstOrNull()?.let { protoModel ->
+                        return protoModel.parentClass
+                    }
+                }catch (ex: Exception){}
+                null
+            }
+        }
         fun getMembers(definition: KSClassDeclaration) = mutableMapOf<String, MemberInfo>().apply {
-            definition.declarations.filter { it is KSPropertyDeclaration }
+            definition.declarations.mapNotNull { (it as? KSPropertyDeclaration)?.let { declaration ->
+                if(definition.classKind == ClassKind.ENUM_CLASS && declaration.simpleName.asString() == "entries"){
+                    null
+                } else declaration
+            } }
                 .associateByTo(this, { it.simpleName.asString().lowercase() },
-                    { (it as KSPropertyDeclaration).let { property ->
-                        MemberInfo(property.simpleName.asString(), property.getNames(), property.type.resolve(), property.isPropertyInConstructor(definition), it.getConverters())
-                }})
+                    { property ->
+                        MemberInfo(property.simpleName.asString(), property.getNames(), property.type.resolve(), property.isPropertyInConstructor(definition), property.getConverters())
+                })
         }
 
 
@@ -816,7 +862,9 @@ abstract class BaseGenerator(
         }
 
         fun KSPropertyDeclaration.getConverters(): List<TypeConverter>{
-            return annotations.filter { it.shortName.asString() == "Converters" }.flatMap { it.arguments.flatMap { args -> args.value as ArrayList<KSType> } }.map { TypeConverter(it) }.toList()
+            return annotations.filter { it.shortName.asString() == Converters::class.java.simpleName }
+                .flatMap { it.arguments.flatMap { args -> args.value as ArrayList<KSType> } }
+                .map { TypeConverter(it) }.toList()
         }
 
 

@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
+
 plugins {
     kotlin("multiplatform")
     id("com.google.devtools.ksp")
@@ -6,7 +8,7 @@ plugins {
 // until the rework for proto handling is done, we use this to compile packages for specific game versions
 val protoVersion = 32
 group = "org.anime_game_servers.multi_proto"
-version = "0.2.$protoVersion"
+version = libs.versions.anime.game.multi.proto.get()+".$protoVersion"
 
 ksp {
     arg("basePacket", "org.anime_game_servers.multi_proto.gi")
@@ -15,7 +17,6 @@ ksp {
 kotlin {
     jvmToolchain(17)
     jvm {
-        withJava()
         testRuns["test"].executionTask.configure {
             useJUnitPlatform()
         }
@@ -29,7 +30,7 @@ kotlin {
             }
         }
     }
-    // mingwX64() not supported by pbandk-runtime 0.14.2
+    mingwX64()
     linuxX64()
     linuxArm64()
 
@@ -38,8 +39,8 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 api(project(":base"))
-                implementation("pro.streem.pbandk:pbandk-runtime:0.14.2")
-                implementation("org.anime_game_servers.core:gi:0.2")
+                api(libs.bundles.common.ags.gi)
+                implementation(libs.bundles.proto.parsing)
             }
             kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin/")
             sourceSets.configureEach {
@@ -78,7 +79,7 @@ tasks {
     getTasksByName("nativeSourcesJar", false).forEach {
         it.dependsOn("kspCommonMainKotlinMetadata")
     }
-    withType<org.jetbrains.kotlin.gradle.dsl.KotlinCompile<*>> {
+    withType<KotlinCompilationTask<*>> {
         if (name != "kspCommonMainKotlinMetadata")
             dependsOn("kspCommonMainKotlinMetadata")
     }
