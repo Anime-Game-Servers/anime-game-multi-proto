@@ -72,20 +72,26 @@ abstract class BaseGenerator(
         file += "}\n"
     }
 
+    data class OneOfType(
+        val name: String,
+        val kSType: KSType,
+        val altNames : List<String>,
+    )
+
     public data class OneOfData(
         val type: KSType,
         val variableName: String,
-        val oneOfTypes: Set<KSType>,
-        val oneOfClassMap: Map<String, KSType>,
+        val oneOfTypes: Set<OneOfType>,
+        val oneOfClassMap: Map<String, OneOfType>,
         val allowTypeBasedMapping: Boolean = false,
         val wrapperName: String = variableName.capitalizeFirstLetter(),
         val unknownName: String = "Unknown"+variableName.capitalizeFirstLetter()
     ) {
         companion object {
             fun createOneOfData(definition: KSClassDeclaration, type: KSType, variableName: String) : OneOfData {
-                val oneOfClasses = mutableSetOf<KSType>()
+                val oneOfClasses = mutableSetOf<OneOfType>()
                 // TODO OneOfEntry handling with name mapping
-                val oneOfClassMap = mutableMapOf<String, KSType>()
+                val oneOfClassMap = mutableMapOf<String, OneOfType>()
                 var allowTypeBasedMapping = false
                 definition.declarations.forEach declarations@{ declaration ->
                     if (declaration.simpleName.asString() != variableName) return@declarations
@@ -97,6 +103,7 @@ abstract class BaseGenerator(
                                     values.forEach { oneOfEntry ->
                                         val names = mutableListOf<String>()
                                         var type: KSType? = null
+                                        var mainName: String? = null
                                         oneOfEntry.arguments.forEach { oneOfEntryArgument ->
                                             when(oneOfEntryArgument.name?.asString()){
                                                 OneOfEntry::type.name ->
@@ -104,13 +111,17 @@ abstract class BaseGenerator(
                                                 OneOfEntry::name.name ->
                                                     (oneOfEntryArgument.value as? ArrayList<String>)?.let { altnames ->
                                                         names.addAll(altnames)
+                                                        mainName = altnames.first()
                                                     }
                                             }
                                         }
                                         type ?: return@forEach
-                                        oneOfClasses.add(type)
+                                        mainName ?: return@forEach
+                                        val typeDef = OneOfType(name =  mainName, kSType =  type,
+                                            altNames = if(names.size < 2) emptyList() else names.subList(1, names.size))
+                                        oneOfClasses.add(typeDef)
                                         names.forEach { name ->
-                                            oneOfClassMap[name] = type
+                                            oneOfClassMap[name] = typeDef
                                         }
                                     }
                                 }

@@ -17,7 +17,7 @@ internal interface QueryCurrRegionHttpRsp {
     var regionCustomConfigEncrypted: ByteArray
     var clientRegionCustomConfigEncrypted: ByteArray
     @OneOf(
-        OneOfEntry(ForceUpdateInfo::class, "force_udpate","force_update"),
+        OneOfEntry(ForceUpdateInfo::class,"force_update", "force_udpate"),
         OneOfEntry(StopServerInfo::class, "stop_server")
     )
     var detail: OneOfType

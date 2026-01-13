@@ -40,9 +40,10 @@ open class DataGenerator(
     override fun addBody(file: OutputStream, classInfo: ClassInfo) {
         classInfo.oneOfs.values.forEach { oneOfData ->
             logger.info("OneOf: $oneOfData")
-            val oneOfClasses = oneOfData.oneOfTypes.mapNotNull { classInfoCache[it] }
+            val oneOfClasses = oneOfData.oneOfTypes.associateWith { classInfoCache[it.kSType]  }
             // TODO OneOfEntry handling with name mapping
-            val oneOfClassMap = oneOfData.oneOfClassMap.mapNotNull { classInfoCache[it.value]?.let { value -> it.key to value } }.toMap()
+            val oneOfClassMap = oneOfData.oneOfClassMap.mapNotNull { classInfoCache[it.value.kSType]?.let { value -> it.key to (it.value to value) } }.toMap()
+
 
             //file.id(4) +="public sealed class ${it.wrapperName}<T: ProtoModel>(val value: T) : ProtoModel {\n"
             file.id(4) +="public sealed class ${oneOfData.wrapperName}<T>(val value: T) : ProtoModel {\n"
@@ -57,26 +58,30 @@ open class DataGenerator(
             file.id(16) +="else -> null\n"
             file.id(12) +="}\n"
             file.id(8) +="}\n"
-            oneOfClassMap.forEach { name, oneOfClass ->
-                val className = if(oneOfData.allowTypeBasedMapping) oneOfClass.name else name.getClassName()
+
+            oneOfClasses.forEach { (oneOfInfo, oneOfClass) ->
+                oneOfClass ?: return@forEach
+                val className = if(oneOfData.allowTypeBasedMapping) oneOfClass.name else oneOfInfo.name.getClassName()
                 file.id(8) +="public class ${className}(value:${oneOfClass.packageName}.${oneOfClass.name}) : ${oneOfData.wrapperName}<${oneOfClass.packageName}.${oneOfClass.name}>(value)\n"
             }
+
             classInfo.protoSet.forEach protoSetFor@{ protoData ->
                 // check that the oneOf variable is actually part of the proto
                 if(protoData.members.values.none { it.isPrimaryConstructorMember && it.name.equals(oneOfData.variableName, true) }) {
                     return@protoSetFor
                 }
 
-
                 val functionName = protoData.encodeFunctionName
                 file.id(8) += "internal fun $functionName() : ${protoData.absoluteClassName}.${oneOfData.wrapperName}<*>? {\n"
                 file.id(12) +="return when (this) {\n"
-                oneOfClassMap.forEach { fieldName, oneOfClass ->
-                    val className = if(oneOfData.allowTypeBasedMapping) oneOfClass.name else fieldName.getClassName()
+                oneOfClassMap.forEach { fieldName, (oneOffInfo, oneOfClass) ->
+                    val className = if(oneOfData.allowTypeBasedMapping) oneOfClass.name else oneOffInfo.name.getClassName()
                     protoData.members.forEach { member ->
-                        if(member.value.type.starProjection().declaration.simpleName.asString().equals(oneOfClass.name, true) && compareIgnoreCase(member.key, fieldName)) {
+                        if(member.value.type.starProjection().declaration.simpleName.asString().equals(oneOfClass.name, true)
+                            && !member.value.isPrimaryConstructorMember
+                            && compareIgnoreCase(member.key, fieldName)) {
                             val accessor = if(oneOfClass.isProtoModel) "value.${functionName}()" else "value"
-                            file.id(16) += "is ${className} -> $accessor.let {\n"
+                            file.id(16) += "is $className -> $accessor.let {\n"
                             file.id(20) += "${protoData.packageName}.${protoData.className}.${oneOfData.wrapperName}.${member.value.name.capitalizeFirstLetter()}(it)\n"
                             file.id(16) += "}\n"
                         }
@@ -96,11 +101,12 @@ open class DataGenerator(
                 val functionName = protoData.parseFunctionName
                 file.id(12) += "internal fun $functionName(value: ${protoData.absoluteClassName}.${oneOfData.wrapperName}<*>) : ${oneOfData.wrapperName}<*>? {\n"
                 file.id(16) +="return when (value) {\n"
-                oneOfClassMap.forEach { fieldName, oneOfClass ->
+                oneOfClassMap.forEach { fieldName, (oneOffInfo, oneOfClass) ->
                     protoData.members.forEach { member ->
-                        val className = if(oneOfData.allowTypeBasedMapping) oneOfClass.name else fieldName.getClassName()
+                        val className = if(oneOfData.allowTypeBasedMapping) oneOfClass.name else oneOffInfo.name.getClassName()
                         if(member.value.type.starProjection().declaration.simpleName.asString().equals(oneOfClass.name, true) &&
-                            compareIgnoreCase(member.key, fieldName)) {
+                            compareIgnoreCase(member.key, fieldName)
+                            && !member.value.isPrimaryConstructorMember) {
                             val accessor = if(oneOfClass.isProtoModel) "${oneOfClass.packageName}.${oneOfClass.name}.${protoData.parseFunctionName}(value.value)" else "value.value"
                             file.id(20) += "is ${protoData.packageName}.${protoData.className}.${oneOfData.wrapperName}.${member.value.name.capitalizeFirstLetter()} -> \n"
                             //file.id(24) += "${className}(${oneOfClass.packageName}.${oneOfClass.name}.${protoData.parseFunctionName}(value.value))\n"

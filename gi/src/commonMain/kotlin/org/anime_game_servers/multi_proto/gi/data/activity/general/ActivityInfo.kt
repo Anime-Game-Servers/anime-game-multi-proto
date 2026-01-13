@@ -162,7 +162,7 @@ internal interface ActivityInfo {
             OneOfEntry(FleurFairActivityDetailInfo::class, "fleur_fair_info", addedIn = GI_1_4_0),
             OneOfEntry(WaterSpiritActivityDetailInfo::class, "water_spirit_info", addedIn = GI_1_4_0),
             // 1.5.0
-            OneOfEntry(ChannelerSlabActivityDetailInfo::class, "challneler_slab_info", "channeler_slab_info", addedIn = GI_1_5_0),
+            OneOfEntry(ChannelerSlabActivityDetailInfo::class, "channeler_slab_info", "challneler_slab_info", addedIn = GI_1_5_0),
             OneOfEntry(FindHilichurlDetailInfo::class, "find_hilichurl_info", addedIn = GI_1_5_0),
             OneOfEntry(HideAndSeekActivityDetailInfo::class, "hide_and_seek_info", addedIn = GI_1_5_0),
             OneOfEntry(MistTrialActivityDetailInfo::class, "mist_trial_activity_info", addedIn = GI_1_5_0),
@@ -182,7 +182,7 @@ internal interface ActivityInfo {
             OneOfEntry(DigActivityDetailInfo::class, "dig_info", addedIn = GI_2_2_0),
             OneOfEntry(MusicGameActivityDetailInfo::class, "music_game_info", addedIn = GI_2_2_0),
             OneOfEntry(PlantFlowerActivityDetailInfo::class, "plant_flower_info", addedIn = GI_2_2_0),
-            OneOfEntry(RoguelikeDungeonActivityDetailInfo::class, "roguelike_dungoen_info", "roguelike_dungeon_info", addedIn = GI_2_2_0),
+            OneOfEntry(RoguelikeDungeonActivityDetailInfo::class, "roguelike_dungeon_info", "roguelike_dungoen_info", addedIn = GI_2_2_0),
             // 2.3.0
             OneOfEntry(HachiActivityDetailInfo::class, "hachi_info", addedIn = GI_2_3_0),
             OneOfEntry(WinterCampActivityDetailInfo::class, "winter_camp_info", addedIn = GI_2_3_0),
@@ -224,7 +224,6 @@ internal interface ActivityInfo {
             OneOfEntry(BrickBreakerDetailInfo::class, "brick_breaker_info", addedIn = GI_3_3_0),
             OneOfEntry(CoinCollectDetailInfo::class, "coin_collect_info", addedIn = GI_3_3_0),
             // 3.4.0
-            OneOfEntry(RoguelikeDungeonActivityDetailInfo::class, "roguelike_dungeon_info", addedIn = GI_3_4_0),
             OneOfEntry(DuelHeartDetailInfo::class, "duel_heart_info", addedIn = GI_3_4_0),
             OneOfEntry(ElectroherculesBattleDetailInfo::class, "electrohercules_battle_info", addedIn = GI_3_4_0),
             OneOfEntry(SeaLampV3DetailInfo::class, "sea_lamp_v3_info", addedIn = GI_3_4_0),
