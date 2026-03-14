@@ -41,4 +41,6 @@ internal interface PlayerEnterSceneNotify {
     var LAJGLCIFKCP : Int //TODO identify this field
     @AddedIn(GI_4_0_0)
     var mapLayerInfo : MapLayerInfo
+    @AddedIn(GI_4_8_0)
+    var limitRegionInfo: LimitRegionInfo
 }
