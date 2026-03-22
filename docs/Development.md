@@ -71,3 +71,36 @@ mavenLocal:
 ```shell
 gradlew :gi:publishJvmPublicationToMavenLocal
 ```
+## Code Conventions
+Fields are ordered in this way:
+* Retcode
+* Version, old to new
+* Alphabetical
+* OneOf
+
+Example:
+```kotlin
+@AddedIn(GI_CB1)
+internal interface SomeRsp {
+    var retcode: Retcode
+    var count: Int
+    var day: Int
+    var floor: Int
+    var valid: Boolean
+    @AddedIn(GI_1_0_0)
+    var finished: Boolean
+    @AddedIn(GI_1_2_0)
+    var schedule: Int
+    @AddedIn(GI_1_5_0)
+    var brief: SomeBrief
+    
+    @OneOf(
+        types = [
+            OneOfEntry(Int::class, "chapter"),
+            OneOfEntry(Int::class, "level"),
+            OneOfEntry(Int::class, "identity", addedIn = GI_0_9_0),
+        ]
+    )
+    var param: OneOfType
+}
+```
