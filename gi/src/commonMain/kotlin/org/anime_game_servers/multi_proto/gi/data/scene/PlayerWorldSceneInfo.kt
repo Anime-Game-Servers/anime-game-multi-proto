@@ -11,4 +11,6 @@ internal interface PlayerWorldSceneInfo {
     var isLocked: Boolean
     var sceneTagIdList: List<Int>
     var mapLayerInfo: MapLayerInfo
+    @AddedIn(GI_4_8_0)
+    var limitRegionInfo: LimitRegionInfo
 }
