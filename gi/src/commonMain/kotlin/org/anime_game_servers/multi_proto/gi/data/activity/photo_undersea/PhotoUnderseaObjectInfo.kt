@@ -7,6 +7,6 @@ import org.anime_game_servers.core.base.annotations.proto.ProtoModel
 @AddedIn(GI_4_0_0)
 @ProtoModel
 internal interface PhotoUnderseaObjectInfo {
-    var finishTime: Boolean
+    var finishTime: Int
     var objectId: Int
 }
