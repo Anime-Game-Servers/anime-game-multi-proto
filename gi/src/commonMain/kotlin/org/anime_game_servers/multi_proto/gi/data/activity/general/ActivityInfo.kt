@@ -42,6 +42,7 @@ import org.anime_game_servers.core.base.Version.GI_3_1_0
 import org.anime_game_servers.core.base.Version.GI_3_2_0
 import org.anime_game_servers.core.base.Version.GI_3_3_0
 import org.anime_game_servers.core.base.Version.GI_3_4_0
+import org.anime_game_servers.core.base.Version.GI_3_5_0
 import org.anime_game_servers.multi_proto.gi.data.activity.arena_challenge.ArenaChallengeActivityDetailInfo
 import org.anime_game_servers.multi_proto.gi.data.activity.bartender.BartenderActivityDetailInfo
 import org.anime_game_servers.multi_proto.gi.data.activity.blessing.BlessingActivityDetailInfo
@@ -62,8 +63,11 @@ import org.anime_game_servers.multi_proto.gi.data.activity.effigy_challenge_v2.E
 import org.anime_game_servers.multi_proto.gi.data.activity.electrohercules_battle.ElectroherculesBattleDetailInfo
 import org.anime_game_servers.multi_proto.gi.data.activity.expedition.ExpeditionActivityDetailInfo
 import org.anime_game_servers.multi_proto.gi.data.activity.find_hilichurl.FindHilichurlDetailInfo
+import org.anime_game_servers.multi_proto.gi.data.activity.fleur_fair_v2.FleurFairV2DetailInfo
 import org.anime_game_servers.multi_proto.gi.data.activity.fungus_fighter.FungusFighterDetailInfo
+import org.anime_game_servers.multi_proto.gi.data.activity.fungus_fighter_v2.FungusFighterV2DetailInfo
 import org.anime_game_servers.multi_proto.gi.data.activity.gacha.GachaActivityDetailInfo
+import org.anime_game_servers.multi_proto.gi.data.activity.gcg_festival.GcgFestivalDetailInfo
 import org.anime_game_servers.multi_proto.gi.data.activity.gear.GearActivityDetailInfo
 import org.anime_game_servers.multi_proto.gi.data.activity.graven_innocence.GravenInnocenceDetailInfo
 import org.anime_game_servers.multi_proto.gi.data.activity.hachi.HachiActivityDetailInfo
@@ -229,9 +233,9 @@ internal interface ActivityInfo {
             OneOfEntry(SeaLampV3DetailInfo::class, "sea_lamp_v3_info", addedIn = GI_3_4_0),
             OneOfEntry(TeamChainDetailInfo::class, "team_chain_info", addedIn = GI_3_4_0),
             // 3.5.0
-            // OneOfEntry(GcgFestivalDetailInfo::class,"gcg_festival_info", addedIn = GI_3_5_0),
-            // OneOfEntry(FleurFairV2DetailInfo::class,"fleur_fair_v2_info", addedIn = GI_3_5_0),
-            // OneOfEntry(FungusFighterV2DetailInfo::class,"fungus_fighter_v2_info", addedIn = GI_3_5_0),
+            OneOfEntry(GcgFestivalDetailInfo::class,"gcg_festival_info", addedIn = GI_3_5_0),
+            OneOfEntry(FleurFairV2DetailInfo::class,"fleur_fair_v2_info", addedIn = GI_3_5_0),
+            OneOfEntry(FungusFighterV2DetailInfo::class,"fungus_fighter_v2_info", addedIn = GI_3_5_0),
             // 3.6.0
             // OneOfEntry(AkaFesDetailInfo::class, "aka_fes_info", addedIn = GI_3_6_0),
             // OneOfEntry(SandwormCannonDetailInfo::class, "sandworm_cannon_detail_info", addedIn = GI_3_6_0),
