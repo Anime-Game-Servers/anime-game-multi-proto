@@ -43,6 +43,8 @@ import org.anime_game_servers.core.base.Version.GI_3_2_0
 import org.anime_game_servers.core.base.Version.GI_3_3_0
 import org.anime_game_servers.core.base.Version.GI_3_4_0
 import org.anime_game_servers.core.base.Version.GI_3_5_0
+import org.anime_game_servers.core.base.Version.GI_3_6_0
+import org.anime_game_servers.multi_proto.gi.data.activity.aka_fes.AkaFesDetailInfo
 import org.anime_game_servers.multi_proto.gi.data.activity.arena_challenge.ArenaChallengeActivityDetailInfo
 import org.anime_game_servers.multi_proto.gi.data.activity.bartender.BartenderActivityDetailInfo
 import org.anime_game_servers.multi_proto.gi.data.activity.blessing.BlessingActivityDetailInfo
@@ -88,7 +90,9 @@ import org.anime_game_servers.multi_proto.gi.data.activity.potion.PotionActivity
 import org.anime_game_servers.multi_proto.gi.data.activity.rock_board.RockBoardExploreDetailInfo
 import org.anime_game_servers.multi_proto.gi.data.activity.rogue_diary.RogueDiaryActivityDetailInfo
 import org.anime_game_servers.multi_proto.gi.data.activity.roguelike_dungeon.RoguelikeDungeonActivityDetailInfo
+import org.anime_game_servers.multi_proto.gi.data.activity.sandworm_cannon.SandwormCannonDetailInfo
 import org.anime_game_servers.multi_proto.gi.data.activity.sealamp_v3.SeaLampV3DetailInfo
+import org.anime_game_servers.multi_proto.gi.data.activity.sorush_trial.SorushTrialDetailInfo
 import org.anime_game_servers.multi_proto.gi.data.activity.spice.SpiceActivityDetailInfo
 import org.anime_game_servers.multi_proto.gi.data.activity.sumo.SumoActivityDetailInfo
 import org.anime_game_servers.multi_proto.gi.data.activity.tanuki_travel.TanukiTravelActivityDetailInfo
@@ -237,9 +241,9 @@ internal interface ActivityInfo {
             OneOfEntry(FleurFairV2DetailInfo::class,"fleur_fair_v2_info", addedIn = GI_3_5_0),
             OneOfEntry(FungusFighterV2DetailInfo::class,"fungus_fighter_v2_info", addedIn = GI_3_5_0),
             // 3.6.0
-            // OneOfEntry(AkaFesDetailInfo::class, "aka_fes_info", addedIn = GI_3_6_0),
-            // OneOfEntry(SandwormCannonDetailInfo::class, "sandworm_cannon_detail_info", addedIn = GI_3_6_0),
-            // OneOfEntry(SorushTrialDetailInfo::class, "sorush_trial_info", addedIn = GI_3_6_0),
+            OneOfEntry(AkaFesDetailInfo::class, "aka_fes_info", addedIn = GI_3_6_0),
+            OneOfEntry(SandwormCannonDetailInfo::class, "sandworm_cannon_detail_info", addedIn = GI_3_6_0),
+            OneOfEntry(SorushTrialDetailInfo::class, "sorush_trial_info", addedIn = GI_3_6_0),
             // 3.7.0
             // OneOfEntry(EffigyChallengeV4DetailInfo::class, "effigy_challenge_v4_info", addedIn = GI_3_7_0),
             // OneOfEntry(GcgPveDetailInfo::class, "gcg_pve_info", addedIn = GI_3_7_0),
