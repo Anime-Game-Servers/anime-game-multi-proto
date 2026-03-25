@@ -44,6 +44,8 @@ import org.anime_game_servers.core.base.Version.GI_3_3_0
 import org.anime_game_servers.core.base.Version.GI_3_4_0
 import org.anime_game_servers.core.base.Version.GI_3_5_0
 import org.anime_game_servers.core.base.Version.GI_3_6_0
+import org.anime_game_servers.core.base.Version.GI_4_0_0
+import org.anime_game_servers.core.base.Version.GI_4_1_0
 import org.anime_game_servers.multi_proto.gi.data.activity.aka_fes.AkaFesDetailInfo
 import org.anime_game_servers.multi_proto.gi.data.activity.arena_challenge.ArenaChallengeActivityDetailInfo
 import org.anime_game_servers.multi_proto.gi.data.activity.bartender.BartenderActivityDetailInfo
@@ -65,6 +67,7 @@ import org.anime_game_servers.multi_proto.gi.data.activity.effigy_challenge_v2.E
 import org.anime_game_servers.multi_proto.gi.data.activity.electrohercules_battle.ElectroherculesBattleDetailInfo
 import org.anime_game_servers.multi_proto.gi.data.activity.expedition.ExpeditionActivityDetailInfo
 import org.anime_game_servers.multi_proto.gi.data.activity.find_hilichurl.FindHilichurlDetailInfo
+import org.anime_game_servers.multi_proto.gi.data.activity.fish_blaster.FishBlasterInfo
 import org.anime_game_servers.multi_proto.gi.data.activity.fleur_fair_v2.FleurFairV2DetailInfo
 import org.anime_game_servers.multi_proto.gi.data.activity.fungus_fighter.FungusFighterDetailInfo
 import org.anime_game_servers.multi_proto.gi.data.activity.fungus_fighter_v2.FungusFighterV2DetailInfo
@@ -85,6 +88,7 @@ import org.anime_game_servers.multi_proto.gi.data.activity.mist_trial.MistTrialA
 import org.anime_game_servers.multi_proto.gi.data.activity.moonfin_trial.MoonfinTrialActivityDetailInfo
 import org.anime_game_servers.multi_proto.gi.data.activity.muqadas_potion.MuqadasPotionActivityDetailInfo
 import org.anime_game_servers.multi_proto.gi.data.activity.photo.PhotoActivityDetailInfo
+import org.anime_game_servers.multi_proto.gi.data.activity.photo_undersea.PhotoUnderseaDetailInfo
 import org.anime_game_servers.multi_proto.gi.data.activity.plant_flower.PlantFlowerActivityDetailInfo
 import org.anime_game_servers.multi_proto.gi.data.activity.potion.PotionActivityDetailInfo
 import org.anime_game_servers.multi_proto.gi.data.activity.rock_board.RockBoardExploreDetailInfo
@@ -248,19 +252,19 @@ internal interface ActivityInfo {
             // OneOfEntry(EffigyChallengeV4DetailInfo::class, "effigy_challenge_v4_info", addedIn = GI_3_7_0),
             // OneOfEntry(GcgPveDetailInfo::class, "gcg_pve_info", addedIn = GI_3_7_0),
             // OneOfEntry(UgcV2DetailInfo::class, "ugc_v2_info", addedIn = GI_3_7_0),
-            // OneOfEntry(PenumbraAdventureDetailInfo::class, "penumbra_adventure_info", addedIn = GI_3_7_0),
             // 3.8.0
+            // OneOfEntry(PenumbraAdventureDetailInfo::class, "penumbra_adventure_info", addedIn = GI_3_7_0),
             // OneOfEntry(AnimalViewDetailInfo::class, "animal_view_info", addedIn = GI_3_8_0),
             // OneOfEntry(ActivityMultiCharacterDetailInfo::class, "activity_multi_character_info", addedIn = GI_3_8_0),
             // OneOfEntry(GcgPveInfiniteDetailInfo::class, "gcg_pve_infinite_info", addedIn = GI_3_8_0),
             // 4.0.0
             // OneOfEntry(ToyBattleDetailInfo::class, "toy_battle_info", addedIn = GI_4_0_0),
-            // OneOfEntry(PhotoUnderseaDetailInfo::class, "photo_undersea_info", addedIn = GI_4_0_0),
+            OneOfEntry(PhotoUnderseaDetailInfo::class, "photo_undersea_info", addedIn = GI_4_0_0),
             // OneOfEntry(FontaineGatherDetailInfo::class, "fontaine_gather_info", addedIn = GI_4_0_0),
             // OneOfEntry(GcgPvePuzzleDetailInfo::class, "gcg_pve_puzzle_info", addedIn = GI_4_0_0),
             // 4.1.0 TODO
             // OneOfEntry(PoetryFestivalDetailInfo::class, "poetry_festival_detail_info", addedIn = GI_4_1_0),
-            // OneOfEntry(FishBlasterInfo::class, "fish_blaster_info", addedIn = GI_4_1_0),
+            OneOfEntry(FishBlasterInfo::class, "fish_blaster_info", addedIn = GI_4_1_0),
             // OneOfEntry(QuickTimeCombatDetailInfo::class, "quick_time_combat_info", addedIn = GI_4_1_0),
             // OneOfEntry(CollectUnderwaterDetailInfo::class, "collect_underwater_info", addedIn = GI_4_1_0),
             // 4.2.0 TODO
