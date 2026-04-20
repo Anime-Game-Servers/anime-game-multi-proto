@@ -20,7 +20,9 @@ import org.anime_game_servers.core.base.Version.GI_3_3_0
 import org.anime_game_servers.core.base.Version.GI_3_4_0
 import org.anime_game_servers.core.base.Version.GI_3_5_0
 import org.anime_game_servers.core.base.Version.GI_3_6_0
+import org.anime_game_servers.core.base.Version.GI_3_8_0
 import org.anime_game_servers.core.base.Version.GI_4_0_0
+import org.anime_game_servers.core.base.Version.GI_4_2_0
 import org.anime_game_servers.core.base.Version.GI_4_3_0
 import org.anime_game_servers.core.base.Version.GI_4_5_0
 import org.anime_game_servers.core.base.Version.GI_4_6_0
@@ -208,23 +210,23 @@ internal enum class AbilityInvokeArgument {
     ABILITY_MIXIN_RECEIVE_GV,
     @AddedIn(GI_3_6_0)
     ABILITY_MIXIN_ENERGY_CRYSTAL_TARGET,
-    @AddedIn(GI_4_0_0) // todo check 3.8
-    ABILITY_MIXIN_RAYCAST_SELECT_TARGET,
-    @AddedIn(GI_4_0_0) // todo check 3.8
-    ABILITY_ACTION_LEVEL_BANK_ADD_STUFF,
-    @AddedIn(GI_4_0_0) // todo check 3.8
+    @AddedIn(GI_3_8_0)
     ABILITY_MIXIN_ROTATION_FOLLOW_CAMERA,
-    @AddedIn(GI_4_0_0) // todo check 3.8
+    @AddedIn(GI_4_0_0)
+    ABILITY_MIXIN_RAYCAST_SELECT_TARGET,
+    @AddedIn(GI_4_0_0)
+    ABILITY_ACTION_LEVEL_BANK_ADD_STUFF,
+    @AddedIn(GI_4_0_0)
     ABILITY_MIXIN_BUOYANT_FORCE,
+    @AddedIn(GI_4_2_0) // todo check 4.1
+    ABILITY_ACTION_GET_MATERIAL_PARAM_FLOAT,
+    @AddedIn(GI_4_2_0) // todo check 4.1
+    ABILITY_ACTION_GET_MATERIAL_PARAM_VECTOR,
     @AddedIn(GI_4_3_0) // todo verify
     ABILITY_MIXIN_FILMFEST_BALL_GAME,
-    @AddedIn(GI_4_5_0) // todo check 4.1 to 4.4
-    ABILITY_ACTION_GET_MATERIAL_PARAM_FLOAT,
-    @AddedIn(GI_4_5_0) // todo check 4.1 to 4.4
-    ABILITY_ACTION_GET_MATERIAL_PARAM_VECTOR,
-    @AddedIn(GI_4_5_0) // todo check 4.1 to 4.4
+    @AddedIn(GI_4_5_0) // todo check 4.3 to 4.4
     ABILITY_ACTION_SPECTACLE_BUILD_RECREATE_GADGET,
-    @AddedIn(GI_4_5_0) // todo check 4.1 to 4.4
+    @AddedIn(GI_4_5_0) // todo check 4.3 to 4.4
     ABILITY_MIXIN_CHECK_SCAN_ENTITY,
     @AddedIn(GI_4_6_0)
     ABILITY_MIXIN_TIME_TRACK_PLAYER,

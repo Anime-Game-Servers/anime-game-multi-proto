@@ -3,6 +3,7 @@ package org.anime_game_servers.multi_proto.gi.data.activity.user_generated_conte
 import org.anime_game_servers.core.base.annotations.AddedIn
 import org.anime_game_servers.core.base.Version.GI_2_7_0
 import org.anime_game_servers.core.base.Version.GI_5_3_0
+import org.anime_game_servers.core.base.Version.GI_6_5_0
 import org.anime_game_servers.core.base.annotations.proto.AltName
 import org.anime_game_servers.core.base.annotations.proto.ProtoEnum
 
@@ -20,4 +21,7 @@ internal enum class UgcType {
     @AddedIn(GI_5_3_0)
     @AltName("UGC_TYPE_LAN_V_5_CARD_GAME")
     UGC_TYPE_LAN_V5_CARD_GAME,
+    
+    @AddedIn(GI_6_5_0)
+    SHORT_VIDEO,
 }

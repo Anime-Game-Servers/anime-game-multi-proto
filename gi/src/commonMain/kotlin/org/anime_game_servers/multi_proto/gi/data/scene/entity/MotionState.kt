@@ -12,6 +12,7 @@ import org.anime_game_servers.core.base.Version.GI_3_6_0
 import org.anime_game_servers.core.base.Version.GI_3_8_0
 import org.anime_game_servers.core.base.Version.GI_4_0_0
 import org.anime_game_servers.core.base.Version.GI_5_0_0
+import org.anime_game_servers.core.base.Version.GI_5_8_0
 import org.anime_game_servers.core.base.annotations.proto.AltName
 import org.anime_game_servers.core.base.annotations.proto.ProtoEnum
 
@@ -300,7 +301,10 @@ internal enum class MotionState {
     @AddedIn(GI_5_0_0)
     @AltName("MOTION_STATE_NATSAURUS_ENTERING")
     MOTION_NATSAURUS_ENTERING,
-    @AddedIn(GI_2_7_0)
-    @AltName("MOTION_STATE_NUM")
-    MOTION_NUM,
+    @AddedIn(GI_5_8_0)
+    @AltName("MOTION_STATE_MAGLEV")
+    MOTION_MAGLEV,
+    @AddedIn(GI_5_8_0)
+    @AltName("MOTION_STATE_MAGLEV_SAFE")
+    MOTION_MAGLEV_SAFE,
 }

@@ -2,6 +2,7 @@ package org.anime_game_servers.multi_proto.gi.data.player
 
 import org.anime_game_servers.core.base.Version.GI_CB1
 import org.anime_game_servers.core.base.Version.GI_0_9_0
+import org.anime_game_servers.core.base.Version.GI_3_6_0
 import org.anime_game_servers.core.base.annotations.AddedIn
 import org.anime_game_servers.core.base.annotations.proto.AltName
 import org.anime_game_servers.core.base.annotations.proto.ProtoEnum
@@ -26,4 +27,7 @@ internal enum class LogoutReason {
     @AddedIn(GI_0_9_0)
     @AltName("REASON_CLIENT_CHECKSUM_INVALID")
     CLIENT_CHECKSUM_INVALID,
+    @AddedIn(GI_3_6_0)
+    @AltName("REASON_MUIP_MOVE_SAVE_WAIT")
+    MUIP_MOVE_SAVE_WAIT,
 }

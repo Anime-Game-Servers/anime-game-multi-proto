@@ -1,7 +1,7 @@
 package org.anime_game_servers.multi_proto.gi.utils
-
 import org.anime_game_servers.core.base.Game
 import org.anime_game_servers.core.base.Version
+import org.anime_game_servers.core.base.Version.*
 import org.anime_game_servers.multi_proto.gi.data.other.PingReq
 import org.anime_game_servers.multi_proto.gi.data.player.GetPlayerTokenReq
 import org.anime_game_servers.multi_proto.gi.messages.player.GetPlayerTokenReq as GetPlayerTokenReqPacket
@@ -32,58 +32,59 @@ object VersionIdentify {
 
     private fun getVersionsForPlayerTokenReqCmdId(cmdId: Int, data: ByteArray): List<Version>? {
         return when(cmdId) {
-            101 -> listOf(Version.GI_CB1, Version.GI_CB2, Version.GI_0_9_0, Version.GI_1_0_0,
-                Version.GI_1_1_0, Version.GI_1_2_0, Version.GI_1_3_0, Version.GI_1_4_0, Version.GI_1_5_0) //rsp 102
-            149 -> listOf(Version.GI_1_6_0, Version.GI_2_0_0, Version.GI_2_1_0, Version.GI_2_2_0) //rsp 118
-            160 -> listOf(Version.GI_2_3_0, Version.GI_2_4_0, Version.GI_2_5_0, Version.GI_2_6_0) //rsp 133
-            109 -> listOf(Version.GI_2_7_0) //rsp 131
+            101 -> listOf(GI_CB1, GI_CB2, GI_0_9_0, GI_1_0_0,
+                GI_1_1_0, GI_1_2_0, GI_1_3_0, GI_1_4_0, GI_1_5_0) //rsp 102
+            149 -> listOf(GI_1_6_0, GI_2_0_0, GI_2_1_0, GI_2_2_0) //rsp 118
+            160 -> listOf(GI_2_3_0, GI_2_4_0, GI_2_5_0, GI_2_6_0) //rsp 133
+            109 -> listOf(GI_2_7_0) //rsp 131
             172 -> {// 2.8-3.2
-                val proto = GetPlayerTokenReqPacket.parseBy(data, Version.GI_3_2_0)
+                val proto = GetPlayerTokenReqPacket.parseBy(data, GI_3_2_0)
                 if(proto.keyId == 4 || proto.keyId == 5) { // 3.2 added key id 4 and 5
-                    listOf(Version.GI_3_2_0)
+                    listOf(GI_3_2_0)
                 } else if (proto.keyId != 0) {
-                    listOf(Version.GI_2_8_0, Version.GI_3_0_0, Version.GI_3_1_0)
+                    listOf(GI_2_8_0, GI_3_0_0, GI_3_1_0)
                 } else {
-                    listOf(Version.GI_2_8_0, Version.GI_3_0_0, Version.GI_3_1_0, Version.GI_3_2_0)
+                    listOf(GI_2_8_0, GI_3_0_0, GI_3_1_0, GI_3_2_0)
                 }
             } //rsp 198
-            179 -> listOf(Version.GI_3_3_0) //rsp 130
-            105 -> listOf(Version.GI_3_4_0) //rsp 155
-            167 -> listOf(Version.GI_3_5_0) //rsp 167
-            190 -> listOf(Version.GI_3_6_0) //rsp 196
-            175 -> listOf(Version.GI_3_7_0) //rsp 196
-            6929 -> listOf(Version.GI_3_8_0) //rsp 7187
-            21228 -> listOf(Version.GI_4_0_0) //rsp 2407
-            26778 -> listOf(Version.GI_4_1_0) //rsp 1347
-            28214 -> listOf(Version.GI_4_2_0) //rsp 1574
-            25045 -> listOf(Version.GI_4_3_0) //rsp 5520
-            21218 -> listOf(Version.GI_4_4_0) //rsp 22858
-            4241 -> listOf(Version.GI_4_5_0) //rsp 9343
-            28960 -> listOf(Version.GI_4_6_0) //rsp 4867
-            23703 -> listOf(Version.GI_4_7_0) //rsp 322
-            4210 -> listOf(Version.GI_4_8_0) //rsp 6796
-            6013 -> listOf(Version.GI_5_0_0) //rsp 24174
-            8611 -> listOf(Version.GI_5_1_0) //rsp 23639
-            8726 -> listOf(Version.GI_5_2_0) //rsp 87
-            29463 -> listOf(Version.GI_5_3_0) //rsp 24838
-            29676 -> listOf(Version.GI_5_4_0) //rsp 894
-            29482 -> listOf(Version.GI_5_5_0) //rsp 28793
-            22680 -> listOf(Version.GI_5_6_0) //rsp 367
-            23191 -> listOf(Version.GI_5_7_0) //rsp 7156
-            24642 -> listOf(Version.GI_5_8_0) //rsp 1329
-            5254 -> listOf(Version.GI_6_0_0) //rsp 4889
-            3956 -> listOf(Version.GI_6_1_0) //rsp 22487
-            25923 -> listOf(Version.GI_6_2_0) //rsp 5104
-            21186 -> listOf(Version.GI_6_3_0) //rsp 4454
-            20352 -> listOf(Version.GI_6_4_0) //rsp 5913
+            179 -> listOf(GI_3_3_0) //rsp 130
+            105 -> listOf(GI_3_4_0) //rsp 155
+            167 -> listOf(GI_3_5_0) //rsp 167
+            190 -> listOf(GI_3_6_0) //rsp 196
+            175 -> listOf(GI_3_7_0) //rsp 196
+            6929 -> listOf(GI_3_8_0) //rsp 7187
+            21228 -> listOf(GI_4_0_0) //rsp 2407
+            26778 -> listOf(GI_4_1_0) //rsp 1347
+            28214 -> listOf(GI_4_2_0) //rsp 1574
+            25045 -> listOf(GI_4_3_0) //rsp 5520
+            21218 -> listOf(GI_4_4_0) //rsp 22858
+            4241 -> listOf(GI_4_5_0) //rsp 9343
+            28960 -> listOf(GI_4_6_0) //rsp 4867
+            23703 -> listOf(GI_4_7_0) //rsp 322
+            4210 -> listOf(GI_4_8_0) //rsp 6796
+            6013 -> listOf(GI_5_0_0) //rsp 24174
+            8611 -> listOf(GI_5_1_0) //rsp 23639
+            8726 -> listOf(GI_5_2_0) //rsp 87
+            29463 -> listOf(GI_5_3_0) //rsp 24838
+            29676 -> listOf(GI_5_4_0) //rsp 894
+            29482 -> listOf(GI_5_5_0) //rsp 28793
+            22680 -> listOf(GI_5_6_0) //rsp 367
+            23191 -> listOf(GI_5_7_0) //rsp 7156
+            24642 -> listOf(GI_5_8_0) //rsp 1329
+            5254 -> listOf(GI_6_0_0) //rsp 4889
+            3956 -> listOf(GI_6_1_0) //rsp 22487
+            25923 -> listOf(GI_6_2_0) //rsp 5104
+            21186 -> listOf(GI_6_3_0) //rsp 4454
+            20352 -> listOf(GI_6_4_0) //rsp 5913
+            22738 -> listOf(GI_6_5_0) //rsp 4838
             else -> return null
         }
     }
 
     private fun getVersionsForPingReqCmdId(cmdId: Int, data: ByteArray): List<Version>? {
         return when(cmdId) {
-            5 -> listOf(Version.GI_CB1, Version.GI_CB2, Version.GI_0_9_0, Version.GI_1_0_0,
-                Version.GI_1_1_0, Version.GI_1_2_0, Version.GI_1_3_0, Version.GI_1_4_0, Version.GI_1_5_0) //rsp 6
+            5 -> listOf(GI_CB1, GI_CB2, GI_0_9_0, GI_1_0_0,
+                GI_1_1_0, GI_1_2_0, GI_1_3_0, GI_1_4_0, GI_1_5_0) //rsp 6
             100 -> {
                 //TODO do actual content checking
                 /*
@@ -91,42 +92,43 @@ object VersionIdentify {
                     1.6-2.2 fieldId: 4
                     3.3 fieldId: 2
                  */
-                listOf(Version.GI_1_6_0, Version.GI_2_0_0, Version.GI_2_1_0, Version.GI_2_2_0) //rsp 1
-                //listOf(Version.GI_3_3_0) //rsp 43
+                listOf(GI_1_6_0, GI_2_0_0, GI_2_1_0, GI_2_2_0) //rsp 1
+                //listOf(GI_3_3_0) //rsp 43
             }
-            37 -> listOf(Version.GI_2_3_0, Version.GI_2_4_0, Version.GI_2_5_0, Version.GI_2_6_0) //rsp 93
-            32 -> listOf(Version.GI_2_7_0) //rsp 17
+            37 -> listOf(GI_2_3_0, GI_2_4_0, GI_2_5_0, GI_2_6_0) //rsp 93
+            32 -> listOf(GI_2_7_0) //rsp 17
             7 -> {
-                listOf(Version.GI_2_8_0, Version.GI_3_0_0, Version.GI_3_1_0, Version.GI_3_2_0) //rsp 21
+                listOf(GI_2_8_0, GI_3_0_0, GI_3_1_0, GI_3_2_0) //rsp 21
             }
-            20 -> listOf(Version.GI_3_4_0) //rsp 74
-            14 -> listOf(Version.GI_3_5_0) //rsp 34
-            16 -> listOf(Version.GI_3_6_0) //rsp 56
-            55 -> listOf(Version.GI_3_7_0) //rsp 48
-            999999 -> listOf(Version.GI_3_8_0) //TODO find cmdid //rsp
-            5358 -> listOf(Version.GI_4_0_0) //rsp 8231
-            999998 -> listOf(Version.GI_4_1_0) //TODO find cmdid //rsp
-            999997 -> listOf(Version.GI_4_2_0) //TODO find cmdid //rsp
-            999996 -> listOf(Version.GI_4_3_0) //TODO find cmdid //rsp
-            999995 -> listOf(Version.GI_4_4_0) //TODO find cmdid //rsp
-            999994 -> listOf(Version.GI_4_5_0) //TODO find cmdid //rsp
-            26105 -> listOf(Version.GI_4_6_0) //rsp 28294
-            28999 -> listOf(Version.GI_4_7_0) //rsp 4322
-            999993 -> listOf(Version.GI_4_8_0) //TODO find cmdid //rsp 6796
-            5983 -> listOf(Version.GI_5_0_0) //rsp 22595
-            6255 -> listOf(Version.GI_5_1_0) //rsp 21110
-            8341 -> listOf(Version.GI_5_2_0) //rsp 25458
-            22759 -> listOf(Version.GI_5_3_0) //rsp 8719
-            26500 -> listOf(Version.GI_5_4_0) //rsp 5514
-            9587 -> listOf(Version.GI_5_5_0) //rsp 21573
-            5801 -> listOf(Version.GI_5_6_0) //rsp 29110
-            //9156 -> listOf(Version.GI_5_7_0) //rsp 8127
-            25810 -> listOf(Version.GI_5_8_0) //rsp 20690
-            29052 -> listOf(Version.GI_6_0_0) //rsp 29457
-            5781 -> listOf(Version.GI_6_1_0) //rsp 20923
-            6384 -> listOf(Version.GI_6_2_0) //rsp 24908
-            25068 -> listOf(Version.GI_6_3_0) //rsp 29024
-            8256 -> listOf(Version.GI_6_4_0) //rsp 7774
+            20 -> listOf(GI_3_4_0) //rsp 74
+            14 -> listOf(GI_3_5_0) //rsp 34
+            16 -> listOf(GI_3_6_0) //rsp 56
+            55 -> listOf(GI_3_7_0) //rsp 48
+            999999 -> listOf(GI_3_8_0) //TODO find cmdid //rsp
+            5358 -> listOf(GI_4_0_0) //rsp 8231
+            999998 -> listOf(GI_4_1_0) //TODO find cmdid //rsp
+            999997 -> listOf(GI_4_2_0) //TODO find cmdid //rsp
+            999996 -> listOf(GI_4_3_0) //TODO find cmdid //rsp
+            999995 -> listOf(GI_4_4_0) //TODO find cmdid //rsp
+            999994 -> listOf(GI_4_5_0) //TODO find cmdid //rsp
+            26105 -> listOf(GI_4_6_0) //rsp 28294
+            28999 -> listOf(GI_4_7_0) //rsp 4322
+            999993 -> listOf(GI_4_8_0) //TODO find cmdid //rsp 6796
+            5983 -> listOf(GI_5_0_0) //rsp 22595
+            6255 -> listOf(GI_5_1_0) //rsp 21110
+            8341 -> listOf(GI_5_2_0) //rsp 25458
+            22759 -> listOf(GI_5_3_0) //rsp 8719
+            26500 -> listOf(GI_5_4_0) //rsp 5514
+            9587 -> listOf(GI_5_5_0) //rsp 21573
+            5801 -> listOf(GI_5_6_0) //rsp 29110
+            //9156 -> listOf(GI_5_7_0) //rsp 8127
+            25810 -> listOf(GI_5_8_0) //rsp 20690
+            29052 -> listOf(GI_6_0_0) //rsp 29457
+            5781 -> listOf(GI_6_1_0) //rsp 20923
+            6384 -> listOf(GI_6_2_0) //rsp 24908
+            25068 -> listOf(GI_6_3_0) //rsp 29024
+            8256 -> listOf(GI_6_4_0) //rsp 7774
+            29231 -> listOf(GI_6_5_0) //rsp 24007
             else -> return null
         }
     }

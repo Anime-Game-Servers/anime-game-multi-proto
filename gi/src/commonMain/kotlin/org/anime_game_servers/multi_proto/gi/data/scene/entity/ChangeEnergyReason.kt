@@ -2,6 +2,7 @@ package org.anime_game_servers.multi_proto.gi.data.scene.entity
 
 import org.anime_game_servers.core.base.Version.GI_2_1_0
 import org.anime_game_servers.core.base.Version.GI_4_7_0
+import org.anime_game_servers.core.base.Version.GI_6_1_0
 import org.anime_game_servers.core.base.annotations.AddedIn
 import org.anime_game_servers.core.base.annotations.proto.AltName
 import org.anime_game_servers.core.base.annotations.proto.ProtoEnum
@@ -28,4 +29,7 @@ internal enum class ChangeEnergyReason {
     @AddedIn(GI_4_7_0)
     @AltName("CHANGE_ENERGY_REASON_SKILL_DEPOT")
     CHANGE_ENERGY_SKILL_DEPOT,
+    @AddedIn(GI_6_1_0)
+    @AltName("CHANGE_ENERGY_REASON_BEYOND_BLUEPRINT")
+    CHANGE_ENERGY_BEYOND_BLUEPRINT,
 }
