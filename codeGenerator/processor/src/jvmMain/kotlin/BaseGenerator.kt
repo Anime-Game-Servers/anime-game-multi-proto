@@ -287,7 +287,7 @@ abstract class BaseGenerator(
                         "outToIn"
                     }
                     val dataTarget = dataMethod.getDataCall("it", outParameterName, true, converter = converter)
-                    "$varName.map { ${converter.getFullConverterClassName()}.$converterFunction($dataTarget) }"
+                    "$varName.map { ${converter.getFullConverterClassName()}.$converterFunction($dataTarget, version) }"
                 } ?: if(inParameter == outParameter){
                     varName
                 } else {// TODO convert
@@ -402,9 +402,9 @@ abstract class BaseGenerator(
             return if (isMemberCall) {
                 val accessor = if(isNullSafe) "." else "?."
                 converterFunction?.let{
-                    "${converter.getFullConverterClassName()}.$converterFunction($variable)$accessor$methodName()"
+                    "${converter.getFullConverterClassName()}.$converterFunction($variable, version)$accessor$methodName(version)"
                 } ?:
-                "$variable$accessor$methodName()"
+                "$variable$accessor$methodName(version)"
             }
             else {
                 val classPath =
@@ -416,14 +416,14 @@ abstract class BaseGenerator(
                     //} ?: methodClassPath
                 if(isNullSafe){
                     converterFunction?.let{
-                        "${converter.getFullConverterClassName()}.$converterFunction($classPath.$methodName($variable))"
-                    } ?: "$classPath.$methodName($variable)"
+                        "${converter.getFullConverterClassName()}.$converterFunction($classPath.$methodName($variable, version), version)"
+                    } ?: "$classPath.$methodName($variable, version)"
                 } else {
                     if(forceNonNull){
-                        "$variable!!.let{ member -> $classPath.$methodName(member)}"
+                        "$variable!!.let{ member -> $classPath.$methodName(member, version)}"
                     } else {
                         val fallbackString = if (fallback == "null") "" else " ?: ${fallback ?: classPath}()"
-                        "$variable?.let{ member -> $classPath.$methodName(member)}$fallbackString"
+                        "$variable?.let{ member -> $classPath.$methodName(member, version)}$fallbackString"
                     }
                 }
             }
@@ -597,7 +597,7 @@ abstract class BaseGenerator(
         resolver: Resolver): String{
         val inTypeCategory = Type.byType(inType.type, this)
         if(outType.type.getFullClassName() == "kotlin.Int" && inTypeCategory == Type.ENUM){
-            return "$varName.${dataMethod.methodName}().value"
+            return "$varName.${dataMethod.methodName}(version).value"
         }
         checkAndGetConverter(inType, outType)?.let { (isIn, converter) ->
             val className = (if(isIn)converter.outType else converter.inType).getFullClassName()
@@ -606,7 +606,7 @@ abstract class BaseGenerator(
             } else {
                 "outToIn"
             }
-            return "${converter.getFullConverterClassName()}.$converterFunction($varName)"
+            return "${converter.getFullConverterClassName()}.$converterFunction($varName, version)"
         }
         return "$varName"
     }

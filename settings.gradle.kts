@@ -17,7 +17,15 @@ plugins {
 rootProject.name = "multi-proto"
 
 include(":processor")
+include(":processor_common")
+include(":processor_resources")
+include(":processor_models")
 include(":base")
 include(":gi")
+include(":gi-packet-ids")
+include(":gi-models")
 
 project(":processor").projectDir = File("codeGenerator/processor")
+project(":processor_common").projectDir = File("codeGenerator/common")
+project(":processor_resources").projectDir = File("codeGenerator/resource_processor")
+project(":processor_models").projectDir = File("codeGenerator/model_processor")

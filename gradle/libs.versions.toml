@@ -1,16 +1,19 @@
 [versions]
 # https://kotlinlang.org/docs/releases.html#release-details
-kotlin = "2.3.0"
+kotlin = "2.4.0"
 # https://github.com/google/ksp/releases
-ksp = "2.3.4"
+ksp = "2.3.9"
 # https://github.com/Kotlin/dokka/releases
-dokka = "2.1.0"
+dokka = "2.2.0"
 # https://github.com/Kotlin/kotlinx-io/releases
-kx_io = "0.8.2"
+kx_io = "0.9.0"
 # https://github.com/oshai/kotlin-logging/releases
-logger = "7.0.14"
+logger = "8.0.4"
 # https://github.com/streem/pbandk/releases
 pbandk="0.16.0"
+
+# https://github.com/square/kotlinpoet/releases/
+kotlinpoet = "2.3.0"
 
 ## testing libs
 # https://github.com/junit-team/junit5/releases
@@ -19,7 +22,7 @@ junit = "5.10.1"
 ## ags libs
 # https://github.com/Hartie95/Core
 ags_core = "0.2"
-anime_game_multi_proto = "0.2"
+anime_game_multi_proto = "0.3.0"
 
 [libraries]
 kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
@@ -32,6 +35,7 @@ pbandk_runtime = { module = "pro.streem.pbandk:pbandk-runtime", version.ref = "p
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 junit = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit" }
 ksp-sympbol-processing = { module = "com.google.devtools.ksp:symbol-processing-api", version.ref = "ksp" }
+kotlinpoet_ksp = { module = "com.squareup:kotlinpoet-ksp", version.ref = "kotlinpoet" }
 
 ags-core-base = { module = "org.anime_game_servers.core:base", version.ref = "ags_core" }
 ags-core-gi = { module = "org.anime_game_servers.core:gi", version.ref = "ags_core" }
@@ -40,7 +44,7 @@ ags-core-gi = { module = "org.anime_game_servers.core:gi", version.ref = "ags_co
 [bundles]
 common_ags_base = ["ags-core-base"]
 common_ags_gi = ["ags-core-gi"]
-ksp_processor = ["ksp-sympbol-processing"]
+ksp_processor = ["ksp-sympbol-processing", "kotlinpoet_ksp"]
 proto_parsing = ["pbandk_runtime"]
 
 [plugins]

@@ -40,7 +40,7 @@ class EnumGenerator(
         file.id(4) +="fun encodeToByteArray(version:$VERSION_ENUM_CLASS_NAME) : Int? {\n"
         file.id(8) +="return when (version.namespace) {\n"
         classInfo.protoSet.forEach { proto ->
-            file.id(12) +="\"${proto.versionPackage}\" -> " + "${proto.encodeFunctionName}().value\n"
+            file.id(12) +="\"${proto.versionPackage}\" -> " + "${proto.encodeFunctionName}(version).value\n"
         }
         file.id(12) +="else -> null\n"
         file.id(8) +="}\n"
@@ -50,7 +50,7 @@ class EnumGenerator(
             val functionName = proto.encodeFunctionName
             val protoClass = proto.absoluteClassName
 
-            file.id(4) +="internal fun $functionName() : $protoClass {\n"
+            file.id(4) +="internal fun $functionName(version:$VERSION_ENUM_CLASS_NAME) : $protoClass {\n"
             //file.id(8) +="return $protoClass.fromName(name)\n"
             file.id(8) +="return $protoClass.values.find { names.contains(it.name) }  ?: $protoClass.fromValue(0)\n"
             file.id(4) +="}\n"
@@ -75,7 +75,7 @@ class EnumGenerator(
         file.id(12) +="return when(version.namespace) {\n"
         classInfo.protoSet.forEach { proto ->
             file.id(16) +="\"${proto.versionPackage}\" -> {\n"
-            file.id(20) +="return ${proto.parseFunctionName}(value)\n"
+            file.id(20) +="return ${proto.parseFunctionName}(value, version)\n"
             file.id(16) +="}\n"
         }
         file.id(16) +="else -> $UNRECOGNISED_ENUM_NAME\n"
@@ -86,8 +86,8 @@ class EnumGenerator(
             val protoClass = proto.absoluteClassName
             val protoMembers = proto.members
 
-            file.id(8) += "internal fun $functionName(value:Int) : ${classInfo.name} {\n"
-            file.id(12) +="return $functionName($protoClass.fromValue(value))\n"
+            file.id(8) += "internal fun $functionName(value:Int, version:$VERSION_ENUM_CLASS_NAME) : ${classInfo.name} {\n"
+            file.id(12) +="return $functionName($protoClass.fromValue(value), version)\n"
             file.id(8) +="}\n"
 
 
@@ -103,7 +103,7 @@ class EnumGenerator(
     }
 
     fun addDirectEnumMapping(file: OutputStream, classInfo: ClassInfo, functionName: String, protoClass : String){
-        file.id(8) +="internal fun $functionName(proto:$protoClass) : ${classInfo.name} {\n"
+        file.id(8) +="internal fun $functionName(proto:$protoClass, version:$VERSION_ENUM_CLASS_NAME) : ${classInfo.name} {\n"
         file.id(12) +="return when(proto.name) {\n"
         classInfo.declarations.forEach enumDeclaration@{ enumDeclaration ->
             val names = enumDeclaration.getEnumNames()
@@ -127,7 +127,7 @@ class EnumGenerator(
             }
         }
 
-        file.id(8) +="internal fun $functionName(proto:$protoClass) : ${classInfo.name} {\n"
+        file.id(8) +="internal fun $functionName(proto:$protoClass, version:$VERSION_ENUM_CLASS_NAME) : ${classInfo.name} {\n"
         file.id(12) +="val name = proto.name ?: return $UNRECOGNISED_ENUM_NAME\n"
         file.id(12) +="return when(name.length) {\n"
         splitMap.forEach { (length, _) ->

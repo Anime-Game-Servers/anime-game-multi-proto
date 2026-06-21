@@ -72,7 +72,7 @@ open class DataGenerator(
                 }
 
                 val functionName = protoData.encodeFunctionName
-                file.id(8) += "internal fun $functionName() : ${protoData.absoluteClassName}.${oneOfData.wrapperName}<*>? {\n"
+                file.id(8) += "internal fun $functionName(version:$VERSION_ENUM_CLASS_NAME) : ${protoData.absoluteClassName}.${oneOfData.wrapperName}<*>? {\n"
                 file.id(12) +="return when (this) {\n"
                 oneOfClassMap.forEach { fieldName, (oneOffInfo, oneOfClass) ->
                     val className = if(oneOfData.allowTypeBasedMapping) oneOfClass.name else oneOffInfo.name.getClassName()
@@ -80,7 +80,7 @@ open class DataGenerator(
                         if(member.value.type.starProjection().declaration.simpleName.asString().equals(oneOfClass.name, true)
                             && !member.value.isPrimaryConstructorMember
                             && compareIgnoreCase(member.key, fieldName)) {
-                            val accessor = if(oneOfClass.isProtoModel) "value.${functionName}()" else "value"
+                            val accessor = if(oneOfClass.isProtoModel) "value.${functionName}(version)" else "value"
                             file.id(16) += "is $className -> $accessor.let {\n"
                             file.id(20) += "${protoData.packageName}.${protoData.className}.${oneOfData.wrapperName}.${member.value.name.capitalizeFirstLetter()}(it)\n"
                             file.id(16) += "}\n"
@@ -99,7 +99,7 @@ open class DataGenerator(
                 }
 
                 val functionName = protoData.parseFunctionName
-                file.id(12) += "internal fun $functionName(value: ${protoData.absoluteClassName}.${oneOfData.wrapperName}<*>) : ${oneOfData.wrapperName}<*>? {\n"
+                file.id(12) += "internal fun $functionName(value: ${protoData.absoluteClassName}.${oneOfData.wrapperName}<*>, version:$VERSION_ENUM_CLASS_NAME) : ${oneOfData.wrapperName}<*>? {\n"
                 file.id(16) +="return when (value) {\n"
                 oneOfClassMap.forEach { fieldName, (oneOffInfo, oneOfClass) ->
                     protoData.members.forEach { member ->
@@ -107,7 +107,7 @@ open class DataGenerator(
                         if(member.value.type.starProjection().declaration.simpleName.asString().equals(oneOfClass.name, true) &&
                             compareIgnoreCase(member.key, fieldName)
                             && !member.value.isPrimaryConstructorMember) {
-                            val accessor = if(oneOfClass.isProtoModel) "${oneOfClass.packageName}.${oneOfClass.name}.${protoData.parseFunctionName}(value.value)" else "value.value"
+                            val accessor = if(oneOfClass.isProtoModel) "${oneOfClass.packageName}.${oneOfClass.name}.${protoData.parseFunctionName}(value.value, version)" else "value.value"
                             file.id(20) += "is ${protoData.packageName}.${protoData.className}.${oneOfData.wrapperName}.${member.value.name.capitalizeFirstLetter()} -> \n"
                             //file.id(24) += "${className}(${oneOfClass.packageName}.${oneOfClass.name}.${protoData.parseFunctionName}(value.value))\n"
                             file.id(24) += "${className}($accessor)\n"
@@ -128,7 +128,7 @@ open class DataGenerator(
         file.id(4) +="override fun encodeToByteArray(version:$VERSION_ENUM_CLASS_NAME) : ByteArray? {\n"
         file.id(8) +="return when (version.namespace) {\n"
         classInfo.protoSet.forEach { proto ->
-            file.id(12) +="\"${proto.versionPackage}\" -> " + "${proto.encodeFunctionName}().encodeToByteArray()\n"
+            file.id(12) +="\"${proto.versionPackage}\" -> " + "${proto.encodeFunctionName}(version).encodeToByteArray()\n"
         }
         file.id(12) +="else -> null\n"
         file.id(8) +="}\n"
@@ -139,13 +139,14 @@ open class DataGenerator(
             val protoClass = proto.absoluteClassName
             val protoMembers = proto.members
 
-            file.id(4) +="internal fun $functionName() : $protoClass {\n"
+            file.id(4) +="internal fun $functionName(version:$VERSION_ENUM_CLASS_NAME) : $protoClass {\n"
             file.id(8) +="return $protoClass(\n"
             addConstructorMembers(
                 12,
                 classInfo.modelMembers,
                 protoMembers,
                 file,
+                sourcePrefix = "this",
                 dataMethod = DataMethodInfo(functionName, true)
             )
             file.id(8) +=")\n"
@@ -159,7 +160,7 @@ open class DataGenerator(
         file.id(12) +="return when(version.namespace) {\n"
         classInfo.protoSet.forEach { proto ->
             file.id(16) +="\"${proto.versionPackage}\" -> {\n"
-            file.id(20) +="return ${proto.parseFunctionName}(data)\n"
+            file.id(20) +="return ${proto.parseFunctionName}(data, version)\n"
             file.id(16) +="}\n"
         }
         file.id(16) +="else -> ${classInfo.name}()\n"
@@ -169,11 +170,11 @@ open class DataGenerator(
             val functionName = proto.parseFunctionName
             val protoClass = proto.absoluteClassName
             val protoMembers = proto.members
-            file.id(8) += "internal fun $functionName(data:ByteArray) : ${classInfo.name} {\n"
-            file.id(12) +="return $functionName($protoClass.decodeFromByteArray(data))\n"
+            file.id(8) += "internal fun $functionName(data:ByteArray, version:$VERSION_ENUM_CLASS_NAME) : ${classInfo.name} {\n"
+            file.id(12) +="return $functionName($protoClass.decodeFromByteArray(data), version)\n"
             file.id(8) +="}\n"
 
-            file.id(8) +="internal fun $functionName(proto:$protoClass) : ${classInfo.name} {\n"
+            file.id(8) +="internal fun $functionName(proto:$protoClass, version:$VERSION_ENUM_CLASS_NAME) : ${classInfo.name} {\n"
             file.id(12) +="return ${classInfo.name}(\n"
             addConstructorMembers(
                 16,

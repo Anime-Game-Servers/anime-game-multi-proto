@@ -1,5 +1,6 @@
 package org.anime_game_servers.multi_proto.core.annotations
 
+import org.anime_game_servers.core.base.Version
 import kotlin.reflect.KClass
 
 @Target(AnnotationTarget.CLASS)
@@ -11,6 +12,6 @@ annotation class Converter(val inType: KClass<*>, val outType: KClass<*>)
 annotation class Converters(vararg val converters: KClass<out TypeConverter<*,*>>)
 
 interface TypeConverter<IN: Any, OUT:Any> {
-    fun inToOut(inData:IN): OUT
-    fun outToIn(outData:OUT): IN
+    fun inToOut(inData:IN, version: Version): OUT
+    fun outToIn(outData:OUT, version: Version): IN
 }
