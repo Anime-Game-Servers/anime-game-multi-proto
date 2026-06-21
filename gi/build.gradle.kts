@@ -21,7 +21,7 @@ kotlin {
             useJUnitPlatform()
         }
     }
-    js(IR) {
+    js {
         browser {
             commonWebpackConfig {
                 cssSupport {

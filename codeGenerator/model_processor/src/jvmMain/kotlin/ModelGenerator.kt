@@ -96,7 +96,7 @@ class ModelGenerator(
                         logger.warn("No oneOf for ${info.name}")
                         return@forEach
                     }
-                    val oneOffType = generateOneOfsForMember(className, oneOfData)
+                    val oneOffType = generateOneOfsForMember(className, typeBuilder, oneOfData)
                     typeBuilder.addType(oneOffType)
                     className.nestedClass(oneOffType.name!!.snakeToLowerCamelCase())
                         .parameterizedBy(STAR)
@@ -150,10 +150,12 @@ class ModelGenerator(
         )
     }
 
-    fun generateOneOfsForMember(parentType: ClassName, oneOfData: OneOfData) : TypeSpec{
+    fun generateOneOfsForMember(parentType: ClassName, containingClassBuilder: TypeSpec.Builder, oneOfData: OneOfData) : TypeSpec{
         val sealedClassName = parentType.nestedClass(oneOfData.wrapperName)
         val classGeneric = TypeVariableName("T")
         val valueName = "value"
+
+        // generate sealed base class for oneof wrapper classes
         val parentTypePrimaryConstructor = FunSpec.constructorBuilder()
             .addParameter(valueName, classGeneric)
         val parentTypeBuilder = TypeSpec.classBuilder(sealedClassName)
@@ -180,6 +182,7 @@ class ModelGenerator(
 
         addUnknownFieldsMap(parentTypePrimaryConstructor, parentTypeBuilder)
 
+        // add wrapper and type for unknown oneof type
         val unknownModelName = sealedClassName.nestedClass("UnknownModel")
         val unknownTypeName = sealedClassName.nestedClass(oneOfData.unknownName)
         val unknownModel = TypeSpec.classBuilder(unknownModelName)
@@ -207,7 +210,10 @@ class ModelGenerator(
         val oneOfClasses = oneOfData.oneOfTypes.associateWith { classInfoCache[it.kSType]  }
         oneOfClasses.forEach { (oneOfInfo, oneOfClass) ->
             oneOfClass ?: return@forEach
-            val className = if(oneOfData.allowTypeBasedMapping) oneOfClass.name else oneOfInfo.name.getClassName()
+            val className = sealedClassName.nestedClass(
+                if(oneOfData.allowTypeBasedMapping) oneOfClass.name else oneOfInfo.name.getClassName()
+            )
+            // Build wrapper class for Oneof type
             val oneOfType = ClassName(oneOfClass.packageName,oneOfClass.name)
             parentTypeBuilder.addType(TypeSpec.classBuilder(className)
                 .superclass(sealedClassName.parameterizedBy(oneOfType))
@@ -217,6 +223,21 @@ class ModelGenerator(
                 .addSuperclassConstructorParameter(CodeBlock.builder().add("value").build())
                 .build()
             )
+
+            // Add convenience accessors for oneof fields
+            containingClassBuilder.addProperty(
+                PropertySpec.builder(oneOfInfo.name.snakeToLowerCamelCase(), oneOfType.copy(nullable = true))
+                    .mutable(true)
+                    .setter(FunSpec.setterBuilder()
+                        .addParameter("value", oneOfType)
+                        .addStatement("this.${oneOfData.variableName} = value?.let { %T(it) }", className)
+                        .build()
+                    )
+                    .getter(FunSpec.getterBuilder()
+                        .addStatement("return (${oneOfData.variableName} as? %T)?.value", className)
+                        .build()
+                    )
+                    .build())
         }
 
         return parentTypeBuilder
