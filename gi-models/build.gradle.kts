@@ -19,7 +19,7 @@ kotlin {
         freeCompilerArgs.add("-Xcontext-sensitive-resolution")
         freeCompilerArgs.add("-Xcollection-literals")
     }
-    jvmToolchain(17)
+    jvmToolchain(libs.versions.jvmVersion.get().toInt())
     jvm {
         testRuns["test"].executionTask.configure {
             useJUnitPlatform()

@@ -15,7 +15,7 @@ ksp {
 }
 
 kotlin {
-    jvmToolchain(17)
+    jvmToolchain(libs.versions.jvmVersion.get().toInt())
     jvm {
         testRuns["test"].executionTask.configure {
             useJUnitPlatform()

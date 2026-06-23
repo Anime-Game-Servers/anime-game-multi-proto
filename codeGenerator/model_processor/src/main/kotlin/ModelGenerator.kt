@@ -245,7 +245,7 @@ class ModelGenerator(
     }
 
     context(typeString: String)
-    fun KSType.getResolvedType(index: Int = 0) = arguments.firstOrNull()?.type?.resolve()
+    fun KSType.getResolvedType(index: Int = 0) = arguments.getOrNull(index)?.type?.resolve()
         ?: throw InvalidParameterException("No argument for parameter $index of $typeString")
 
     fun getClassType(type: KSType): TypeName {

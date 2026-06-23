@@ -4,7 +4,7 @@ plugins {
 group = "org.anime_game_servers.multi_proto"
 version = libs.versions.anime.game.multi.proto.get()
 kotlin {
-    jvmToolchain(17)
+    jvmToolchain(libs.versions.jvmVersion.get().toInt())
     jvm {
         testRuns["test"].executionTask.configure {
             useJUnitPlatform()

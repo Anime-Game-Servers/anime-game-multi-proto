@@ -7,19 +7,10 @@ import org.anime_game_servers.multi_proto.core.annotations.ModuleMetaData
 import java.io.File
 import java.io.OutputStream
 
-const val BASE_ANNOTATION_PATH = "org.anime_game_servers.core.base.annotations"
-const val BASE_PROTO_ANNOTATION_PATH = "$BASE_ANNOTATION_PATH.proto"
-const val PROTO_ONE_OF_ANNOTATION = "$BASE_PROTO_ANNOTATION_PATH.OneOf"
-
-const val COMPILED_PROTO_ANNOTATION = "pbandk.Export"
-//const val VERSION_ENUM_CLASS = "messages.VERSION"
-val VERSION_ENUM_CLASS_NAME : String = Version::class.java.simpleName
 val VERSION_ENUM_CLASS : String = Version::class.java.canonicalName
 
-
 /**
- * TODOs
- * - Add OneOf handling
+ *
  */
 @OptIn(KspExperimental::class)
 class ResourceProcessor(
@@ -27,48 +18,30 @@ class ResourceProcessor(
     private val logger: KSPLogger,
     private val options: Map<String, String>
 ) : SymbolProcessor {
-
-
+    
     fun Resolver.getClassSymbolsByAnnotation(annotationName: String): Sequence<KSClassDeclaration>{
         return getSymbolsWithAnnotation(annotationName)
             .filterIsInstance<KSClassDeclaration>()
     }
 
     fun generatePackageIdFile(logger: KSPLogger,
-                              versionPackageIdMap: Map<String, PacketIdGenerator.PacketIdResult>){
+                              versionPackageIdMap: Map<String, PacketIdResult>){
         val basePacket = options[BASE_PACKET_KEY] ?: ""
-        val versionGenerator = PacketIdGenerator(logger, basePacket)
+        val config = PacketIdConfig("$basePacket.packet_id")
+        val versionGeneratorN = PacketIdGeneratorNew(config)
         versionPackageIdMap.forEach { (versionName, packageIdMaps) ->
             logger.info("generating packageIds files: ${packageIdMaps.dependencies.joinToString { it.toString() }}")
-            val file: OutputStream = codeGenerator.createNewFile(
-                // Make sure to associate the generated file with sources to keep/maintain it across incremental builds.
-                // Learn more about incremental processing in KSP from the official docs:
-                // https://kotlinlang.org/docs/ksp-incremental.html
-                dependencies = Dependencies(true, *packageIdMaps.dependencies.toTypedArray()),
-                packageName = "$basePacket.packet_id",
-                fileName = versionName
-            )
-            logger.info("generating ${packageIdMaps.dependencies.joinToString { it.toString() }}")
+            versionGeneratorN.createFileForMetaData(versionName, packageIdMaps, codeGenerator)
 
-            versionGenerator.createClassForProto(file, versionName, packageIdMaps)
         }
 
         val versions = versionPackageIdMap.keys
         logger.info("generating packageId version mapping: ${versions.size} ${versions.joinToString { it }}")
-        val file: OutputStream = codeGenerator.createNewFile(
-            // Make sure to associate the generated file with sources to keep/maintain it across incremental builds.
-            // Learn more about incremental processing in KSP from the official docs:
-            // https://kotlinlang.org/docs/ksp-incremental.html
-            dependencies = Dependencies(true, *versionPackageIdMap.values.first().dependencies.toTypedArray()),
-            packageName = "$basePacket.packet_id",
-            fileName = "PackageIds"
-        )
-
-        versionGenerator.createClassForVersionMapper(file, versions)
+        PacketIdMapperGenerator(config).createFileForMetaData(versionPackageIdMap, codeGenerator)
     }
 
 
-    fun readPackageIds(resourcesBaseDir: File, versionClass: KSClassDeclaration) : Map<String, PacketIdGenerator.PacketIdResult>{
+    fun readPackageIds(resourcesBaseDir: File, versionClass: KSClassDeclaration) : Map<String, PacketIdResult>{
         val packageIdDir = File(resourcesBaseDir, "package_ids")
         val idFiles = packageIdDir.listFiles { dir, name ->
             name.endsWith(".csv")
@@ -77,7 +50,7 @@ class ResourceProcessor(
             return emptyMap()
         }
 
-        val versionMap = mutableMapOf<String,PacketIdGenerator.PacketIdResult >()
+        val versionMap = mutableMapOf<String,PacketIdResult >()
 
         val versionsList = versionClass.declarations.filter { it is KSClassDeclaration }.map { prop ->
             prop.simpleName.asString()
@@ -110,7 +83,7 @@ class ResourceProcessor(
                 nameIdMap[packageName] = packageId
                 idNameMap[packageId] = packageName
             }
-            versionMap[versionName] = PacketIdGenerator.PacketIdResult( dependencies,  nameIdMap, idNameMap)
+            versionMap[versionName] = PacketIdResult( dependencies,  nameIdMap, idNameMap)
             // todo find way to add resources as dependency
         }
         return versionMap
@@ -126,7 +99,7 @@ class ResourceProcessor(
         val resourcesPath = versionClassWorkaround?.let {
             it.containingFile?.let { file ->
                 val basePath = file.filePath.removeSuffix("kotlin/${file.fileName}")
-                logger.warn("[resources] BasePath: $basePath")
+                logger.info("[resources] BasePath: $basePath")
                 basePath+"resources"
             }?: run {
                 logger.error("[resources] Unable to find resources dir fir packageIds")
