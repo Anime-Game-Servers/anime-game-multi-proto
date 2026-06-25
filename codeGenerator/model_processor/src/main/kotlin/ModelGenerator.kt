@@ -15,12 +15,15 @@ import common.BASE_PACKET_KEY
 import common.DATA_PACKAGE_SUFFIX
 import common.GENERATED_PACKAGE_SUFFIX
 import org.anime_game_servers.core.base.Version
+import org.anime_game_servers.core.base.annotations.AddedIn
+import org.anime_game_servers.core.base.annotations.RemovedIn
 import org.anime_game_servers.multi_proto.core.interfaces.ProtoModel
 import org.anime_game_servers.multi_proto.core.interfaces.ProtoModelCompanion
 import org.anime_game_servers.multi_proto.core.interfaces.ProtocolRegistry
 import java.security.InvalidParameterException
 import kotlin.collections.component1
 import kotlin.collections.component2
+import kotlin.reflect.KClass
 
 data class GeneratorOptions(
     val modelsNullableByDefault: Boolean = true,
@@ -221,6 +224,7 @@ class ModelGenerator(
                     .addParameter("value", oneOfType)
                     .build())
                 .addSuperclassConstructorParameter(CodeBlock.builder().add("value").build())
+                .addOneOfAnnotations(oneOfInfo)
                 .build()
             )
 
@@ -237,12 +241,36 @@ class ModelGenerator(
                         .addStatement("return (${oneOfData.variableName} as? %T)?.value", className)
                         .build()
                     )
+                    .addOneOfAnnotations(oneOfInfo)
                     .build())
         }
 
         return parentTypeBuilder
             .build()
     }
+
+    private fun Version.toAnnotationSpec(type: KClass<out Annotation>) = AnnotationSpec.builder(type)
+        .addMember("version = %L", this)
+        .build()
+
+    fun PropertySpec.Builder.addOneOfAnnotations(oneOfType: OneOfType) = apply {
+        oneOfType.addedVersion?.let { addedVersion ->
+            addAnnotation(addedVersion.toAnnotationSpec(AddedIn::class))
+        }
+        oneOfType.removedVersion?.let { removedVersion ->
+            addAnnotation(removedVersion.toAnnotationSpec(RemovedIn::class))
+        }
+    }
+
+    fun TypeSpec.Builder.addOneOfAnnotations(oneOfType: OneOfType) = apply {
+        oneOfType.addedVersion?.let { addedVersion ->
+            addAnnotation(addedVersion.toAnnotationSpec(AddedIn::class))
+        }
+        oneOfType.removedVersion?.let { removedVersion ->
+            addAnnotation(removedVersion.toAnnotationSpec(RemovedIn::class))
+        }
+    }
+
 
     context(typeString: String)
     fun KSType.getResolvedType(index: Int = 0) = arguments.getOrNull(index)?.type?.resolve()

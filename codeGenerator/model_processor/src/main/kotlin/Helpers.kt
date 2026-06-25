@@ -13,6 +13,7 @@ import com.google.devtools.ksp.symbol.KSValueArgument
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
 import com.squareup.kotlinpoet.ksp.toAnnotationSpec
+import org.anime_game_servers.core.base.Version
 import org.anime_game_servers.core.base.annotations.proto.AltName
 import org.anime_game_servers.core.base.annotations.proto.OneOf
 import org.anime_game_servers.core.base.annotations.proto.OneOfEntry
@@ -127,6 +128,8 @@ data class OneOfType(
     val name: String,
     val kSType: KSType,
     val altNames : List<String>,
+    val addedVersion : Version? = null,
+    val removedVersion : Version? = null,
 )
 
 fun KSClassDeclaration.getProtoAnnotation() = annotations.firstOrNull { it.shortName.asString().startsWith("Proto") }
@@ -160,6 +163,8 @@ data class OneOfData(
                                     val names = mutableListOf<String>()
                                     var type: KSType? = null
                                     var mainName: String? = null
+                                    var addedVersion: Version? = null
+                                    var removedVersion: Version? = null
                                     oneOfEntry.arguments.forEach { oneOfEntryArgument ->
                                         when(oneOfEntryArgument.name?.asString()){
                                             OneOfEntry::type.name ->
@@ -169,12 +174,19 @@ data class OneOfData(
                                                     names.addAll(altnames)
                                                     mainName = altnames.first()
                                                 }
+                                            OneOfEntry::addedIn.name ->
+                                                addedVersion = Version.valueOf((oneOfEntryArgument.value as KSClassDeclaration).simpleName.asString())
+                                            OneOfEntry::removedIn.name ->
+                                                removedVersion = Version.valueOf((oneOfEntryArgument.value as KSClassDeclaration).simpleName.asString())
                                         }
                                     }
                                     type ?: return@forEach
                                     mainName ?: return@forEach
                                     val typeDef = OneOfType(name =  mainName, kSType =  type,
-                                        altNames = if(names.size < 2) emptyList() else names.subList(1, names.size))
+                                        altNames = if(names.size < 2) emptyList() else names.subList(1, names.size),
+                                        addedVersion = addedVersion,
+                                        removedVersion = removedVersion,
+                                        )
                                     oneOfClasses.add(typeDef)
                                     names.forEach { name ->
                                         oneOfClassMap[name] = typeDef
