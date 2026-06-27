@@ -38,7 +38,6 @@ kotlin {
             dependencies {
                 api(project(":base"))
                 api(libs.bundles.common.ags.gi)
-                implementation(libs.bundles.proto.parsing)
             }
             kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin/")
             sourceSets.configureEach {
