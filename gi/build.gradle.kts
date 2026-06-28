@@ -18,6 +18,7 @@ kotlin {
         }
     }
     js {
+        nodejs()
         browser {
             commonWebpackConfig {
                 cssSupport {
@@ -29,17 +30,20 @@ kotlin {
     mingwX64()
     linuxX64()
     linuxArm64()
+    macosArm64()
+    iosArm64()
+    iosX64()
 
     
     sourceSets {
-        val commonMain by getting {
+        commonMain {
             dependencies {
                 api(project(":base"))
                 api(project(":gi-models"))
                 api(project(":gi-packet-ids"))
             }
         }
-        val commonTest by getting {
+        commonTest {
             dependencies {
                 implementation(kotlin("test"))
             }

@@ -7,6 +7,7 @@ import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.TypeSpec
 import com.squareup.kotlinpoet.asClassName
 import com.squareup.kotlinpoet.ksp.kspDependencies
+import com.squareup.kotlinpoet.ksp.originatingKSFiles
 import common.funSpecFromCallable
 import org.anime_game_servers.multi_proto.core.interfaces.PacketIdProvider
 import kotlin.collections.component1
@@ -22,12 +23,12 @@ class PacketIdGeneratorNew(val config: PacketIdConfig) {
 
     fun createFileForMetaData(versionName: String, metaData: PacketIdResult, codeGenerator: CodeGenerator) {
         val fileSpec = generateClassForVersion(versionName, metaData)
-        fileSpec.kspDependencies(false)
+
         codeGenerator.createNewFile(
             // Make sure to associate the generated file with sources to keep/maintain it across incremental builds.
             // Learn more about incremental processing in KSP from the official docs:
             // https://kotlinlang.org/docs/ksp-incremental.html
-            dependencies = Dependencies(true, *metaData.dependencies.toTypedArray()),
+            dependencies = fileSpec.kspDependencies(true, fileSpec.originatingKSFiles()+metaData.dependencies),
             packageName = config.packeIdPackage,
             fileName = fileSpec.name
         )

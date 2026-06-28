@@ -10,6 +10,7 @@ import com.google.devtools.ksp.symbol.*
 import com.squareup.kotlinpoet.*
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.ksp.kspDependencies
+import com.squareup.kotlinpoet.ksp.originatingKSFiles
 import com.squareup.kotlinpoet.ksp.toClassName
 import common.BASE_PACKET_KEY
 import common.DATA_PACKAGE_SUFFIX
@@ -23,6 +24,7 @@ import org.anime_game_servers.multi_proto.core.interfaces.ProtocolRegistry
 import java.security.InvalidParameterException
 import kotlin.collections.component1
 import kotlin.collections.component2
+import kotlin.collections.plus
 import kotlin.reflect.KClass
 
 data class GeneratorOptions(
@@ -45,12 +47,12 @@ class ModelGenerator(
     val enumType = resolver.getKotlinClassByName("kotlin.Enum")
     fun createFileForMetaData(metaData: ClassInfo, codeGenerator: CodeGenerator) {
         val fileSpec = generateClassForMetaData(metaData)
-        fileSpec.kspDependencies(false)
+        val dependencies = fileSpec.kspDependencies(false, originatingKSFiles = fileSpec.originatingKSFiles() + metaData.dependencies)
         codeGenerator.createNewFile(
             // Make sure to associate the generated file with sources to keep/maintain it across incremental builds.
             // Learn more about incremental processing in KSP from the official docs:
             // https://kotlinlang.org/docs/ksp-incremental.html
-            dependencies = Dependencies(true, metaData.definition.containingFile!!),
+            dependencies = dependencies,
             packageName = metaData.packageName,
             fileName = fileSpec.name
         )

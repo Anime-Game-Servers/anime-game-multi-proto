@@ -1,12 +1,11 @@
 import com.google.devtools.ksp.KspExperimental
 import com.google.devtools.ksp.getAnnotationsByType
 import com.google.devtools.ksp.processing.CodeGenerator
-import com.google.devtools.ksp.processing.Dependencies
 import com.google.devtools.ksp.symbol.KSClassDeclaration
 import com.squareup.kotlinpoet.*
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.ksp.kspDependencies
-import com.squareup.kotlinpoet.ksp.toAnnotationSpec
+import com.squareup.kotlinpoet.ksp.originatingKSFiles
 import org.anime_game_servers.core.base.Version
 import org.anime_game_servers.core.base.annotations.proto.AltName
 import org.anime_game_servers.multi_proto.core.interfaces.ProtoEnum
@@ -18,12 +17,12 @@ const val UNRECOGNISED_ENUM_NAME = "UNRECOGNISED"
 object EnumGenerator {
     fun createFileForMetaData(metaData: ClassInfo, codeGenerator: CodeGenerator) {
         val fileSpec = generateClassForMetaData(metaData)
-        fileSpec.kspDependencies(false)
+        val dependencies = fileSpec.kspDependencies(false, originatingKSFiles = fileSpec.originatingKSFiles() + metaData.dependencies)
         codeGenerator.createNewFile(
             // Make sure to associate the generated file with sources to keep/maintain it across incremental builds.
             // Learn more about incremental processing in KSP from the official docs:
             // https://kotlinlang.org/docs/ksp-incremental.html
-            dependencies = Dependencies(true, metaData.definition.containingFile!!),
+            dependencies = dependencies,
             packageName = metaData.packageName,
             fileName = fileSpec.name
         )

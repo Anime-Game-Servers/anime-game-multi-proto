@@ -16,12 +16,11 @@ class PacketIdMapperGenerator(val config: PacketIdConfig) {
 
     fun createFileForMetaData(versions: Map<String, PacketIdResult>, codeGenerator: CodeGenerator) {
         val fileSpec = generateClassForVersion(versions)
-        fileSpec.kspDependencies(false)
         codeGenerator.createNewFile(
             // Make sure to associate the generated file with sources to keep/maintain it across incremental builds.
             // Learn more about incremental processing in KSP from the official docs:
             // https://kotlinlang.org/docs/ksp-incremental.html
-            dependencies = Dependencies(true, *versions.values.first().dependencies.toTypedArray()),
+            dependencies = fileSpec.kspDependencies(true),
             packageName = config.packeIdPackage,
             fileName = fileSpec.name
         )

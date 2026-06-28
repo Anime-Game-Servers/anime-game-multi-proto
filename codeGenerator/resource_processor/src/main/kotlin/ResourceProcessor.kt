@@ -41,7 +41,7 @@ class ResourceProcessor(
     }
 
 
-    fun readPackageIds(resourcesBaseDir: File, versionClass: KSClassDeclaration) : Map<String, PacketIdResult>{
+    fun readPackageIds(resourcesBaseDir: File, versionClass: KSClassDeclaration, moduleFile: KSFile) : Map<String, PacketIdResult>{
         val packageIdDir = File(resourcesBaseDir, "package_ids")
         val idFiles = packageIdDir.listFiles { dir, name ->
             name.endsWith(".csv")
@@ -56,6 +56,7 @@ class ResourceProcessor(
             prop.simpleName.asString()
         }
         val dependencies = mutableSetOf<KSFile>().apply{
+            add(moduleFile)
             //add(versionClass.containingFile!!)
         }
 
@@ -90,21 +91,24 @@ class ResourceProcessor(
     }
 
     override fun process(resolver: Resolver): List<KSAnnotated> {
-        val versionClassWorkaround = resolver.getClassSymbolsByAnnotation(ModuleMetaData::class.java.canonicalName).firstOrNull()
+        val versionClassWorkaround = resolver.getClassSymbolsByAnnotation(ModuleMetaData::class.java.canonicalName)
+            .firstOrNull() ?: run {
+            logger.warn("[resources] Unable to find ModuleMetadataAnnotated class")
+            return emptyList()
+        }
         val versionClass = resolver.getClassDeclarationByName(VERSION_ENUM_CLASS) ?: run {
             logger.error("[resources] Unable to find version class $VERSION_ENUM_CLASS")
             return emptyList()
         }
 
-        val resourcesPath = versionClassWorkaround?.let {
-            it.containingFile?.let { file ->
-                val basePath = file.filePath.removeSuffix("kotlin/${file.fileName}")
-                logger.info("[resources] BasePath: $basePath")
-                basePath+"resources"
-            }?: run {
-                logger.error("[resources] Unable to find resources dir fir packageIds")
-                return emptyList()
-            }
+        val moduleClassFile = versionClassWorkaround.containingFile
+        val resourcesPath = moduleClassFile?.let { file ->
+            val basePath = file.filePath.removeSuffix("kotlin/${file.fileName}")
+            logger.info("[resources] BasePath: $basePath")
+            basePath+"resources"
+        }?: run {
+            logger.error("[resources] Unable to find resources dir for packageIds")
+            return listOf(versionClassWorkaround)
         }
         logger.info("[resources] $resourcesPath")
 
@@ -117,7 +121,7 @@ class ResourceProcessor(
         //}
 
         val packageIdMaps = resourcesDir?.let {
-            readPackageIds(resourcesDir, versionClass)
+            readPackageIds(resourcesDir, versionClass, moduleFile = moduleClassFile)
         }
         packageIdMaps?.let {
             logger.info("[time] generate version")

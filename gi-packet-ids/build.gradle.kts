@@ -20,6 +20,7 @@ kotlin {
         }
     }
     js {
+        nodejs()
         browser {
             commonWebpackConfig {
                 cssSupport {
@@ -31,31 +32,28 @@ kotlin {
     mingwX64()
     linuxX64()
     linuxArm64()
+    macosArm64()
+    iosArm64()
+    iosX64()
 
-    
+
+    val kspCommonMainGenerated = layout.buildDirectory
+        .dir("generated/ksp/metadata/commonMain/kotlin")
     sourceSets {
-        val commonMain by getting {
+        commonMain {
             dependencies {
                 api(project(":base"))
                 api(libs.bundles.common.ags.gi)
             }
-            kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin/")
+            kotlin.srcDir(kspCommonMainGenerated)
             sourceSets.configureEach {
             }
         }
-        val commonTest by getting {
+        commonTest {
             dependencies {
                 implementation(kotlin("test"))
             }
         }
-        val jvmMain by getting {
-            getTasksByName("jvmJar", true).forEach{
-                it.setProperty("zip64", true)
-            }
-        }
-        val jvmTest by getting
-        val jsMain by getting
-        val jsTest by getting
     }
 }
 dependencies {
@@ -81,6 +79,15 @@ tasks {
         it.dependsOn("kspCommonMainKotlinMetadata")
     }
     getTasksByName("linuxX64SourcesJar", false).forEach {
+        it.dependsOn("kspCommonMainKotlinMetadata")
+    }
+    getTasksByName("macosArm64SourcesJar", false).forEach {
+        it.dependsOn("kspCommonMainKotlinMetadata")
+    }
+    getTasksByName("iosArm64SourcesJar", false).forEach {
+        it.dependsOn("kspCommonMainKotlinMetadata")
+    }
+    getTasksByName("iosX64SourcesJar", false).forEach {
         it.dependsOn("kspCommonMainKotlinMetadata")
     }
     withType<KotlinCompilationTask<*>> {

@@ -6,6 +6,9 @@ group = "org.anime_game_servers.multi_proto"
 version = libs.versions.anime.game.multi.proto.get()
 
 kotlin {
+    compilerOptions {
+        freeCompilerArgs.add("-Xexpect-actual-classes")
+    }
     jvmToolchain(libs.versions.jvmVersion.get().toInt())
     jvm {
         testRuns["test"].executionTask.configure {
@@ -13,6 +16,7 @@ kotlin {
         }
     }
     js {
+        nodejs()
         browser {
             commonWebpackConfig {
                 cssSupport {
@@ -24,27 +28,22 @@ kotlin {
     mingwX64()
     linuxX64()
     linuxArm64()
+    macosArm64()
+    iosArm64()
+    iosX64()
 
     
     sourceSets {
-        val commonMain by getting {
+        commonMain {
             dependencies{
                 api(libs.bundles.common.ags.base)
             }
         }
-        val commonTest by getting {
+        commonTest {
             dependencies {
                 implementation(kotlin("test"))
             }
         }
-        val jvmMain by getting {
-            getTasksByName("jvmJar", true).forEach{
-                it.setProperty("zip64", true)
-            }
-        }
-        val jvmTest by getting
-        val jsMain by getting
-        val jsTest by getting
     }
 }
 
