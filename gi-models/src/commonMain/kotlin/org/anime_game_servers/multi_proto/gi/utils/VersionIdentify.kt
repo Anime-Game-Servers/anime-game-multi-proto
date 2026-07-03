@@ -78,6 +78,7 @@ object VersionIdentify {
             20352 -> listOf(GI_6_4_0) //rsp 5913
             22738 -> listOf(GI_6_5_0) //rsp 4838
             28757 -> listOf(GI_6_6_0) //rsp 20813
+            21094 -> listOf(GI_6_7_0) //rsp 9250
             else -> return null
         }
     }
@@ -131,6 +132,7 @@ object VersionIdentify {
             8256 -> listOf(GI_6_4_0) //rsp 7774
             29231 -> listOf(GI_6_5_0) //rsp 24007
             2151 -> listOf(GI_6_6_0) //rsp 26395
+            9600 -> listOf(GI_6_7_0) //rsp 25067
             else -> return null
         }
     }
